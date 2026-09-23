@@ -22,13 +22,13 @@ export function PageHeader({
   intro: string;
 }) {
   return (
-    <section className="border-b border-border/70 bg-secondary/30">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">{kicker}</p>
-        <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-foreground md:text-5xl">
+    <section className="border-b border-secondary-foreground/15 bg-secondary text-secondary-foreground">
+      <div className="mx-auto max-w-6xl px-5 py-16 text-center md:py-20">
+        <p className="text-xs font-semibold uppercase text-primary">{kicker}</p>
+        <h1 className="mx-auto mt-4 max-w-3xl font-serif text-4xl leading-tight md:text-5xl">
           {title}
         </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">{intro}</p>
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-secondary-foreground/70">{intro}</p>
       </div>
     </section>
   );
@@ -44,7 +44,7 @@ export function ListingGrid({
       {items.map((item) => (
         <article
           key={item.name}
-          className="rounded-xl border border-border bg-card p-6 transition-shadow hover:shadow-md"
+          className="rounded-md border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
         >
           <span className="rounded-full bg-accent px-3 py-1 text-xs text-accent-foreground">
             {item.tag}
