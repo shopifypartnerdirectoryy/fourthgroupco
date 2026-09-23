@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContestsRouteImport } from './routes/contests'
+import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as GrantsAwardsRouteImport } from './routes/grants-awards'
 import { Route as LiteraryMagazinesRouteImport } from './routes/literary-magazines'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as ResidenciesRouteImport } from './routes/residencies'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SmallPressesRouteImport } from './routes/small-presses'
+import { Route as WritingPromptsRouteImport } from './routes/writing-prompts'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const ContestsRoute = ContestsRouteImport.update({
   id: '/contests',
   path: '/contests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DirectoryRoute = DirectoryRouteImport.update({
+  id: '/directory',
+  path: '/directory',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrantsAwardsRoute = GrantsAwardsRouteImport.update({
@@ -36,9 +45,19 @@ const LiteraryMagazinesRoute = LiteraryMagazinesRouteImport.update({
   path: '/literary-magazines',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResidenciesRoute = ResidenciesRouteImport.update({
   id: '/residencies',
   path: '/residencies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SmallPressesRoute = SmallPressesRouteImport.update({
@@ -46,66 +65,99 @@ const SmallPressesRoute = SmallPressesRouteImport.update({
   path: '/small-presses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WritingPromptsRoute = WritingPromptsRouteImport.update({
+  id: '/writing-prompts',
+  path: '/writing-prompts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contests': typeof ContestsRoute
+  '/directory': typeof DirectoryRoute
   '/grants-awards': typeof GrantsAwardsRoute
   '/literary-magazines': typeof LiteraryMagazinesRoute
+  '/news': typeof NewsRoute
   '/residencies': typeof ResidenciesRoute
+  '/resources': typeof ResourcesRoute
   '/small-presses': typeof SmallPressesRoute
+  '/writing-prompts': typeof WritingPromptsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contests': typeof ContestsRoute
+  '/directory': typeof DirectoryRoute
   '/grants-awards': typeof GrantsAwardsRoute
   '/literary-magazines': typeof LiteraryMagazinesRoute
+  '/news': typeof NewsRoute
   '/residencies': typeof ResidenciesRoute
+  '/resources': typeof ResourcesRoute
   '/small-presses': typeof SmallPressesRoute
+  '/writing-prompts': typeof WritingPromptsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contests': typeof ContestsRoute
+  '/directory': typeof DirectoryRoute
   '/grants-awards': typeof GrantsAwardsRoute
   '/literary-magazines': typeof LiteraryMagazinesRoute
+  '/news': typeof NewsRoute
   '/residencies': typeof ResidenciesRoute
+  '/resources': typeof ResourcesRoute
   '/small-presses': typeof SmallPressesRoute
+  '/writing-prompts': typeof WritingPromptsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/contests'
+    | '/directory'
     | '/grants-awards'
     | '/literary-magazines'
+    | '/news'
     | '/residencies'
+    | '/resources'
     | '/small-presses'
+    | '/writing-prompts'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/contests'
+    | '/directory'
     | '/grants-awards'
     | '/literary-magazines'
+    | '/news'
     | '/residencies'
+    | '/resources'
     | '/small-presses'
+    | '/writing-prompts'
   id:
     | '__root__'
     | '/'
     | '/contests'
+    | '/directory'
     | '/grants-awards'
     | '/literary-magazines'
+    | '/news'
     | '/residencies'
+    | '/resources'
     | '/small-presses'
+    | '/writing-prompts'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContestsRoute: typeof ContestsRoute
+  DirectoryRoute: typeof DirectoryRoute
   GrantsAwardsRoute: typeof GrantsAwardsRoute
   LiteraryMagazinesRoute: typeof LiteraryMagazinesRoute
+  NewsRoute: typeof NewsRoute
   ResidenciesRoute: typeof ResidenciesRoute
+  ResourcesRoute: typeof ResourcesRoute
   SmallPressesRoute: typeof SmallPressesRoute
+  WritingPromptsRoute: typeof WritingPromptsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -124,6 +176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContestsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/directory': {
+      id: '/directory'
+      path: '/directory'
+      fullPath: '/directory'
+      preLoaderRoute: typeof DirectoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/grants-awards': {
       id: '/grants-awards'
       path: '/grants-awards'
@@ -138,11 +197,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LiteraryMagazinesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/residencies': {
       id: '/residencies'
       path: '/residencies'
       fullPath: '/residencies'
       preLoaderRoute: typeof ResidenciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/small-presses': {
@@ -152,16 +225,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SmallPressesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/writing-prompts': {
+      id: '/writing-prompts'
+      path: '/writing-prompts'
+      fullPath: '/writing-prompts'
+      preLoaderRoute: typeof WritingPromptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContestsRoute: ContestsRoute,
+  DirectoryRoute: DirectoryRoute,
   GrantsAwardsRoute: GrantsAwardsRoute,
   LiteraryMagazinesRoute: LiteraryMagazinesRoute,
+  NewsRoute: NewsRoute,
   ResidenciesRoute: ResidenciesRoute,
+  ResourcesRoute: ResourcesRoute,
   SmallPressesRoute: SmallPressesRoute,
+  WritingPromptsRoute: WritingPromptsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
