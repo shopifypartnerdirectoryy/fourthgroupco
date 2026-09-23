@@ -56,7 +56,17 @@ export const NAV_GROUPS = [
   },
 ] as const;
 
-export const NAV = NAV_GROUPS.flatMap((group) => group.items);
+export const NAV = [
+  { label: "Directory", to: "/directory" },
+  { label: "Contests", to: "/contests" },
+  { label: "Grants & Awards", to: "/grants-awards" },
+  { label: "Magazines", to: "/literary-magazines" },
+  { label: "Presses", to: "/small-presses" },
+  { label: "Residencies", to: "/residencies" },
+  { label: "Prompts", to: "/writing-prompts" },
+  { label: "Resources", to: "/resources" },
+  { label: "News", to: "/news" },
+] as const;
 
 export const TOOLS = [
   { label: "Literary Magazines", count: "340+", to: "/literary-magazines" },

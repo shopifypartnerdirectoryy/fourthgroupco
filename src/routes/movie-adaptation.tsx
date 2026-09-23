@@ -1,0 +1,6 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { EditorialPage } from "@/components/editorial-page";
+export const Route = createFileRoute("/movie-adaptation")({
+  head: () => ({ meta: [{ title: "Movie Adaptation — How It Works | Fourth Group & Co" }, { name: "description", content: "Learn how writers can present adaptation-ready stories to film professionals." }, { property: "og:title", content: "Movie Adaptation | Fourth Group & Co" }, { property: "og:description", content: "A clear path from published story to screen pitch." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
+  component: () => <EditorialPage kicker="Movie adaptation" title="Stories built for the screen" intro="Prepare a clear, rights-aware pitch that helps film professionals understand the heart of your story." points={["Shape the central hook", "Clarify rights and ownership", "Present characters and audience", "Build an industry-ready pitch"]} />,
+});
