@@ -8,17 +8,55 @@ export const SITE = {
   subscribers: "60+",
 };
 
-export const NAV = [
-  { label: "Directory", to: "/directory" },
-  { label: "Contests", to: "/contests" },
-  { label: "Grants & Awards", to: "/grants-awards" },
-  { label: "Magazines", to: "/literary-magazines" },
-  { label: "Presses", to: "/small-presses" },
-  { label: "Residencies", to: "/residencies" },
-  { label: "Prompts", to: "/writing-prompts" },
-  { label: "Resources", to: "/resources" },
-  { label: "News", to: "/news" },
+export const NAV_GROUPS = [
+  {
+    label: "Publish Your Writing",
+    items: [
+      { label: "Literary Magazines", to: "/literary-magazines" },
+      { label: "Small Presses", to: "/small-presses" },
+      { label: "Literary Agents", to: "/literary-agents" },
+      { label: "Find the Right Agent", to: "/right-agent" },
+      { label: "Short Stories", to: "/short-stories" },
+    ],
+  },
+  {
+    label: "Find Opportunities",
+    items: [
+      { label: "Grants & Awards", to: "/grants-awards" },
+      { label: "Writing Contests", to: "/contests" },
+      { label: "Retreats & Residencies", to: "/residencies" },
+    ],
+  },
+  {
+    label: "Movie Adaptation",
+    items: [
+      { label: "How It Works", to: "/movie-adaptation" },
+      { label: "Search Pitches", to: "/search-pitches" },
+      { label: "Plans & Pricing", to: "/pitch-plans" },
+      { label: "Create a Pitch", to: "/create-pitch" },
+      { label: "My Pitch Dashboard", to: "/pitch-dashboard" },
+    ],
+  },
+  {
+    label: "Community",
+    items: [
+      { label: "Author Directory", to: "/directory" },
+      { label: "Literary Events", to: "/events" },
+      { label: "News & Articles", to: "/news" },
+    ],
+  },
+  {
+    label: "Resources",
+    items: [
+      { label: "Writing Prompts", to: "/writing-prompts" },
+      { label: "Craft & Practice", to: "/craft-practice" },
+      { label: "Author Services", to: "/author-services" },
+      { label: "About Us", to: "/about" },
+    ],
+  },
 ] as const;
+
+export const NAV = NAV_GROUPS.flatMap((group) => group.items);
 
 export const TOOLS = [
   { label: "Literary Magazines", count: "340+", to: "/literary-magazines" },
