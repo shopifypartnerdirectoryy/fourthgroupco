@@ -1,41 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MessageCircle, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, Check, Globe2, Search, Sparkles, Star, Users } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
-import {
-  SITE,
-  TOOLS,
-  PROMPT,
-  ANNOUNCEMENT,
-  BOOKS,
-  PAST_SPOTLIGHTS,
-  ARTISTS,
-  FEATURES,
-} from "@/data/site";
-import heroDesk from "@/assets/hero-desk.jpg";
-import coverOne from "@/assets/cover-one.jpg";
-import coverTwo from "@/assets/cover-two.jpg";
-import coverThree from "@/assets/cover-three.jpg";
+import { Button } from "@/components/ui/button";
+import { FAQ, SITE } from "@/data/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      {
-        title: "Fourth Group & Co — Writing Community for Authors, Poets & Screenwriters",
-      },
-      {
-        name: "description",
-        content:
-          "A global writers network: verified literary magazines, small presses, grants, contests and residencies, plus an author directory and weekly prompts.",
-      },
-      {
-        property: "og:title",
-        content: "Fourth Group & Co — Writing Community for Authors, Poets & Screenwriters",
-      },
-      {
-        property: "og:description",
-        content:
-          "Verified submission opportunities, an author directory and weekly prompts for working writers.",
-      },
+      { title: "Fourth Group & Co — A Global Literary Community" },
+      { name: "description", content: "A global literary community with curated opportunities, practical resources and meaningful visibility for writers." },
+      { property: "og:title", content: "Fourth Group & Co — A Global Literary Community" },
+      { property: "og:description", content: "Where serious writers build their careers." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -43,241 +18,92 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const COVERS = [coverOne, coverTwo, coverThree];
+const benefits = [
+  { icon: Search, title: "Opportunities & Growth", points: ["Curated magazines and small presses", "Grants, residencies and contests", "Current dates and open periods", "Focused literary agent research"] },
+  { icon: Users, title: "Community & Visibility", points: ["A searchable author directory", "Literary events and workshops", "Book and writer spotlights", "Connections across the writing world"] },
+  { icon: BookOpen, title: "Resources & Tools", points: ["Weekly writing prompts", "Practical publishing guides", "Submission preparation resources", "Craft and career support"] },
+  { icon: Globe2, title: "Global Reach", points: ["Writers across countries and continents", "International opportunities", "Cross-border literary events", "A wider professional network"] },
+];
+
+const testimonials = [
+  { quote: "Fourth Group & Co helped me find opportunities that matched my work instead of wasting another season on dead links.", name: "Adaeze Okonkwo", role: "Fiction writer" },
+  { quote: "The research is careful and practical. I spend less time searching and more time working on the book.", name: "Marcus Ilesanmi", role: "Short-story writer" },
+  { quote: "The directory gave my work a professional home and introduced me to a generous international community.", name: "Helen Varga", role: "Poet" },
+];
 
 function Index() {
   return (
     <PageShell>
-      {/* Membership banner */}
-      <div className="border-b border-border/70 bg-primary/5">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-5 py-3 text-center">
-          <p className="text-sm text-foreground">
-            Unlock the full literary database — join {SITE.name} for ${SITE.membership}/year.
-          </p>
-          <Link
-            to="/membership"
-            className="inline-flex items-center gap-1 text-sm font-medium text-primary underline underline-offset-4"
-          >
-            Become a member <ArrowRight className="size-3.5" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 pt-14">
-        <h1 className="max-w-4xl font-serif text-4xl leading-[1.1] text-foreground md:text-6xl">
-          Writing communities for authors, poets and screenwriters
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{SITE.tagline}</p>
-
-        <Link to="/news" className="group mt-10 block overflow-hidden rounded-2xl border border-border">
-          <img
-            src={heroDesk}
-            alt="A writer's desk with an open notebook, fountain pen and coffee"
-            width={1600}
-            height={1008}
-            className="h-[280px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] md:h-[420px]"
-          />
-          <div className="bg-card p-6 md:p-8">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">Daily news</p>
-            <h2 className="mt-2 font-serif text-2xl text-card-foreground">
-              Independent booksellers report a steady year of growth
-            </h2>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-              Community-run shops continue to gain ground through online ordering, strong genre sales and
-              partnerships that help readers discover smaller presses.
-            </p>
+      <section className="bg-secondary text-secondary-foreground">
+        <div className="mx-auto flex min-h-[510px] max-w-5xl flex-col items-center justify-center px-5 py-16 text-center md:py-24">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-xs font-semibold">
+            <Sparkles className="size-4 text-primary" /> Annual Membership — ${SITE.membership}/year
           </div>
-        </Link>
-      </section>
-
-      {/* Announcement + prompt */}
-      <section className="mx-auto mt-14 grid max-w-6xl gap-5 px-5 lg:grid-cols-[1.5fr_1fr]">
-        <article className="rounded-2xl border border-border bg-card p-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            {ANNOUNCEMENT.kicker}
+          <h1 className="mt-8 max-w-4xl font-serif text-5xl leading-[1.08] md:text-7xl">
+            Where Serious Writers<br /><span className="text-primary">Build Their Careers</span>
+          </h1>
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-secondary-foreground/75 md:text-lg">
+            Join a dedicated literary community. Access curated opportunities, connect with published authors, and find the resources that turn determined writers into published ones.
           </p>
-          <h2 className="mt-3 font-serif text-2xl leading-snug text-card-foreground">
-            {ANNOUNCEMENT.title}
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{ANNOUNCEMENT.body}</p>
-          <Link
-            to="/news"
-            hash="author-commitments"
-            className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary"
-          >
-            Read the full statement <ArrowRight className="size-3.5" />
-          </Link>
-        </article>
-
-        <article className="rounded-2xl border border-primary/30 bg-accent/60 p-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">Writing prompt</p>
-          <h3 className="mt-3 font-serif text-xl text-foreground">{PROMPT.title}</h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{PROMPT.body}</p>
-          <Link
-            to="/writing-prompts"
-            className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary"
-          >
-            All prompts <ArrowRight className="size-3.5" />
-          </Link>
-        </article>
-      </section>
-
-      {/* Newsletter stat */}
-      <section className="mx-auto mt-14 max-w-6xl px-5">
-        <div className="rounded-2xl border border-border bg-secondary/50 px-8 py-12 text-center">
-          <p className="text-sm text-muted-foreground">Our free weekly newsletters reach</p>
-          <p className="mt-2 font-serif text-6xl text-foreground">{SITE.subscribers}</p>
-          <p className="mt-2 text-sm text-muted-foreground">subscribers, and counting</p>
+          <Button asChild size="lg" className="mt-8 h-12 rounded-md px-8 font-semibold">
+            <Link to="/membership">Join for ${SITE.membership}/year <ArrowRight /></Link>
+          </Button>
         </div>
       </section>
 
-      {/* Tools */}
-      <section className="mx-auto mt-20 max-w-6xl px-5">
-        <h2 className="font-serif text-3xl text-foreground">Tools for writers</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {TOOLS.map((tool) => (
-            <Link
-              key={tool.to}
-              to={tool.to}
-              className="flex items-center justify-between rounded-xl border border-border bg-card px-6 py-5 transition-colors hover:border-primary/50"
-            >
-              <span className="font-serif text-lg text-card-foreground">{tool.label}</span>
-              <span className="text-sm text-primary">{tool.count}</span>
-            </Link>
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-5 py-8 text-center md:grid-cols-4">
+          {[['500+', 'Active members'], ['40+', 'Countries'], ['1,200+', 'Opportunities listed'], ['300+', 'Publications featured']].map(([number, label]) => (
+            <div key={label}><p className="font-serif text-3xl text-primary">{number}</p><p className="mt-1 text-[10px] font-medium uppercase text-muted-foreground">{label}</p></div>
           ))}
         </div>
-        <p className="mt-6 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          One of the most active online writing communities for authors — connect through our{" "}
-          <Link to="/directory" className="text-foreground underline underline-offset-4">
-            global author directory
-          </Link>
-          , discover{" "}
-          <Link to="/contests" className="text-foreground underline underline-offset-4">
-            contests and submission opportunities
-          </Link>
-          ,{" "}
-          <Link to="/grants-awards" className="text-foreground underline underline-offset-4">
-            grants and awards
-          </Link>
-          , and explore our{" "}
-          <Link to="/resources" className="text-foreground underline underline-offset-4">
-            publishing resources
-          </Link>
-          .
-        </p>
       </section>
 
-      {/* Book of the week */}
-      <section className="mx-auto mt-20 max-w-6xl px-5">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">Book of the week</p>
-        <h2 className="mt-3 font-serif text-3xl text-foreground">Discover your next great read</h2>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Handpicked selections from our community — literary fiction, poetry, memoir and more.
-        </p>
-
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {BOOKS.map((book, i) => (
-            <article key={book.slug} className="overflow-hidden rounded-2xl border border-border bg-card">
-              <img
-                src={COVERS[i]}
-                alt={`Cover artwork for ${book.title}`}
-                loading="lazy"
-                width={800}
-                height={1200}
-                className="h-64 w-full object-cover"
-              />
-              <div className="p-6">
-                <span className="rounded-full bg-accent px-3 py-1 text-xs text-accent-foreground">
-                  Book of the week
-                </span>
-                <h3 className="mt-4 font-serif text-xl text-card-foreground">{book.title}</h3>
-                <p className="text-sm text-muted-foreground">by {book.author}</p>
-                <p className="mt-1 text-xs text-primary">{book.meta}</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{book.blurb}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {book.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-secondary px-2.5 py-1 text-xs text-secondary-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1">
-                    <BookOpen className="size-3.5" /> {book.reads}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <MessageCircle className="size-3.5" /> {book.comments}
-                  </span>
-                </div>
-              </div>
+      <section className="mx-auto max-w-5xl px-5 py-20">
+        <div className="text-center">
+          <h2 className="font-serif text-3xl md:text-4xl">Everything You Need to <span className="text-primary">Succeed as a Writer</span></h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">Fourth Group &amp; Co is more than a directory — it is a launchpad for your literary career.</p>
+        </div>
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {benefits.map(({ icon: Icon, title, points }) => (
+            <article key={title} className="rounded-md border border-border bg-card p-7 shadow-sm">
+              <div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-md bg-accent"><Icon className="size-4 text-primary" /></span><h3 className="font-serif text-xl">{title}</h3></div>
+              <ul className="mt-5 space-y-2">{points.map((point) => <li key={point} className="flex gap-2 text-sm text-muted-foreground"><Check className="mt-0.5 size-3.5 shrink-0 text-primary" />{point}</li>)}</ul>
             </article>
           ))}
         </div>
       </section>
 
-      {/* Past spotlights */}
-      <section className="mx-auto mt-20 max-w-6xl px-5">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">Previously featured</p>
-        <h2 className="mt-3 font-serif text-3xl text-foreground">From our past spotlights</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {PAST_SPOTLIGHTS.map((book) => (
-            <article key={book.title} className="rounded-xl border border-border bg-card p-6">
-              <h3 className="font-serif text-lg text-card-foreground">{book.title}</h3>
-              <p className="text-sm text-muted-foreground">{book.author}</p>
-              <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1">
-                  <BookOpen className="size-3.5" /> {book.reads}
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <MessageCircle className="size-3.5" /> {book.comments}
-                </span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* Illustrators */}
-      <section className="mx-auto mt-20 max-w-6xl px-5">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">
-          Illustrator of the week
-        </p>
-        <h2 className="mt-3 font-serif text-3xl text-foreground">This week's featured artists</h2>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {ARTISTS.map((artist) => (
-            <article key={artist.name} className="rounded-xl border border-border bg-card p-6">
-              <h3 className="font-serif text-lg text-card-foreground">{artist.name}</h3>
-              <p className="text-sm text-primary">{artist.craft}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{artist.note}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* Why join */}
-      <section className="mx-auto mt-20 max-w-6xl px-5">
-        <div className="rounded-2xl border border-border bg-secondary/40 p-8 md:p-12">
-          <h2 className="font-serif text-3xl text-foreground">Why writers join us</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            {FEATURES.map((f) => (
-              <div key={f.title}>
-                <h3 className="font-serif text-lg text-foreground">{f.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-              </div>
+      <section className="bg-accent/45">
+        <div className="mx-auto max-w-5xl px-5 py-16">
+          <h2 className="text-center font-serif text-3xl">What Our Members Say</h2>
+          <div className="mt-9 grid gap-5 md:grid-cols-3">
+            {testimonials.map((item) => (
+              <article key={item.name} className="rounded-md border border-border bg-card p-6 shadow-sm">
+                <div className="flex gap-0.5 text-primary">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3.5 fill-current" />)}</div>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">“{item.quote}”</p>
+                <p className="mt-5 font-serif text-base">{item.name}</p><p className="text-xs text-muted-foreground">{item.role}</p>
+              </article>
             ))}
           </div>
-          <Link
-            to="/membership"
-            className="mt-10 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            Join for ${SITE.membership}/year <ArrowRight className="size-4" />
-          </Link>
         </div>
       </section>
+
+      <section className="mx-auto grid max-w-5xl gap-10 px-5 py-20 md:grid-cols-2 md:items-center">
+        <div>
+          <h2 className="font-serif text-3xl">Why join Fourth Group &amp; Co?</h2>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">We maintain a focused, spam-free community and carefully researched literary opportunities. Membership directly supports that work.</p>
+          <ul className="mt-7 space-y-3">{["Curated opportunities you will not find on free platforms", "A verified, spam-free community", "Exclusive newsletters with industry listings", "Global network spanning 40+ countries", "Editorial credibility through a verified profile"].map((point) => <li key={point} className="flex items-center gap-3 rounded-md bg-muted px-4 py-3 text-sm"><Check className="size-4 text-primary" />{point}</li>)}</ul>
+          <div className="mt-7 rounded-md bg-secondary p-7 text-center text-secondary-foreground"><p className="text-[10px] font-semibold uppercase text-secondary-foreground/60">Annual membership</p><p className="mt-2 font-serif text-5xl text-primary">${SITE.membership}</p><p className="mt-2 text-xs text-secondary-foreground/60">per year — full access to all resources</p></div>
+        </div>
+        <div className="rounded-md border border-border bg-card p-10 text-center shadow-sm"><Sparkles className="mx-auto size-8 text-primary" /><h3 className="mt-5 font-serif text-2xl">Ready to Elevate Your Writing Career?</h3><p className="mt-4 text-sm leading-relaxed text-muted-foreground">Join writers who are taking the step. Complete your membership request securely by email.</p><Button asChild className="mt-6 rounded-md"><Link to="/membership">Get started <ArrowRight /></Link></Button></div>
+      </section>
+
+      <section className="bg-accent/35">
+        <div className="mx-auto max-w-3xl px-5 py-20"><h2 className="text-center font-serif text-3xl">Frequently Asked Questions</h2><div className="mt-9 space-y-3">{FAQ.map((item) => <article key={item.q} className="rounded-md border border-border bg-card p-5"><h3 className="font-serif text-base">{item.q}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.a}</p></article>)}</div></div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-5 py-20 text-center"><h2 className="font-serif text-3xl">Your Literary Career Starts Here</h2><p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">Do not let another opportunity pass you by. Join a community dedicated to helping writers find trusted opportunities and get noticed.</p><Button asChild size="lg" className="mt-7 rounded-md"><Link to="/membership">Join the community <ArrowRight /></Link></Button></section>
     </PageShell>
   );
 }
