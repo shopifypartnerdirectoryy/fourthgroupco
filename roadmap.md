@@ -7,8 +7,8 @@
 - [x] Align shared page headers, listing cards, and footer
 - [x] Verify desktop and mobile navigation and page layouts
 
-- [ ] Make the Claim Free Article callout compact and gold
-- [ ] Add supplied book covers, descriptions, and Amazon links
-- [ ] Rebuild the homepage editorial sections from the new reference
-- [ ] Omit the announcement and press-release section
+- [x] Make the Claim Free Article callout compact and gold
+- [x] Add supplied book covers, descriptions, and Amazon links
+- [x] Rebuild the homepage editorial sections from the new reference
+- [x] Omit the announcement and press-release section
 - [ ] Verify the article popup and homepage on desktop and mobile

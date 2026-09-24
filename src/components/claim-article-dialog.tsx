@@ -107,8 +107,8 @@ export function ClaimArticleDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button size={size} className={cn("rounded-md font-semibold", className)}>
-          <Feather /> Claim Free Article
+        <Button size={size} className={cn("rounded-none font-serif font-normal", className)}>
+          <Feather className="size-4" /> Claim Free Article
         </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[92vh] w-[calc(100%-2rem)] max-w-[480px] overflow-y-auto rounded-xl border-border bg-card p-7 shadow-2xl sm:p-9 [&>button]:size-9 [&>button]:grid [&>button]:place-items-center [&>button]:rounded-full [&>button]:opacity-80 [&>button:hover]:bg-muted [&>button]:focus-visible:ring-2 [&>button]:focus-visible:ring-ring">

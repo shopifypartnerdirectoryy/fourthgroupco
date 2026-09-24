@@ -1,9 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpen, Check, Globe2, Search, Sparkles, Star, Users } from "lucide-react";
+import { ArrowRight, BookOpen, CalendarDays, ExternalLink, Feather, Film, Globe2, Library, Search, Star, Users } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
-import { FAQ, SITE } from "@/data/site";
+import { SITE } from "@/data/site";
+import heroDesk from "@/assets/hero-desk.jpg";
+import earlyMornings from "@/assets/early-mornings-with-dick.jpg.asset.json";
+import socratesDog from "@/assets/blame-it-on-socrates-dog.jpg.asset.json";
+import proudAmerican from "@/assets/proud-american.jpg.asset.json";
+import socratesPortrait from "@/assets/blame-it-on-socrates-portrait.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,24 +24,46 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const benefits = [
-  { icon: Search, title: "Opportunities & Growth", points: ["Curated magazines and small presses", "Grants, residencies and contests", "Current dates and open periods", "Focused literary agent research"] },
-  { icon: Users, title: "Community & Visibility", points: ["A searchable author directory", "Literary events and workshops", "Book and writer spotlights", "Connections across the writing world"] },
-  { icon: BookOpen, title: "Resources & Tools", points: ["Weekly writing prompts", "Practical publishing guides", "Submission preparation resources", "Craft and career support"] },
-  { icon: Globe2, title: "Global Reach", points: ["Writers across countries and continents", "International opportunities", "Cross-border literary events", "A wider professional network"] },
-];
+const books = [
+  {
+    title: 'Early Mornings with “Dick”', author: "Jack Ryan", format: "Hardcover", rating: "5.0 · 1 review", image: earlyMornings.url,
+    description: "A compelling historical novel following a Georgetown law student whose private breakfasts with President Richard Nixon reshape his understanding of leadership, truth, and public service.",
+    link: "https://www.amazon.com/Early-Mornings-Dick-Jack-Ryan/dp/1808570472?ref_=ast_author_dp&th=1&psc=1",
+    tag: "Historical fiction",
+  },
+  {
+    title: "Blame It on Socrates", author: "Jack Ryan", format: "Kindle Edition", rating: "5.0 · 7 reviews", image: socratesDog.url,
+    description: "Professor Patrick Dolan returns to the turbulent 1960s after a long-lost letter forces him to examine the ideals, friendships, and unfinished choices that shaped his life.",
+    link: "https://www.amazon.com/BLAME-SOCRATES-Jack-Ryan-ebook/dp/B0F2SJZY24?ref_=ast_author_mpb",
+    tag: "Literary fiction",
+  },
+  {
+    title: "Proud American", author: "Sergio A. Tinoco", format: "Kindle Edition", rating: "5.0 · 2 reviews", image: proudAmerican.url,
+    description: "A remarkable true story of a South Texas migrant worker who became a soldier and federal agent—a testament to service, sacrifice, faith, and Hispanic American pride.",
+    link: "https://www.amazon.com/Proud-American-Migrant-Soldier-Agent-ebook/dp/B0H1348M12?ref_=ast_author_mpb",
+    tag: "Memoir",
+  },
+  {
+    title: "Blame It on Socrates", author: "Jack Ryan", format: "Kindle Edition", rating: "Available now", image: socratesPortrait.url,
+    description: "A witty, reflective campus novel about philosophy, nostalgia, and the weight of unfinished business, bridging the unrest of the 1960s with one professor’s present reckoning.",
+    link: "https://www.amazon.com/Blame-Socrates-Jack-Ryan-ebook/dp/B0H52YRPRN?ref_=ast_author_dp_rw&th=1&psc=1&dib=eyJ2IjoiMSJ9.u1utHiXMTiQYN4uTXaOEO-6QZcSvcAAPOGQi5Z5D5tTGjHj071QN20LucGBJIEps.FSSTeA2ssfah_Ond7-IMcFadEcuP-dxey0rosAK0tKI&dib_tag=AUTHOR",
+    tag: "Campus novel",
+  },
+] as const;
 
-const testimonials = [
-  { quote: "Fourth Group & Co helped me find opportunities that matched my work instead of wasting another season on dead links.", name: "Adaeze Okonkwo", role: "Fiction writer" },
-  { quote: "The research is careful and practical. I spend less time searching and more time working on the book.", name: "Marcus Ilesanmi", role: "Short-story writer" },
-  { quote: "The directory gave my work a professional home and introduced me to a generous international community.", name: "Helen Varga", role: "Poet" },
-];
+const writerTools = [
+  { icon: Search, label: "Find Opportunities", detail: "Grants, awards and contests", to: "/grants-awards" },
+  { icon: Library, label: "Publish Your Writing", detail: "Magazines, presses and agents", to: "/literary-magazines" },
+  { icon: Film, label: "Pitch for the Screen", detail: "Put your story before producers", to: "/movie-adaptation" },
+  { icon: Users, label: "Meet the Community", detail: "Authors, events and conversations", to: "/directory" },
+  { icon: Feather, label: "Strengthen Your Craft", detail: "Prompts, practice and support", to: "/writing-prompts" },
+] as const;
 
 function Index() {
   return (
     <PageShell>
-      <section className="bg-secondary text-secondary-foreground">
-        <div className="mx-auto flex min-h-[510px] max-w-5xl flex-col items-center justify-center px-5 py-16 text-center md:py-24">
+      <section className="relative bg-secondary text-secondary-foreground">
+        <div className="mx-auto flex min-h-[500px] max-w-5xl flex-col items-center justify-center px-5 pb-24 pt-16 text-center md:py-24">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-xs font-semibold">
             <Sparkles className="size-4 text-primary" /> Annual Membership — ${SITE.membership}/year
           </div>
@@ -46,68 +73,98 @@ function Index() {
           <p className="mt-7 max-w-2xl text-base leading-relaxed text-secondary-foreground/75 md:text-lg">
             Join a dedicated literary community. Access curated opportunities, connect with published authors, and find the resources that turn determined writers into published ones.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+          <div className="mt-8">
             <Button asChild size="lg" className="h-12 rounded-md px-8 font-semibold">
               <Link to="/membership">Join for ${SITE.membership}/year <ArrowRight /></Link>
             </Button>
-            <ClaimArticleDialog className="h-12 border border-primary bg-transparent px-8 text-primary hover:bg-primary/10" />
+          </div>
+        </div>
+        <div className="absolute inset-x-0 bottom-0 flex translate-y-1/2 justify-center px-5">
+          <ClaimArticleDialog className="h-12 bg-primary px-7 text-base text-primary-foreground shadow-lg hover:bg-primary/90" />
+        </div>
+      </section>
+
+      <section className="bg-background pt-14">
+        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-[1.25fr_.75fr] md:items-stretch">
+          <article className="relative min-h-[380px] overflow-hidden rounded-md">
+            <img src={heroDesk} alt="A writer working at a desk" className="absolute inset-0 size-full object-cover" />
+            <div className="absolute inset-0 bg-secondary/70" />
+            <div className="relative flex min-h-[380px] flex-col justify-end p-7 text-secondary-foreground md:p-10">
+              <p className="text-xs font-semibold uppercase text-primary">Literary News</p>
+              <h2 className="mt-3 max-w-xl font-serif text-3xl leading-tight md:text-4xl">The stories, milestones, and ideas shaping our writing community</h2>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-secondary-foreground/75">Read author interviews, publishing insights, new-release features, and thoughtful coverage from across the literary world.</p>
+              <Button asChild variant="link" className="mt-4 h-auto w-fit p-0 text-primary"><Link to="/news">Explore the latest stories <ArrowRight /></Link></Button>
+            </div>
+          </article>
+          <div className="border-y border-border py-7 md:border-y-0 md:border-l md:py-8 md:pl-9">
+            <p className="text-xs font-semibold uppercase text-primary">This Week’s Prompt</p>
+            <h2 className="mt-4 font-serif text-3xl">What the House Remembers</h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Write about a room you have not entered in years. Let the objects speak before the people do, and end on a sound rather than an image.</p>
+            <Button asChild variant="outline" className="mt-7 rounded-none"><Link to="/writing-prompts">Start writing <ArrowRight /></Link></Button>
+            <div className="mt-10 border-t border-border pt-8">
+              <p className="font-serif text-5xl text-primary">1,200+</p>
+              <p className="mt-2 text-xs font-semibold uppercase text-muted-foreground">Literary opportunities researched for writers</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-border bg-background">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-5 py-8 text-center md:grid-cols-4">
-          {[['500+', 'Active members'], ['40+', 'Countries'], ['1,200+', 'Opportunities listed'], ['300+', 'Publications featured']].map(([number, label]) => (
-            <div key={label}><p className="font-serif text-3xl text-primary">{number}</p><p className="mt-1 text-[10px] font-medium uppercase text-muted-foreground">{label}</p></div>
+      <section className="border-y border-border bg-muted/45">
+        <div className="mx-auto max-w-6xl px-5 py-14">
+          <div className="text-center"><p className="text-xs font-semibold uppercase text-primary">Think for Writers</p><h2 className="mt-3 font-serif text-3xl">A clearer path through the literary world</h2></div>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+            {writerTools.map(({ icon: Icon, label, detail, to }) => (
+              <Link key={label} to={to} className="group bg-card p-6 text-center transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <Icon className="mx-auto size-5 text-primary" /><h3 className="mt-4 font-serif text-lg">{label}</h3><p className="mt-2 text-xs leading-relaxed text-muted-foreground">{detail}</p>
+              </Link>
+            ))}
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-5 py-20">
-        <div className="text-center">
-          <h2 className="font-serif text-3xl md:text-4xl">Everything You Need to <span className="text-primary">Succeed as a Writer</span></h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">Fourth Group &amp; Co is more than a directory — it is a launchpad for your literary career.</p>
-        </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {benefits.map(({ icon: Icon, title, points }) => (
-            <article key={title} className="rounded-md border border-border bg-card p-7 shadow-sm">
-              <div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-md bg-accent"><Icon className="size-4 text-primary" /></span><h3 className="font-serif text-xl">{title}</h3></div>
-              <ul className="mt-5 space-y-2">{points.map((point) => <li key={point} className="flex gap-2 text-sm text-muted-foreground"><Check className="mt-0.5 size-3.5 shrink-0 text-primary" />{point}</li>)}</ul>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-accent/45">
-        <div className="mx-auto max-w-5xl px-5 py-16">
-          <h2 className="text-center font-serif text-3xl">What Our Members Say</h2>
-          <div className="mt-9 grid gap-5 md:grid-cols-3">
-            {testimonials.map((item) => (
-              <article key={item.name} className="rounded-md border border-border bg-card p-6 shadow-sm">
-                <div className="flex gap-0.5 text-primary">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3.5 fill-current" />)}</div>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">“{item.quote}”</p>
-                <p className="mt-5 font-serif text-base">{item.name}</p><p className="text-xs text-muted-foreground">{item.role}</p>
+      <section className="bg-secondary text-secondary-foreground">
+        <div className="mx-auto max-w-6xl px-5 py-20">
+          <div className="text-center"><p className="text-xs font-semibold uppercase text-primary">Book of the Week</p><h2 className="mt-3 font-serif text-4xl">Discover Your Next Great Read</h2><p className="mx-auto mt-3 max-w-2xl text-sm text-secondary-foreground/65">Handpicked selections from our community of writers — spanning literary fiction, history, memoir, and more.</p></div>
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {books.map((book) => (
+              <article key={`${book.title}-${book.image}`} className="flex min-w-0 flex-col">
+                <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-sm bg-background/5 p-3"><img src={book.image} alt={`${book.title} book cover`} className="max-h-full max-w-full object-contain shadow-xl" /></div>
+                <p className="mt-5 text-[10px] font-semibold uppercase text-primary">{book.tag}</p>
+                <h3 className="mt-2 font-serif text-xl leading-tight">{book.title}</h3><p className="mt-1 text-xs text-secondary-foreground/60">by {book.author} · {book.format}</p>
+                <div className="mt-3 flex items-center gap-2 text-xs text-primary"><span className="flex">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-current" />)}</span><span>{book.rating}</span></div>
+                <p className="mt-4 line-clamp-4 text-xs leading-relaxed text-secondary-foreground/65">{book.description}</p>
+                <Button asChild variant="link" className="mt-auto h-auto w-fit px-0 pt-5 text-primary"><a href={book.link} target="_blank" rel="noopener noreferrer">View on Amazon <ExternalLink /></a></Button>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-5xl gap-10 px-5 py-20 md:grid-cols-2 md:items-center">
-        <div>
-          <h2 className="font-serif text-3xl">Why join Fourth Group &amp; Co?</h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">We maintain a focused, spam-free community and carefully researched literary opportunities. Membership directly supports that work.</p>
-          <ul className="mt-7 space-y-3">{["Curated opportunities you will not find on free platforms", "A verified, spam-free community", "Exclusive newsletters with industry listings", "Global network spanning 40+ countries", "Editorial credibility through a verified profile"].map((point) => <li key={point} className="flex items-center gap-3 rounded-md bg-muted px-4 py-3 text-sm"><Check className="size-4 text-primary" />{point}</li>)}</ul>
-          <div className="mt-7 rounded-md bg-secondary p-7 text-center text-secondary-foreground"><p className="text-[10px] font-semibold uppercase text-secondary-foreground/60">Annual membership</p><p className="mt-2 font-serif text-5xl text-primary">${SITE.membership}</p><p className="mt-2 text-xs text-secondary-foreground/60">per year — full access to all resources</p></div>
+      <section className="bg-background">
+        <div className="mx-auto max-w-6xl px-5 py-20">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><p className="text-xs font-semibold uppercase text-primary">From Our Past Spotlights</p><h2 className="mt-3 font-serif text-4xl">Books our readers have discovered</h2></div><Button asChild variant="outline" className="w-fit rounded-none"><Link to="/news">View all spotlights <ArrowRight /></Link></Button></div>
+          <div className="mt-10 grid gap-px overflow-hidden border-y border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {books.map((book) => <article key={`spotlight-${book.image}`} className="flex items-center gap-4 bg-background py-5 pr-4 sm:p-5"><img src={book.image} alt="" className="h-24 w-16 shrink-0 object-contain" /><div><p className="text-[10px] font-semibold uppercase text-primary">Reader spotlight</p><h3 className="mt-2 font-serif leading-tight">{book.title}</h3><p className="mt-1 text-xs text-muted-foreground">{book.author}</p></div></article>)}
+          </div>
         </div>
-        <div className="rounded-md border border-border bg-card p-10 text-center shadow-sm"><Sparkles className="mx-auto size-8 text-primary" /><h3 className="mt-5 font-serif text-2xl">Ready to Elevate Your Writing Career?</h3><p className="mt-4 text-sm leading-relaxed text-muted-foreground">Join writers who are taking the step. Complete your membership request securely by email.</p><Button asChild className="mt-6 rounded-md"><Link to="/membership">Get started <ArrowRight /></Link></Button></div>
       </section>
 
       <section className="bg-accent/35">
-        <div className="mx-auto max-w-3xl px-5 py-20"><h2 className="text-center font-serif text-3xl">Frequently Asked Questions</h2><div className="mt-9 space-y-3">{FAQ.map((item) => <article key={item.q} className="rounded-md border border-border bg-card p-5"><h3 className="font-serif text-base">{item.q}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.a}</p></article>)}</div></div>
+        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[.85fr_1.15fr] md:items-center">
+          <div className="grid grid-cols-2 gap-3"><img src={socratesDog.url} alt="Illustrated book cover artwork" className="aspect-[3/4] w-full object-cover" /><img src={socratesPortrait.url} alt="Painted portrait book cover artwork" className="mt-8 aspect-[3/4] w-full object-cover" /></div>
+          <div><p className="text-xs font-semibold uppercase text-primary">This Week’s Featured Artists</p><h2 className="mt-3 font-serif text-4xl">Art that makes a reader stop</h2><p className="mt-5 text-sm leading-relaxed text-muted-foreground">From expressive painted portraiture to atmospheric historical illustration, these covers show how visual storytelling establishes mood before the first page begins.</p><Button asChild variant="outline" className="mt-7 rounded-none"><Link to="/author-services">Discover author services <ArrowRight /></Link></Button></div>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 py-20 text-center"><h2 className="font-serif text-3xl">Your Literary Career Starts Here</h2><p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">Do not let another opportunity pass you by. Join a community dedicated to helping writers find trusted opportunities and get noticed.</p><Button asChild size="lg" className="mt-7 rounded-md"><Link to="/membership">Join the community <ArrowRight /></Link></Button></section>
+      <section className="bg-background">
+        <div className="mx-auto max-w-6xl px-5 py-20"><p className="text-xs font-semibold uppercase text-primary">Stories Looking for the Screen</p><h2 className="mt-3 font-serif text-4xl">Books with cinematic possibility</h2><p className="mt-3 max-w-2xl text-sm text-muted-foreground">Character-led stories, historical turning points, and extraordinary real lives ready to be discovered by screen professionals.</p>
+          <div className="mt-10 grid gap-8 md:grid-cols-3">{books.slice(0, 3).map((book) => <article key={`screen-${book.image}`} className="grid grid-cols-[110px_1fr] gap-5 border-t border-border pt-5"><img src={book.image} alt="" className="h-40 w-[110px] object-contain" /><div><Film className="size-4 text-primary" /><h3 className="mt-3 font-serif text-lg leading-tight">{book.title}</h3><p className="mt-2 text-xs leading-relaxed text-muted-foreground">{book.description}</p></div></article>)}</div>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-muted/45"><div className="mx-auto max-w-6xl px-5 py-16"><div className="flex items-end justify-between"><div><p className="text-xs font-semibold uppercase text-primary">Featured Members</p><h2 className="mt-3 font-serif text-3xl">Writers in our community</h2></div><Link to="/directory" className="text-sm font-semibold text-primary">View directory</Link></div><div className="mt-9 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{[{n:"Jack Ryan",r:"Historical & literary fiction",i:"JR"},{n:"Sergio A. Tinoco",r:"Memoir & military history",i:"ST"},{n:"Adaeze Okonkwo",r:"Literary fiction",i:"AO"},{n:"Helen Varga",r:"Poetry",i:"HV"}].map((member)=><article key={member.n} className="bg-card p-6 text-center"><span className="mx-auto grid size-14 place-items-center rounded-full bg-secondary font-serif text-secondary-foreground">{member.i}</span><h3 className="mt-4 font-serif text-lg">{member.n}</h3><p className="mt-1 text-xs text-muted-foreground">{member.r}</p></article>)}</div></div></section>
+
+      <section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-3xl px-5 py-16 text-center"><Globe2 className="mx-auto size-6 text-primary" /><h2 className="mt-4 font-serif text-3xl">Bring your story into the community</h2><p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-secondary-foreground/65">Join Fourth Group &amp; Co for literary opportunities, thoughtful resources, and a place for your work to be seen.</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><Button asChild size="lg" className="rounded-none"><Link to="/membership">Join for ${SITE.membership}/year <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="rounded-none border-secondary-foreground/30 bg-transparent text-secondary-foreground hover:bg-secondary-foreground/10 hover:text-secondary-foreground"><Link to="/events"><CalendarDays /> Literary events</Link></Button></div></div></section>
     </PageShell>
   );
 }
