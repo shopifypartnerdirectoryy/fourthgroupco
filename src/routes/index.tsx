@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen, Check, Globe2, Search, Sparkles, Star, Users } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
+import { ClaimArticleDialog } from "@/components/claim-article-dialog";
 import { FAQ, SITE } from "@/data/site";
 
 export const Route = createFileRoute("/")({
@@ -45,9 +46,12 @@ function Index() {
           <p className="mt-7 max-w-2xl text-base leading-relaxed text-secondary-foreground/75 md:text-lg">
             Join a dedicated literary community. Access curated opportunities, connect with published authors, and find the resources that turn determined writers into published ones.
           </p>
-          <Button asChild size="lg" className="mt-8 h-12 rounded-md px-8 font-semibold">
-            <Link to="/membership">Join for ${SITE.membership}/year <ArrowRight /></Link>
-          </Button>
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+            <Button asChild size="lg" className="h-12 rounded-md px-8 font-semibold">
+              <Link to="/membership">Join for ${SITE.membership}/year <ArrowRight /></Link>
+            </Button>
+            <ClaimArticleDialog className="h-12 border border-primary bg-transparent px-8 text-primary hover:bg-primary/10" />
+          </div>
         </div>
       </section>
 
