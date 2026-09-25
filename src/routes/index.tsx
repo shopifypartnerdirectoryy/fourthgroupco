@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpen, CalendarDays, ExternalLink, Feather, Film, Globe2, Library, Search, Star, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, ExternalLink, Feather, Film, Globe2, Library, Search, Sparkles, Star, Users } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
@@ -118,7 +118,7 @@ function Index() {
                 <Icon className="mx-auto size-5 text-primary" /><h3 className="mt-4 font-serif text-lg">{label}</h3><p className="mt-2 text-xs leading-relaxed text-muted-foreground">{detail}</p>
               </Link>
             ))}
-          ))}
+          </div>
         </div>
       </section>
 
