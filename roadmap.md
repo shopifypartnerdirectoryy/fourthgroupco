@@ -11,4 +11,4 @@
 - [x] Add supplied book covers, descriptions, and Amazon links
 - [x] Rebuild the homepage editorial sections from the new reference
 - [x] Omit the announcement and press-release section
-- [ ] Verify the article popup and homepage on desktop and mobile
+- [x] Verify the article popup and homepage on desktop and mobile
