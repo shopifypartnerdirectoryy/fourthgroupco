@@ -17,4 +17,4 @@
 - [x] Remove the annual membership icon and personalize copied homepage wording
 - [x] Make Claim Free Article a compact fixed prompt while scrolling
 - [x] Add the remaining personalized editorial, member, prompt, news, and event sections
-- [ ] Verify images, links, scrolling prompt, and article submission on desktop and mobile
+- [x] Verify images, links, scrolling prompt, and article submission on desktop and mobile
