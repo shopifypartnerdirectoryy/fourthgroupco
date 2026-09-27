@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep reader-facing book covers as Vite-imported local assets so external deployments do not depend on Lovable-only asset proxy paths.
+- Keep the brand logo as a Vite-imported local asset, with a separate optimized public favicon, so external deployments remain portable.

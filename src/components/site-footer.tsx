@@ -1,14 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { NAV, SITE } from "@/data/site";
+import brandLogo from "@/assets/fourth-group-logo.webp";
 
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-secondary-foreground/10 bg-secondary text-secondary-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="font-serif text-2xl">
-            Fourth Group <span className="text-primary">&amp; Co</span>
-          </p>
+          <Link to="/" aria-label="Fourth Group and Co home" className="inline-block rounded-sm bg-background p-3">
+            <img src={brandLogo} alt="Fourth Group & Co" className="h-24 w-auto object-contain" />
+          </Link>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-secondary-foreground/65">{SITE.tagline}</p>
           <a
             href={`mailto:${SITE.email}`}
