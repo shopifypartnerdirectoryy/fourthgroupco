@@ -118,15 +118,15 @@ export function ClaimArticleDialog({
               <Feather className="size-5 text-primary" />
             </span>
             <DialogTitle className="mt-5 font-serif text-3xl font-normal leading-tight text-card-foreground">
-              Have News Worth Sharing?
+              A Story Worth Sharing?
             </DialogTitle>
             <DialogDescription className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Get a professionally written article about your book launch, award, publication, or literary achievement — at no cost.
+              Tell our editorial desk about your new book, publication, award, or literary milestone. Selected stories are written and published by Fourth Group &amp; Co at no charge.
             </DialogDescription>
             <Button size="lg" className="mt-7 h-12 w-full rounded-md font-semibold" onClick={() => setStep("form")}>
-              Claim My Free Article <ArrowRight />
+              Share My News <ArrowRight />
             </Button>
-            <p className="mt-4 text-[11px] uppercase tracking-wide text-muted-foreground">Free editorial feature · No payment required</p>
+            <p className="mt-4 text-[11px] uppercase tracking-wide text-muted-foreground">Editorial consideration · No payment required</p>
           </div>
         )}
 
@@ -136,7 +136,7 @@ export function ClaimArticleDialog({
               Tell Us About You
             </DialogTitle>
             <DialogDescription className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Share a few details and our editorial team will get in touch.
+              Give us the essentials. If the story is a fit, our editors will contact you directly.
             </DialogDescription>
             <form noValidate onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -187,14 +187,14 @@ export function ClaimArticleDialog({
             <span className="mx-auto grid size-12 place-items-center rounded-full bg-accent">
               <PartyPopper className="size-5 text-primary" />
             </span>
-            <DialogTitle className="mt-5 font-serif text-3xl font-normal text-card-foreground">You're In!</DialogTitle>
-            <p className="mt-1 font-serif text-lg text-primary">We can't wait to tell your story.</p>
+            <DialogTitle className="mt-5 font-serif text-3xl font-normal text-card-foreground">News Received</DialogTitle>
+            <p className="mt-1 font-serif text-lg text-primary">Thank you for trusting our editorial desk.</p>
             <DialogDescription asChild>
               <div className="mt-5 space-y-3 text-left text-sm leading-relaxed text-muted-foreground">
-                <p>Thanks for claiming your free article. Our editorial team will review your information and contact you at the email address you provided with the next steps.</p>
-                <p>We can help turn your news — whether it's a book launch, award, new publication, or another literary achievement — into a professionally written article.</p>
-                <p>We'll publish your story on our platform, share it across our social media channels, and put your story in front of thousands of readers in our literary community.</p>
-                <p className="font-semibold text-card-foreground">No cost. No hassle. Just your news, beautifully told.</p>
+                <p>Your details are safely with the Fourth Group &amp; Co editorial team. We will review your submission and write to the email address you provided.</p>
+                <p>When selected, your launch, award, publication, or other literary milestone will be shaped into an original editorial feature.</p>
+                <p>We may publish the finished piece here and introduce it to readers through our social channels and literary network.</p>
+                <p className="font-semibold text-card-foreground">Editorial care, thoughtful reach, and no fee for the feature.</p>
               </div>
             </DialogDescription>
             <div className="mt-6 border-t border-border pt-5">

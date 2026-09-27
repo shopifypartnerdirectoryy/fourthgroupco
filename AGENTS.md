@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep reader-facing book covers as Vite-imported local assets so external deployments do not depend on Lovable-only asset proxy paths.
