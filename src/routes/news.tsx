@@ -3,7 +3,8 @@ import { PageShell, PageHeader } from "@/components/page-shell";
 import { NEWS } from "@/data/site";
 
 export const Route = createFileRoute("/news")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/news" }],
     meta: [
       { title: "Literary News & Announcements | Fourth Group & Co" },
       {
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/news")({
       { property: "og:title", content: "Literary News & Announcements | Fourth Group & Co" },
       { property: "og:description", content: "News for authors, poets and screenwriters." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/news" },
     ],
   }),
   component: Page,

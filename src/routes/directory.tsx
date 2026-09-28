@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader } from "@/components/page-shell";
 
 export const Route = createFileRoute("/directory")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/directory" }],
     meta: [
       { title: "Author Directory | Fourth Group & Co" },
       {
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/directory")({
       { property: "og:title", content: "Author Directory | Fourth Group & Co" },
       { property: "og:description", content: "A global directory of working writers." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/directory" },
     ],
   }),
   component: Page,

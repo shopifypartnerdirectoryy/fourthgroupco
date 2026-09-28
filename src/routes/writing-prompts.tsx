@@ -3,7 +3,8 @@ import { PageShell, PageHeader } from "@/components/page-shell";
 import { PROMPT } from "@/data/site";
 
 export const Route = createFileRoute("/writing-prompts")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/writing-prompts" }],
     meta: [
       { title: "Weekly Writing Prompts | Fourth Group & Co" },
       {
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/writing-prompts")({
       { property: "og:title", content: "Weekly Writing Prompts | Fourth Group & Co" },
       { property: "og:description", content: "Prompts for poetry, fiction and non-fiction." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/writing-prompts" },
     ],
   }),
   component: Page,

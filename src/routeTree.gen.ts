@@ -31,6 +31,7 @@ import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RightAgentRouteImport } from './routes/right-agent'
 import { Route as SearchPitchesRouteImport } from './routes/search-pitches'
 import { Route as ShortStoriesRouteImport } from './routes/short-stories'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SmallPressesRouteImport } from './routes/small-presses'
 import { Route as WritingPromptsRouteImport } from './routes/writing-prompts'
 
@@ -144,6 +145,11 @@ const ShortStoriesRoute = ShortStoriesRouteImport.update({
   path: '/short-stories',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SmallPressesRoute = SmallPressesRouteImport.update({
   id: '/small-presses',
   path: '/small-presses',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/right-agent': typeof RightAgentRoute
   '/search-pitches': typeof SearchPitchesRoute
   '/short-stories': typeof ShortStoriesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-presses': typeof SmallPressesRoute
   '/writing-prompts': typeof WritingPromptsRoute
 }
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/right-agent': typeof RightAgentRoute
   '/search-pitches': typeof SearchPitchesRoute
   '/short-stories': typeof ShortStoriesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-presses': typeof SmallPressesRoute
   '/writing-prompts': typeof WritingPromptsRoute
 }
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/right-agent': typeof RightAgentRoute
   '/search-pitches': typeof SearchPitchesRoute
   '/short-stories': typeof ShortStoriesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-presses': typeof SmallPressesRoute
   '/writing-prompts': typeof WritingPromptsRoute
 }
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
     | '/right-agent'
     | '/search-pitches'
     | '/short-stories'
+    | '/sitemap.xml'
     | '/small-presses'
     | '/writing-prompts'
   fileRoutesByTo: FileRoutesByTo
@@ -285,6 +295,7 @@ export interface FileRouteTypes {
     | '/right-agent'
     | '/search-pitches'
     | '/short-stories'
+    | '/sitemap.xml'
     | '/small-presses'
     | '/writing-prompts'
   id:
@@ -311,6 +322,7 @@ export interface FileRouteTypes {
     | '/right-agent'
     | '/search-pitches'
     | '/short-stories'
+    | '/sitemap.xml'
     | '/small-presses'
     | '/writing-prompts'
   fileRoutesById: FileRoutesById
@@ -338,6 +350,7 @@ export interface RootRouteChildren {
   RightAgentRoute: typeof RightAgentRoute
   SearchPitchesRoute: typeof SearchPitchesRoute
   ShortStoriesRoute: typeof ShortStoriesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SmallPressesRoute: typeof SmallPressesRoute
   WritingPromptsRoute: typeof WritingPromptsRoute
 }
@@ -498,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShortStoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/small-presses': {
       id: '/small-presses'
       path: '/small-presses'
@@ -538,6 +558,7 @@ const rootRouteChildren: RootRouteChildren = {
   RightAgentRoute: RightAgentRoute,
   SearchPitchesRoute: SearchPitchesRoute,
   ShortStoriesRoute: ShortStoriesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SmallPressesRoute: SmallPressesRoute,
   WritingPromptsRoute: WritingPromptsRoute,
 }

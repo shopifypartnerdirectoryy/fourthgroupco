@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, ListingGrid } from "@/components/page-shell";
 
 export const Route = createFileRoute("/grants-awards")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/grants-awards" }],
     meta: [
       { title: "Grants & Awards for Writers | Fourth Group & Co" },
       {
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/grants-awards")({
       { property: "og:title", content: "Grants & Awards for Writers | Fourth Group & Co" },
       { property: "og:description", content: "Fellowships, bursaries and prizes open to writers." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/grants-awards" },
     ],
   }),
   component: Page,
