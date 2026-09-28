@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, ListingGrid } from "@/components/page-shell";
 
 export const Route = createFileRoute("/small-presses")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/small-presses" }],
     meta: [
       { title: "Small Presses Directory | Fourth Group & Co" },
       {
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/small-presses")({
         content: "Independent publishers open to unagented manuscripts.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/small-presses" },
     ],
   }),
   component: Page,

@@ -4,7 +4,8 @@ import { PageShell, PageHeader } from "@/components/page-shell";
 import { SITE, FAQ } from "@/data/site";
 
 export const Route = createFileRoute("/membership")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/membership" }],
     meta: [
       { title: "Membership | Fourth Group & Co" },
       {
@@ -17,7 +18,7 @@ export const Route = createFileRoute("/membership")({
         content: `Full database access for $${SITE.membership} a year.`,
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/membership" },
     ],
   }),
   component: Page,

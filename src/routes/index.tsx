@@ -11,14 +11,15 @@ import proudAmerican from "@/assets/proud-american.jpg";
 import socratesPortrait from "@/assets/blame-it-on-socrates-portrait.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/" }],
     meta: [
       { title: "Fourth Group & Co — A Global Literary Community" },
       { name: "description", content: "A global literary community with curated opportunities, practical resources and meaningful visibility for writers." },
       { property: "og:title", content: "Fourth Group & Co — A Global Literary Community" },
       { property: "og:description", content: "Publishing research, editorial attention, and literary community for writers moving their work forward." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/" },
     ],
   }),
   component: Index,

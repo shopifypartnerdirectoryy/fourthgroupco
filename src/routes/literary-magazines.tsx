@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, ListingGrid } from "@/components/page-shell";
 
 export const Route = createFileRoute("/literary-magazines")({
-  head: () => ({
+  staticData: { sitemap: true },
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/literary-magazines" }],
     meta: [
       { title: "Literary Magazines Database | Fourth Group & Co" },
       {
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/literary-magazines")({
         content: "Verified journals and magazines open to poetry, fiction and essays.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/literary-magazines" },
     ],
   }),
   component: Page,
