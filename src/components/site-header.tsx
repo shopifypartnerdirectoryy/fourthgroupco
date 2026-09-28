@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NAV_GROUPS, SITE } from "@/data/site";
-import brandLogo from "@/assets/fourth-group-logo.webp";
+import brandMark from "@/assets/fourth-group-mark.webp";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -33,12 +33,21 @@ export function SiteHeader() {
       </div>
 
       <div className="mx-auto flex max-w-6xl items-center px-5 py-4 md:py-5">
-        <Link to="/" aria-label="Fourth Group and Co home" className="block">
+        <Link to="/" aria-label="Fourth Group and Co home" className="flex items-center gap-3 md:gap-4">
           <img
-            src={brandLogo}
-            alt="Fourth Group & Co"
-            className="h-20 w-auto object-contain md:h-24"
+            src={brandMark}
+            alt=""
+            aria-hidden="true"
+            className="size-12 shrink-0 object-contain md:size-16"
           />
+          <span>
+            <span className="block font-serif text-xl leading-none text-foreground md:text-3xl">
+              Fourth Group <span className="text-primary">&amp; Co</span>
+            </span>
+            <span className="mt-2 block text-[9px] font-medium uppercase text-muted-foreground md:text-xs">
+              A global literary community
+            </span>
+          </span>
         </Link>
         <Button
           type="button"
