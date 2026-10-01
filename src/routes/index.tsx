@@ -106,9 +106,7 @@ function Index() {
         </div>
       </section>
 
-      <div className="fixed bottom-5 right-4 z-40 sm:bottom-7 sm:right-7">
-        <ClaimArticleDialog className="h-11 rounded-sm border border-primary-foreground/15 bg-primary px-5 text-sm text-primary-foreground shadow-xl hover:bg-primary/90" />
-      </div>
+      <ClaimArticleDialog autoOpenOnScroll hideTrigger />
 
       <section className="bg-background">
         <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-[1.25fr_.75fr] md:items-stretch">
