@@ -65,7 +65,7 @@ function AuthPage() {
     setNotice(null);
     const parsed = creds.safeParse({ email, password });
     if (!parsed.success) {
-      setError(parsed.error.issues[0].message);
+      setError(parsed.error.issues[0]?.message ?? "Please check your details");
       return;
     }
     setBusy(true);

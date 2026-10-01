@@ -35,7 +35,7 @@ function CreatePitch() {
   async function submit(e: FormEvent) {
     e.preventDefault();
     const parsed = schema.safeParse(v);
-    if (!parsed.success) return setError(parsed.error.issues[0].message);
+    if (!parsed.success) return setError(parsed.error.issues[0]?.message ?? "Please check the form");
     setBusy(true);
     const d = parsed.data;
     const { error } = await supabase.from("pitches").insert({ ...d, synopsis: d.synopsis || null, rights: d.rights || null, user_id: user.id });
