@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { z } from "zod";
 import { ArrowRight, Feather, Loader2, PartyPopper } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -38,11 +38,31 @@ const empty: Values = { firstName: "", lastName: "", email: "", story: "" };
 export function ClaimArticleDialog({
   className,
   size = "lg",
+  autoOpenOnScroll = false,
+  hideTrigger = false,
 }: {
   className?: string;
   size?: "sm" | "default" | "lg";
+  autoOpenOnScroll?: boolean;
+  hideTrigger?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!autoOpenOnScroll) return;
+    const key = "fg-claim-popup-seen";
+    if (sessionStorage.getItem(key)) return;
+    function onScroll() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max > 0 && window.scrollY / max >= 0.35) {
+        sessionStorage.setItem(key, "1");
+        setOpen(true);
+        window.removeEventListener("scroll", onScroll);
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [autoOpenOnScroll]);
   const [step, setStep] = useState<Step>("intro");
   const [values, setValues] = useState<Values>(empty);
   const [errors, setErrors] = useState<Errors>({});
@@ -106,11 +126,11 @@ export function ClaimArticleDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
+      {hideTrigger ? null : <DialogTrigger asChild>
         <Button size={size} className={cn("rounded-none font-serif font-normal", className)}>
           <Feather className="size-4" /> Claim Free Article
         </Button>
-      </DialogTrigger>
+      </DialogTrigger>}
       <DialogContent className="max-h-[92vh] w-[calc(100%-2rem)] max-w-[480px] overflow-y-auto rounded-xl border-border bg-card p-7 shadow-2xl sm:p-9 [&>button]:size-9 [&>button]:grid [&>button]:place-items-center [&>button]:rounded-full [&>button]:opacity-80 [&>button:hover]:bg-muted [&>button]:focus-visible:ring-2 [&>button]:focus-visible:ring-ring">
         {step === "intro" && (
           <div key="intro" className="animate-in fade-in slide-in-from-bottom-2 text-center duration-300">

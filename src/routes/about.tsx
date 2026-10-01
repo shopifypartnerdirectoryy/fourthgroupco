@@ -21,6 +21,13 @@ export const Route = createFileRoute("/about")({
   component: Page,
 });
 
+const TEAM = [
+  { name: "Mou Barrac", role: "Founder & Managing Director", note: "Sets the direction of Fourth Group & Co and oversees partnerships, membership and the overall reader and writer experience." },
+  { name: "Aliyu Adam", role: "Editorial Director", note: "Leads the research desk, verifies every listing, and edits the Journal, author spotlights and featured articles." },
+  { name: "James Kamy", role: "Head of Film Adaptation & Partnerships", note: "Runs the movie adaptation programme, reviews story pitches and builds relationships with producers and presses." },
+  { name: "Emily Grace", role: "Community & Author Relations Manager", note: "Looks after members and directory authors, hosts literary events, and answers questions at hello@fourthgroupco.com." },
+];
+
 function Page() {
   return (
     <PageShell>
@@ -47,6 +54,22 @@ function Page() {
             <div key={f.title} className="rounded-xl border border-border bg-card p-6">
               <h2 className="font-serif text-lg text-card-foreground">{f.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="mt-14 font-serif text-3xl text-foreground">Our team</h2>
+        <div className="mt-6 grid gap-5 sm:grid-cols-2">
+          {TEAM.map((m) => (
+            <div key={m.name} className="flex gap-4 rounded-xl border border-border bg-card p-6">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-secondary font-serif text-secondary-foreground">
+                {m.name.split(" ").map((x) => x[0]).join("")}
+              </div>
+              <div>
+                <h3 className="font-serif text-lg text-card-foreground">{m.name}</h3>
+                <p className="text-sm text-primary">{m.role}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.note}</p>
+              </div>
             </div>
           ))}
         </div>

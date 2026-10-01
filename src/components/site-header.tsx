@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { supabase } from "@/integrations/supabase/client";
 import { NAV_GROUPS, SITE } from "@/data/site";
 import brandMark from "@/assets/fourth-group-mark.webp";
 import { Button } from "@/components/ui/button";
@@ -19,13 +21,31 @@ import {
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
+    const { data } = supabase.auth.onAuthStateChange((_e, session) => setSignedIn(!!session));
+    return () => data.subscription.unsubscribe();
+  }, []);
+  async function signOut() {
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
 
   return (
     <header className="relative z-50 bg-background">
       <div className="bg-secondary text-secondary-foreground">
         <div className="mx-auto flex h-10 max-w-6xl items-center justify-end gap-5 px-5 text-xs">
           <Link to="/contact" className="text-secondary-foreground/75 hover:text-secondary-foreground">Contact</Link>
-          <Link to="/membership" className="text-secondary-foreground/75 hover:text-secondary-foreground">Sign in</Link>
+          {signedIn ? (
+            <>
+              <Link to="/pitch-dashboard" className="text-secondary-foreground/75 hover:text-secondary-foreground">My dashboard</Link>
+              <button type="button" onClick={signOut} className="text-secondary-foreground/75 hover:text-secondary-foreground">Sign out</button>
+            </>
+          ) : (
+            <Link to="/auth" className="text-secondary-foreground/75 hover:text-secondary-foreground">Sign in</Link>
+          )}
           <Button asChild size="sm" className="h-7 rounded-md px-4 font-semibold">
             <Link to="/membership">Join now</Link>
           </Button>

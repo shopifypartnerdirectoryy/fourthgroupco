@@ -10,12 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthorServicesRouteImport } from './routes/author-services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContestsRouteImport } from './routes/contests'
 import { Route as CraftPracticeRouteImport } from './routes/craft-practice'
-import { Route as CreatePitchRouteImport } from './routes/create-pitch'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GrantsAwardsRouteImport } from './routes/grants-awards'
@@ -24,7 +25,6 @@ import { Route as LiteraryMagazinesRouteImport } from './routes/literary-magazin
 import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as MovieAdaptationRouteImport } from './routes/movie-adaptation'
 import { Route as NewsRouteImport } from './routes/news'
-import { Route as PitchDashboardRouteImport } from './routes/pitch-dashboard'
 import { Route as PitchPlansRouteImport } from './routes/pitch-plans'
 import { Route as ResidenciesRouteImport } from './routes/residencies'
 import { Route as ResourcesRouteImport } from './routes/resources'
@@ -34,15 +34,26 @@ import { Route as ShortStoriesRouteImport } from './routes/short-stories'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SmallPressesRouteImport } from './routes/small-presses'
 import { Route as WritingPromptsRouteImport } from './routes/writing-prompts'
+import { Route as AuthenticatedCreatePitchRouteImport } from './routes/_authenticated/create-pitch'
+import { Route as AuthenticatedPitchDashboardRouteImport } from './routes/_authenticated/pitch-dashboard'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthorServicesRoute = AuthorServicesRouteImport.update({
@@ -63,11 +74,6 @@ const ContestsRoute = ContestsRouteImport.update({
 const CraftPracticeRoute = CraftPracticeRouteImport.update({
   id: '/craft-practice',
   path: '/craft-practice',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CreatePitchRoute = CreatePitchRouteImport.update({
-  id: '/create-pitch',
-  path: '/create-pitch',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirectoryRoute = DirectoryRouteImport.update({
@@ -108,11 +114,6 @@ const MovieAdaptationRoute = MovieAdaptationRouteImport.update({
 const NewsRoute = NewsRouteImport.update({
   id: '/news',
   path: '/news',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PitchDashboardRoute = PitchDashboardRouteImport.update({
-  id: '/pitch-dashboard',
-  path: '/pitch-dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PitchPlansRoute = PitchPlansRouteImport.update({
@@ -160,15 +161,27 @@ const WritingPromptsRoute = WritingPromptsRouteImport.update({
   path: '/writing-prompts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedCreatePitchRoute =
+  AuthenticatedCreatePitchRouteImport.update({
+    id: '/create-pitch',
+    path: '/create-pitch',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPitchDashboardRoute =
+  AuthenticatedPitchDashboardRouteImport.update({
+    id: '/pitch-dashboard',
+    path: '/pitch-dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/craft-practice': typeof CraftPracticeRoute
-  '/create-pitch': typeof CreatePitchRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -177,7 +190,6 @@ export interface FileRoutesByFullPath {
   '/membership': typeof MembershipRoute
   '/movie-adaptation': typeof MovieAdaptationRoute
   '/news': typeof NewsRoute
-  '/pitch-dashboard': typeof PitchDashboardRoute
   '/pitch-plans': typeof PitchPlansRoute
   '/residencies': typeof ResidenciesRoute
   '/resources': typeof ResourcesRoute
@@ -187,15 +199,17 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-presses': typeof SmallPressesRoute
   '/writing-prompts': typeof WritingPromptsRoute
+  '/create-pitch': typeof AuthenticatedCreatePitchRoute
+  '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/craft-practice': typeof CraftPracticeRoute
-  '/create-pitch': typeof CreatePitchRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -204,7 +218,6 @@ export interface FileRoutesByTo {
   '/membership': typeof MembershipRoute
   '/movie-adaptation': typeof MovieAdaptationRoute
   '/news': typeof NewsRoute
-  '/pitch-dashboard': typeof PitchDashboardRoute
   '/pitch-plans': typeof PitchPlansRoute
   '/residencies': typeof ResidenciesRoute
   '/resources': typeof ResourcesRoute
@@ -214,16 +227,19 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-presses': typeof SmallPressesRoute
   '/writing-prompts': typeof WritingPromptsRoute
+  '/create-pitch': typeof AuthenticatedCreatePitchRoute
+  '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/craft-practice': typeof CraftPracticeRoute
-  '/create-pitch': typeof CreatePitchRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -232,7 +248,6 @@ export interface FileRoutesById {
   '/membership': typeof MembershipRoute
   '/movie-adaptation': typeof MovieAdaptationRoute
   '/news': typeof NewsRoute
-  '/pitch-dashboard': typeof PitchDashboardRoute
   '/pitch-plans': typeof PitchPlansRoute
   '/residencies': typeof ResidenciesRoute
   '/resources': typeof ResourcesRoute
@@ -242,17 +257,19 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/small-presses': typeof SmallPressesRoute
   '/writing-prompts': typeof WritingPromptsRoute
+  '/_authenticated/create-pitch': typeof AuthenticatedCreatePitchRoute
+  '/_authenticated/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/author-services'
     | '/contact'
     | '/contests'
     | '/craft-practice'
-    | '/create-pitch'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -261,7 +278,6 @@ export interface FileRouteTypes {
     | '/membership'
     | '/movie-adaptation'
     | '/news'
-    | '/pitch-dashboard'
     | '/pitch-plans'
     | '/residencies'
     | '/resources'
@@ -271,15 +287,17 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/small-presses'
     | '/writing-prompts'
+    | '/create-pitch'
+    | '/pitch-dashboard'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/author-services'
     | '/contact'
     | '/contests'
     | '/craft-practice'
-    | '/create-pitch'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -288,7 +306,6 @@ export interface FileRouteTypes {
     | '/membership'
     | '/movie-adaptation'
     | '/news'
-    | '/pitch-dashboard'
     | '/pitch-plans'
     | '/residencies'
     | '/resources'
@@ -298,15 +315,18 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/small-presses'
     | '/writing-prompts'
+    | '/create-pitch'
+    | '/pitch-dashboard'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/auth'
     | '/author-services'
     | '/contact'
     | '/contests'
     | '/craft-practice'
-    | '/create-pitch'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -315,7 +335,6 @@ export interface FileRouteTypes {
     | '/membership'
     | '/movie-adaptation'
     | '/news'
-    | '/pitch-dashboard'
     | '/pitch-plans'
     | '/residencies'
     | '/resources'
@@ -325,16 +344,19 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/small-presses'
     | '/writing-prompts'
+    | '/_authenticated/create-pitch'
+    | '/_authenticated/pitch-dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   AuthorServicesRoute: typeof AuthorServicesRoute
   ContactRoute: typeof ContactRoute
   ContestsRoute: typeof ContestsRoute
   CraftPracticeRoute: typeof CraftPracticeRoute
-  CreatePitchRoute: typeof CreatePitchRoute
   DirectoryRoute: typeof DirectoryRoute
   EventsRoute: typeof EventsRoute
   GrantsAwardsRoute: typeof GrantsAwardsRoute
@@ -343,7 +365,6 @@ export interface RootRouteChildren {
   MembershipRoute: typeof MembershipRoute
   MovieAdaptationRoute: typeof MovieAdaptationRoute
   NewsRoute: typeof NewsRoute
-  PitchDashboardRoute: typeof PitchDashboardRoute
   PitchPlansRoute: typeof PitchPlansRoute
   ResidenciesRoute: typeof ResidenciesRoute
   ResourcesRoute: typeof ResourcesRoute
@@ -364,11 +385,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/author-services': {
@@ -397,13 +432,6 @@ declare module '@tanstack/react-router' {
       path: '/craft-practice'
       fullPath: '/craft-practice'
       preLoaderRoute: typeof CraftPracticeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/create-pitch': {
-      id: '/create-pitch'
-      path: '/create-pitch'
-      fullPath: '/create-pitch'
-      preLoaderRoute: typeof CreatePitchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/directory': {
@@ -460,13 +488,6 @@ declare module '@tanstack/react-router' {
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof NewsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pitch-dashboard': {
-      id: '/pitch-dashboard'
-      path: '/pitch-dashboard'
-      fullPath: '/pitch-dashboard'
-      preLoaderRoute: typeof PitchDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pitch-plans': {
@@ -532,17 +553,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WritingPromptsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/create-pitch': {
+      id: '/_authenticated/create-pitch'
+      path: '/create-pitch'
+      fullPath: '/create-pitch'
+      preLoaderRoute: typeof AuthenticatedCreatePitchRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pitch-dashboard': {
+      id: '/_authenticated/pitch-dashboard'
+      path: '/pitch-dashboard'
+      fullPath: '/pitch-dashboard'
+      preLoaderRoute: typeof AuthenticatedPitchDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCreatePitchRoute: typeof AuthenticatedCreatePitchRoute
+  AuthenticatedPitchDashboardRoute: typeof AuthenticatedPitchDashboardRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCreatePitchRoute: AuthenticatedCreatePitchRoute,
+  AuthenticatedPitchDashboardRoute: AuthenticatedPitchDashboardRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   AuthorServicesRoute: AuthorServicesRoute,
   ContactRoute: ContactRoute,
   ContestsRoute: ContestsRoute,
   CraftPracticeRoute: CraftPracticeRoute,
-  CreatePitchRoute: CreatePitchRoute,
   DirectoryRoute: DirectoryRoute,
   EventsRoute: EventsRoute,
   GrantsAwardsRoute: GrantsAwardsRoute,
@@ -551,7 +600,6 @@ const rootRouteChildren: RootRouteChildren = {
   MembershipRoute: MembershipRoute,
   MovieAdaptationRoute: MovieAdaptationRoute,
   NewsRoute: NewsRoute,
-  PitchDashboardRoute: PitchDashboardRoute,
   PitchPlansRoute: PitchPlansRoute,
   ResidenciesRoute: ResidenciesRoute,
   ResourcesRoute: ResourcesRoute,

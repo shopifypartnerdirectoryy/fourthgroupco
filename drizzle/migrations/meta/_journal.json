@@ -15,6 +15,13 @@
       "when": 1790680714859,
       "tag": "0001_validate_article_claims_insert",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790846297850,
+      "tag": "0002_create_pitches",
+      "breakpoints": true
     }
   ]
 }
