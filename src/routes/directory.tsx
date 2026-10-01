@@ -21,6 +21,7 @@ export const Route = createFileRoute("/directory")({
 });
 
 const AUTHORS = [
+  { name: "Jack Ryan", genre: "Memoir · Humour · Featured author", place: "United States", books: 3 },
   { name: "Adaeze Okonkwo", genre: "Literary fiction", place: "Lagos", books: 2 },
   { name: "Helen Varga", genre: "Poetry", place: "Bristol", books: 1 },
   { name: "Marcus Ilesanmi", genre: "Short stories", place: "Toronto", books: 3 },
