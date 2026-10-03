@@ -18,3 +18,8 @@
 - [x] Make Claim Free Article a compact fixed prompt while scrolling
 - [x] Add the remaining personalized editorial, member, prompt, news, and event sections
 - [x] Verify images, links, scrolling prompt, and article submission on desktop and mobile
+
+- [ ] Build searchable literary magazines directory from supplied links
+- [ ] Build searchable small presses directory from supplied links
+- [ ] Build searchable literary agents directory from uploaded 225-row list
+- [ ] Verify filters, links, and responsive layouts
