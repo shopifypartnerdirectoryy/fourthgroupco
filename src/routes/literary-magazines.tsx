@@ -1,76 +1,66 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageShell, PageHeader, ListingGrid } from "@/components/page-shell";
+import { useMemo, useState } from "react";
+import { PageHeader, PageShell } from "@/components/page-shell";
+import { DirectoryToolbar, EmptyDirectory, GenreTags, SiteLink, StatusBadge } from "@/components/publishing-directory";
+import { MAGAZINES } from "@/data/publishing-directories";
 
 export const Route = createFileRoute("/literary-magazines")({
   staticData: { sitemap: true },
-  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/literary-magazines" }],
+  head: () => ({
+    links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/literary-magazines" }],
     meta: [
-      { title: "Literary Magazines Database | Fourth Group & Co" },
-      {
-        name: "description",
-        content:
-          "Browse verified literary magazines with reading periods, submission fees and response times, curated by Fourth Group & Co.",
-      },
-      { property: "og:title", content: "Literary Magazines Database | Fourth Group & Co" },
-      {
-        property: "og:description",
-        content: "Verified journals and magazines open to poetry, fiction and essays.",
-      },
+      { title: "Literary Magazines Directory | Fourth Group & Co" },
+      { name: "description", content: "Search literary magazines by genre and submission status, with official publication links." },
+      { property: "og:title", content: "Literary Magazines Directory | Fourth Group & Co" },
+      { property: "og:description", content: "Explore respected journals publishing poetry, fiction, essays and memoir." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/literary-magazines" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://fourthgroupco.lovable.app/literary-magazines" },
     ],
   }),
-  component: Page,
+  component: LiteraryMagazinesPage,
 });
 
-const ITEMS = [
-  {
-    name: "The Harbour Review",
-    meta: "Poetry · Essays · Open Sept–Dec",
-    detail: "Quarterly print journal with a preference for long-lined poems and place-based essays. No reading fee.",
-    tag: "Print",
-  },
-  {
-    name: "Lantern Quarterly",
-    meta: "Fiction · Open year-round",
-    detail: "Short fiction up to 5,000 words. Pays on acceptance and responds within eight weeks.",
-    tag: "Paying",
-  },
-  {
-    name: "Common Field",
-    meta: "Nature writing · Open Jan–Mar",
-    detail: "Essays and reportage on land, farming and climate. Welcomes first publications.",
-    tag: "Online",
-  },
-  {
-    name: "Nightshift",
-    meta: "Genre & speculative · Rolling",
-    detail: "Speculative short fiction and flash. Strong track record with debut authors.",
-    tag: "Paying",
-  },
-  {
-    name: "The Ninth Letter Box",
-    meta: "Hybrid forms · Open Oct–Feb",
-    detail: "Prose poetry, lyric essay and anything that resists a category.",
-    tag: "Hybrid",
-  },
-  {
-    name: "Riverlight",
-    meta: "Poetry · Open Apr–Jun",
-    detail: "A poetry-only journal publishing twice a year, with translation always welcome.",
-    tag: "Translation",
-  },
-];
+const GENRES = [...new Set(MAGAZINES.flatMap((item) => item.genres))].sort();
 
-function Page() {
+function LiteraryMagazinesPage() {
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("all");
+  const [genre, setGenre] = useState("all");
+  const results = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return MAGAZINES.filter((item) =>
+      (!query || `${item.name} ${item.description} ${item.genres.join(" ")}`.toLowerCase().includes(query)) &&
+      (status === "all" || item.status === status) &&
+      (genre === "all" || item.genres.includes(genre)),
+    );
+  }, [search, status, genre]);
+
   return (
     <PageShell>
-      <PageHeader
-        kicker="Database"
-        title="Literary magazines open to submissions"
-        intro="Over 340 journals, each checked by hand for reading period, fees, payment and response time. A sample of the database is shown below."
-      />
-      <ListingGrid items={ITEMS} />
+      <PageHeader kicker="Publish your writing" title="Literary magazines" intro="Explore established journals publishing poetry, fiction, essays and memoir. Always confirm current guidelines on the publication’s official site before submitting." />
+      <section className="mx-auto max-w-6xl px-5 py-12 md:py-16">
+        <DirectoryToolbar search={search} onSearch={setSearch} status={status} onStatus={setStatus} statuses={["Open", "Closed"]} genre={genre} onGenre={setGenre} genres={GENRES} placeholder="Search magazines, genres, or descriptions" />
+        <p className="py-5 text-xs font-medium uppercase text-muted-foreground" aria-live="polite">{results.length} {results.length === 1 ? "magazine" : "magazines"} found</p>
+        {results.length ? <div className="grid gap-4">
+          {results.map((item) => (
+            <article key={item.name} className="grid gap-5 rounded-md border border-border bg-card p-5 shadow-sm md:grid-cols-[minmax(0,1fr)_13rem] md:p-6">
+              <div>
+                <div className="flex flex-wrap items-center gap-2"><h2 className="font-serif text-xl text-card-foreground">{item.name}</h2><StatusBadge status={item.status} /></div>
+                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                <div className="mt-4"><GenreTags genres={item.genres} /></div>
+              </div>
+              <dl className="grid content-start gap-2 border-t border-border pt-4 text-xs md:border-l md:border-t-0 md:pl-5 md:pt-0">
+                <div className="flex justify-between gap-3"><dt className="text-muted-foreground">Reading</dt><dd className="font-medium">{item.reading}</dd></div>
+                <div className="flex justify-between gap-3"><dt className="text-muted-foreground">Payment</dt><dd className="font-medium">{item.payment}</dd></div>
+                <div className="flex justify-between gap-3"><dt className="text-muted-foreground">Typical response</dt><dd className="font-medium">{item.response}</dd></div>
+                <div className="mt-2 md:text-right"><SiteLink href={item.website} label={`Visit ${item.name}`} /></div>
+              </dl>
+            </article>
+          ))}
+        </div> : <EmptyDirectory />}
+        <p className="mt-8 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">Submission windows and policies can change. Fourth Group & Co links you directly to each publication so you can review its latest requirements.</p>
+      </section>
     </PageShell>
   );
 }
