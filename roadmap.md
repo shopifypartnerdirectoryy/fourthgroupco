@@ -35,4 +35,4 @@
 - [x] Expand Literary Events with original Fourth Group programme and interest actions
 - [x] Expand News & Articles and Craft & Practice with original editorial collections
 - [x] Expand Author Services with personalized support pathways
-- [ ] Verify the expanded author and editorial pages on desktop and mobile
+- [x] Verify the expanded author and editorial pages on desktop and mobile
