@@ -1,54 +1,30 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { PageHeader, PageShell } from "@/components/page-shell";
+import { Clapperboard, Search } from "lucide-react";
+import { useMemo, useState } from "react";
+import { PageShell } from "@/components/page-shell";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/search-pitches")({
   staticData: { sitemap: true },
-  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/search-pitches" }], meta: [{ title: "Search Story Pitches | Fourth Group & Co" }, { name: "description", content: "Browse original stories presented for screen adaptation." }, { property: "og:title", content: "Search Story Pitches | Fourth Group & Co" }, { property: "og:description", content: "Discover adaptation-ready stories." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/search-pitches" }] }),
-  component: Page,
+  head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/search-pitches" }], meta: [{ title: "Search Story Pitches | Fourth Group & Co" }, { name: "description", content: "Search public, author-submitted story pitches by title, format and genre for film and television adaptation." }, { property: "og:title", content: "Search Story Pitches | Fourth Group & Co" }, { property: "og:description", content: "Discover adaptation-ready stories shared by their rights holders." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/search-pitches" }] }),
+  component: PitchLibrary,
 });
 
-function Page() {
-  const [q, setQ] = useState("");
-  const { data, isLoading } = useQuery({
-    queryKey: ["public-pitches"],
-    queryFn: async () => {
-      const { data, error } = await supabase.from("pitches").select("id,title,logline,genre,format,rights").eq("published", true).order("created_at", { ascending: false }).limit(100);
-      if (error) throw error;
-      return data;
-    },
-  });
-  const term = q.trim().toLowerCase();
-  const list = (data ?? []).filter((p) => !term || `${p.title} ${p.genre} ${p.logline}`.toLowerCase().includes(term));
-
-  return (
-    <PageShell>
-      <PageHeader kicker="Movie adaptation" title="Search pitches" intro="Original fiction and nonfiction presented by its authors for film and television." />
-      <section className="mx-auto max-w-5xl px-5 py-14">
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Input aria-label="Search pitches" placeholder="Search by title, genre or keyword" value={q} onChange={(e) => setQ(e.target.value)} />
-          <Button asChild><Link to="/create-pitch">Create a pitch</Link></Button>
-        </div>
-        {isLoading ? <p className="mt-8 text-muted-foreground">Loading pitches…</p> : null}
-        {!isLoading && list.length === 0 ? (
-          <p className="mt-10 text-center text-muted-foreground">No pitches match yet. Be the first to list yours.</p>
-        ) : null}
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          {list.map((p) => (
-            <article key={p.id} className="rounded-md border border-border bg-card p-6 shadow-sm">
-              <span className="rounded-full bg-accent px-3 py-1 text-xs text-accent-foreground">{p.format}</span>
-              <h2 className="mt-4 font-serif text-xl text-card-foreground">{p.title}</h2>
-              <p className="text-sm text-primary">{p.genre}</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.logline}</p>
-              {p.rights ? <p className="mt-3 text-xs text-muted-foreground">Rights: {p.rights}</p> : null}
-            </article>
-          ))}
-        </div>
-      </section>
-    </PageShell>
-  );
+function PitchLibrary() {
+  const [query, setQuery] = useState("");
+  const [format, setFormat] = useState("all");
+  const [genre, setGenre] = useState("all");
+  const { data, isLoading, isError } = useQuery({ queryKey: ["public-pitches"], queryFn: async () => { const { data, error } = await supabase.from("pitches").select("id,title,logline,genre,format,rights,synopsis").eq("published", true).order("created_at", { ascending: false }).limit(100); if (error) throw error; return data; } });
+  const pitches = data ?? [];
+  const formats = [...new Set(pitches.map((pitch) => pitch.format))].sort();
+  const genres = [...new Set(pitches.map((pitch) => pitch.genre))].sort();
+  const results = useMemo(() => { const term = query.trim().toLowerCase(); return pitches.filter((pitch) => (!term || `${pitch.title} ${pitch.genre} ${pitch.logline} ${pitch.synopsis ?? ""}`.toLowerCase().includes(term)) && (format === "all" || pitch.format === format) && (genre === "all" || pitch.genre === genre)); }, [format, genre, pitches, query]);
+  return <PageShell>
+    <section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-6xl px-5 py-14 md:py-20"><h1 className="font-serif text-4xl md:text-5xl">Search the pitch library</h1><p className="mt-3 text-secondary-foreground/70">Original stories shared by their rights holders for screen consideration.</p><div className="mt-8 grid gap-3 md:grid-cols-[minmax(0,1fr)_13rem_13rem]"><label className="relative"><span className="sr-only">Search pitches</span><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"/><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Title, logline, genre, or keyword" className="h-11 bg-card pl-10 text-foreground"/></label><Select value={format} onValueChange={setFormat}><SelectTrigger aria-label="Filter by format" className="h-11 bg-card text-foreground"><SelectValue placeholder="All formats"/></SelectTrigger><SelectContent><SelectItem value="all">All formats</SelectItem>{formats.map((item) => <SelectItem key={item} value={item}>{item}</SelectItem>)}</SelectContent></Select><Select value={genre} onValueChange={setGenre}><SelectTrigger aria-label="Filter by genre" className="h-11 bg-card text-foreground"><SelectValue placeholder="All genres"/></SelectTrigger><SelectContent><SelectItem value="all">All genres</SelectItem>{genres.map((item) => <SelectItem key={item} value={item}>{item}</SelectItem>)}</SelectContent></Select></div></div></section>
+    <section className="mx-auto max-w-6xl px-5 py-12 md:py-16"><div className="flex flex-wrap items-center justify-between gap-4"><p className="flex items-center gap-2 text-xs font-medium uppercase text-muted-foreground" aria-live="polite"><Clapperboard className="size-4"/>{isLoading ? "Loading pitches" : `${results.length} ${results.length === 1 ? "pitch" : "pitches"} found`}</p><Button asChild><Link to="/create-pitch">Create a pitch</Link></Button></div>{isError ? <p role="alert" className="mt-10 border border-destructive p-5 text-sm text-destructive">The pitch library could not be loaded. Please try again shortly.</p> : null}{!isLoading && !isError && results.length === 0 ? <div className="mt-10 border border-dashed border-border py-16 text-center"><h2 className="font-serif text-2xl">No public pitches match</h2><p className="mt-2 text-sm text-muted-foreground">Try broader filters, or create the first public pitch in this category.</p></div> : null}<div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{results.map((pitch) => <article key={pitch.id} className="flex min-h-72 flex-col rounded-md border border-border bg-card p-6 shadow-sm"><div className="flex flex-wrap gap-2"><span className="rounded-sm bg-accent px-2 py-1 text-[10px] font-semibold uppercase text-accent-foreground">{pitch.format}</span><span className="rounded-sm border border-border px-2 py-1 text-[10px] text-muted-foreground">{pitch.genre}</span></div><h2 className="mt-5 font-serif text-2xl">{pitch.title}</h2><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{pitch.logline}</p>{pitch.synopsis ? <p className="mt-4 line-clamp-4 text-xs leading-relaxed text-muted-foreground">{pitch.synopsis}</p> : null}<div className="mt-auto border-t border-border pt-4 text-xs"><span className="text-muted-foreground">Rights position: </span>{pitch.rights || "Ask the rights holder"}</div></article>)}</div></section>
+  </PageShell>;
 }
