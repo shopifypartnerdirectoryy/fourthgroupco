@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageShell, PageHeader, ListingGrid } from "@/components/page-shell";
+import { PageShell, PageHeader } from "@/components/page-shell";
+import { OpportunityDirectory } from "@/components/opportunity-directory";
+import { CONTESTS } from "@/data/opportunities";
 
 export const Route = createFileRoute("/contests")({
   staticData: { sitemap: true },
@@ -20,54 +22,15 @@ export const Route = createFileRoute("/contests")({
   component: Page,
 });
 
-const ITEMS = [
-  {
-    name: "The Long Light Poetry Prize",
-    meta: "Entry $12 · Closes 31 Oct",
-    detail: "Single poems up to 60 lines. First prize $1,500 and publication in the winners' anthology.",
-    tag: "Poetry",
-  },
-  {
-    name: "Harbour Short Story Award",
-    meta: "Entry $15 · Closes 20 Jan",
-    detail: "Stories to 6,000 words, judged blind by a rotating panel of three writers.",
-    tag: "Fiction",
-  },
-  {
-    name: "First Draft Screenplay Competition",
-    meta: "Entry $30 · Closes 5 Mar",
-    detail: "Feature-length screenplays. Winners receive industry reads and a development meeting.",
-    tag: "Screen",
-  },
-  {
-    name: "Flash Season",
-    meta: "Free entry · Closes 12 Dec",
-    detail: "Flash fiction under 500 words, no fee, open worldwide.",
-    tag: "Free",
-  },
-  {
-    name: "Memoir in Miniature",
-    meta: "Entry $10 · Closes 28 Feb",
-    detail: "Personal essays to 2,000 words on a set theme announced each autumn.",
-    tag: "Essay",
-  },
-  {
-    name: "The Debut Manuscript Award",
-    meta: "Entry $25 · Closes 14 Jun",
-    detail: "Unpublished novel manuscripts, with the winner receiving a full editorial report.",
-    tag: "Novel",
-  },
-];
-
 function Page() {
   return (
     <PageShell>
       <PageHeader
         kicker="Database"
         title="Writing contests now open"
-        intro="Around 140 competitions across poetry, fiction, essay and screenwriting. We list the fee, prize and deadline plainly, and flag every free-to-enter award."
+        intro="Compare established competitions across poetry, fiction, essays and books, with fees and prize information shown plainly."
       />
-      <ListingGrid items={ITEMS} />
+      <OpportunityDirectory items={CONTESTS} searchPlaceholder="Search contests, genres, or entry fees" renderDetails={(item) => <><p><span className="text-muted-foreground">Prize:</span> <strong>{item.prize}</strong></p><p><span className="text-muted-foreground">Entry:</span> {item.fee}</p><p><span className="text-muted-foreground">Deadline:</span> {item.deadline}</p></>} />
     </PageShell>
   );
 }
