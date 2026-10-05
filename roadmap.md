@@ -30,4 +30,9 @@
 - [x] Expand the movie-adaptation overview and pricing pages
 - [x] Improve live pitch search with format and genre filters
 - [x] Add search, filters, and richer original profiles to the author directory
-- [ ] Verify all referenced pages on desktop and mobile
+- [x] Verify all referenced pages on desktop and mobile
+- [x] Add the complete supplied featured-author list to the author directory
+- [x] Expand Literary Events with original Fourth Group programme and interest actions
+- [x] Expand News & Articles and Craft & Practice with original editorial collections
+- [x] Expand Author Services with personalized support pathways
+- [x] Verify the expanded author and editorial pages on desktop and mobile
