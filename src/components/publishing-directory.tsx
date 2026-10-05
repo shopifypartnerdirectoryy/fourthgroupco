@@ -65,7 +65,7 @@ export function DirectoryToolbar({
 }
 
 export function StatusBadge({ status }: { status: string }) {
-  const open = status === "Open" || status === "Accepting";
+  const open = status === "Open" || status === "Accepting" || status === "Rolling";
   return (
     <span className={open ? "rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold uppercase text-primary-foreground" : "rounded-full bg-secondary px-2.5 py-1 text-[10px] font-bold uppercase text-secondary-foreground"}>
       {status}
