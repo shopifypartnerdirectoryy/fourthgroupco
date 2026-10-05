@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageShell, PageHeader, ListingGrid } from "@/components/page-shell";
+import { PageShell, PageHeader } from "@/components/page-shell";
+import { OpportunityDirectory } from "@/components/opportunity-directory";
+import { GRANTS } from "@/data/opportunities";
 
 export const Route = createFileRoute("/grants-awards")({
   staticData: { sitemap: true },
@@ -20,54 +22,15 @@ export const Route = createFileRoute("/grants-awards")({
   component: Page,
 });
 
-const ITEMS = [
-  {
-    name: "Headland Fellowship",
-    meta: "$12,000 · Deadline 30 Nov",
-    detail: "A year of unrestricted funding for a writer working on a first book in any genre.",
-    tag: "Fellowship",
-  },
-  {
-    name: "Common Good Bursary",
-    meta: "$3,500 · Rolling",
-    detail: "Small grants for writers facing a specific barrier: childcare, travel, equipment or time.",
-    tag: "Bursary",
-  },
-  {
-    name: "The Weatherfield Prize",
-    meta: "$7,500 · Deadline 15 Feb",
-    detail: "Awarded to a published collection of poetry from a small press.",
-    tag: "Prize",
-  },
-  {
-    name: "Translators' Fund",
-    meta: "$5,000 · Two rounds yearly",
-    detail: "Supports sample translations and pitch packages for untranslated works.",
-    tag: "Translation",
-  },
-  {
-    name: "Late Start Award",
-    meta: "$4,000 · Deadline 1 Sep",
-    detail: "For writers publishing a first book after the age of fifty.",
-    tag: "Debut",
-  },
-  {
-    name: "Regional Voices Grant",
-    meta: "$2,000 · Quarterly",
-    detail: "Funding for writers working outside major publishing centres.",
-    tag: "Regional",
-  },
-];
-
 function Page() {
   return (
     <PageShell>
       <PageHeader
         kicker="Database"
         title="Grants, fellowships and awards"
-        intro="Over 210 funding opportunities, each with eligibility, award amount and deadline confirmed with the awarding body."
+        intro="Research fellowships, project grants and literary awards. Each entry leads to the funder’s official guidance for current dates and eligibility."
       />
-      <ListingGrid items={ITEMS} />
+      <OpportunityDirectory items={GRANTS} searchPlaceholder="Search grants, awards, genres, or eligibility" renderDetails={(item) => <><p><span className="text-muted-foreground">Award:</span> <strong>{item.amount}</strong></p><p><span className="text-muted-foreground">Deadline:</span> {item.deadline}</p><p><span className="text-muted-foreground">Eligibility:</span> {item.eligibility}</p></>} />
     </PageShell>
   );
 }

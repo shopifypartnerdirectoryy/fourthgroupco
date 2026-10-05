@@ -13,3 +13,4 @@
 - Keep the brand logo as a Vite-imported local asset, with a separate optimized public favicon, so external deployments remain portable.
 
 - Keep large editorial directories in typed local data modules so public pages remain fast, portable, and independent of runtime services.
+- Keep editorial opportunity records and author profiles in typed local data modules so filters remain consistent across public directories.

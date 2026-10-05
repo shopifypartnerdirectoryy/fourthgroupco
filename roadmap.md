@@ -23,3 +23,11 @@
 - [x] Build searchable small presses directory from supplied links
 - [x] Build searchable literary agents directory from uploaded 225-row list
 - [x] Verify filters, links, and responsive layouts
+
+- [x] Expand grants, contests, and residencies into searchable official-link directories
+- [x] Build the rights-agent guide and enquiry form
+- [x] Build the complete short-stories editorial page
+- [x] Expand the movie-adaptation overview and pricing pages
+- [x] Improve live pitch search with format and genre filters
+- [x] Add search, filters, and richer original profiles to the author directory
+- [ ] Verify all referenced pages on desktop and mobile
