@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-const EDITORIAL_EMAIL = "stories@fourthgroupco.com";
+const EDITORIAL_EMAIL = "stories@fourthgroup.co";
 
 const schema = z.object({
   firstName: z.string().trim().min(1, "Please enter your first name.").max(100, "First name is too long."),
