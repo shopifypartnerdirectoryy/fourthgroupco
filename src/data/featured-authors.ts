@@ -6,6 +6,15 @@ export type FeaturedAuthor = {
 };
 
 export const FEATURED_AUTHORS: FeaturedAuthor[] = [
+  { "name": "Patricia Squire", "notableWork": "Stjarna's Stars", "genres": "Children's, Fantasy, Illustrated", "summary": "A luminous illustrated tale of a young girl, winter skies, and the wonder of following the stars." },
+  { "name": "Michael Knapp", "notableWork": "Shattered by Love", "genres": "Romance, Fiction, Drama", "summary": "A heartfelt story of love, loss, and joy across a life shaped by family, service, and second chances." },
+  { "name": "Dave Gioia", "notableWork": "A Girl with a Bad Reputation", "genres": "Fiction, Drama, Coming of Age", "summary": "A sharp, emotional novel about rumour, judgement, and a young woman reclaiming her own story." },
+  { "name": "Jamie Goudeau", "notableWork": "Lucrecia: Memoir of a Manic Woman", "genres": "Memoir, Mental Health, Nonfiction", "summary": "A candid, unflinching memoir of living with mania, resilience, and the search for wholeness." },
+  { "name": "Jean Pi Lee", "notableWork": "Reflections for the Twenty-First Century", "genres": "Nonfiction, Essays, Current Affairs", "summary": "Thoughtful reflections on a changing world, from global shifts to the personal questions of modern life." },
+  { "name": "Roger E. Pedersen", "notableWork": "SuperPower: The Ability to Fly or to Become Invisible (Book 4)", "genres": "Science Fiction, Superhero, Series", "summary": "The fourth instalment of the In Ashes, Phoenix Eagles Shall Rise series, where extraordinary abilities carry extraordinary consequences." },
+  { "name": "Jon Waller", "notableWork": "Finish the Race", "genres": "Fiction, Sports, Inspirational", "summary": "An energetic story of endurance and determination, where crossing the line means more than winning." },
+  { "name": "D.M. McGowan", "notableWork": "Gunfighters, Thieves and Lawmen · Boundaries", "genres": "Western, Historical Fiction, Audiobook", "summary": "Frontier stories of lawmen, outlaws, and ranch country, many narrated by the author himself." },
+  { "name": "Ev Cochrane", "notableWork": "Egypt Under the Stars", "genres": "Nonfiction, History, Mythology", "summary": "A scholarly exploration of astral religion and cosmogonic myth in ancient Egypt." },
   {
     "name": "Vinquita Romaine",
     "notableWork": "Evil at the Core",
