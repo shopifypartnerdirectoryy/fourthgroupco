@@ -26,8 +26,8 @@ export function ScrollReveal() {
       const els = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR));
       const vh = window.innerHeight;
       els.forEach((el, i) => {
-        if (el.dataset.revealBound) return;
-        el.dataset.revealBound = "1";
+        if (el.dataset["revealBound"]) return;
+        el.dataset["revealBound"] = "1";
         const rect = el.getBoundingClientRect();
         el.classList.add("reveal");
         el.style.setProperty("--reveal-delay", `${Math.min(i % 6, 5) * 60}ms`);
