@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", "@id": "https://fourthgroupco.lovable.app/#org", name: "Fourth Group & Co", url: "https://fourthgroupco.lovable.app", logo: "https://fourthgroupco.lovable.app/favicon.png", email: "hello@fourthgroupco.com", description: "A global writers network for authors, poets and screenwriters." },
+            { "@type": "Organization", "@id": "https://fourthgroupco.lovable.app/#org", name: "Fourth Group & Co", url: "https://fourthgroupco.lovable.app", logo: "https://fourthgroupco.lovable.app/favicon.png", email: "hello@fourthgroup.co", description: "A global writers network for authors, poets and screenwriters." },
             { "@type": "WebSite", "@id": "https://fourthgroupco.lovable.app/#site", name: "Fourth Group & Co", url: "https://fourthgroupco.lovable.app", publisher: { "@id": "https://fourthgroupco.lovable.app/#org" }, inLanguage: "en" },
           ],
         }),

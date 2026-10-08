@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Fourth Group & Co",
   short: "Fourth Group",
-  email: "hello@fourthgroupco.com",
+  email: "hello@fourthgroup.co",
   tagline:
     "A global network for authors, poets and screenwriters — resources, opportunity listings and a community that reads you closely.",
   membership: 25,

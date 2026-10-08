@@ -25,7 +25,7 @@ const TEAM = [
   { name: "Mou Barrac", role: "Founder & Managing Director", note: "Sets the direction of Fourth Group & Co and oversees partnerships, membership and the overall reader and writer experience." },
   { name: "Aliyu Adam", role: "Editorial Director", note: "Leads the research desk, verifies every listing, and edits the Journal, author spotlights and featured articles." },
   { name: "James Kamy", role: "Head of Film Adaptation & Partnerships", note: "Runs the movie adaptation programme, reviews story pitches and builds relationships with producers and presses." },
-  { name: "Emily Grace", role: "Community & Author Relations Manager", note: "Looks after members and directory authors, hosts literary events, and answers questions at hello@fourthgroupco.com." },
+  { name: "Emily Grace", role: "Community & Author Relations Manager", note: "Looks after members and directory authors, hosts literary events, and answers questions at hello@fourthgroup.co." },
 ];
 
 function Page() {
