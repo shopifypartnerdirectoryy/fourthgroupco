@@ -8,20 +8,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
-import { COMMUNITY_CATEGORIES, categoryLabel } from "@/data/community";
+import { COMMUNITY_CATEGORIES, COMMUNITY_BOOKS, bookByKey, categoryLabel } from "@/data/community";
+import { CommunityBookCard } from "@/components/community-book-card";
 
 export const Route = createFileRoute("/_authenticated/author-community")({
   staticData: { sitemap: false },
   head: () => ({ meta: [
-    { title: "Fourth Group Author Community | Fourth Group & Co" }, { name: "description", content: "A place for authors to connect, share experiences, review books, and discuss agents, publishing, marketing, and media." },
-    { property: "og:title", content: "Fourth Group Author Community | Fourth Group & Co" }, { property: "og:description", content: "Members-only discussion rooms." },
+    { title: "Fourth Group Authors & Readers Community | Fourth Group & Co" }, { name: "description", content: "A place for authors to connect, share experiences, review books, and discuss agents, publishing, marketing, and media." },
+    { property: "og:title", content: "Fourth Group Authors & Readers Community | Fourth Group & Co" }, { property: "og:description", content: "Members-only discussion rooms." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex, nofollow" },
   ] }),
   component: CommunityPage,
 });
 
 const PAGE = 20;
-type Post = { id: string; author_id: string; author_name: string; author_badge: string; category: string; title: string; body: string; pinned: boolean; hidden: boolean; reply_count: number; like_count: number; created_at: string };
+type Post = { id: string; author_id: string; author_name: string; author_badge: string; category: string; title: string; body: string; pinned: boolean; hidden: boolean; reply_count: number; like_count: number; created_at: string; book_key: string | null };
 
 function Badge({ b }: { b: string }) {
   if (b === "member") return <span className="ml-2 rounded-sm bg-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Premium Member</span>;
@@ -74,7 +75,7 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
         ? q.order("like_count", { ascending: false }).order("reply_count", { ascending: false })
         : q.order("pinned", { ascending: false }).order("created_at", { ascending: false });
       if (cat !== "all") q = q.eq("category", cat);
-      if (search.trim()) q = q.or(`title.ilike.%${search.trim()}%,body.ilike.%${search.trim()}%`);
+      if (search.trim()) q = q.or(`title.ilike.%${search.trim()}%,body.ilike.%${search.trim()}%,author_name.ilike.%${search.trim()}%`);
       const { data, error } = await q; if (error) throw error; return data as Post[];
     },
     getNextPageParam: (last, all) => (last.length === PAGE ? all.length * PAGE : undefined),
@@ -94,6 +95,14 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
     },
   });
 
+  const totals = useQuery({
+    queryKey: ["community-totals"],
+    queryFn: async () => {
+      const [p, m] = await Promise.all([supabase.rpc("community_post_total"), supabase.rpc("community_member_total")]);
+      return { posts: Number(p.data ?? 0), members: Number(m.data ?? 0) };
+    },
+  });
+
   const mod = useMutation({
     mutationFn: async ({ id, patch, del }: { id: string; patch?: Record<string, unknown>; del?: boolean }) => {
       const r = del ? await supabase.from("community_posts").delete().eq("id", id) : await supabase.from("community_posts").update(patch as never).eq("id", id);
@@ -108,7 +117,12 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
 
   return (
     <PageShell>
-      <PageHeader kicker="Members" title="Fourth Group Author Community" intro="A place for authors to connect, share experiences, review books, and discuss agents, publishing, marketing, and media. Please read the community guidelines." />
+      <PageHeader kicker="Community" title="Fourth Group Authors & Readers Community" intro="A global literary network where writers, screenwriters, and avid readers connect, discover new books, leave reviews, and discuss publishing." />
+      <div className="mx-auto flex max-w-7xl flex-wrap gap-4 px-5 pt-8">
+        <div className="rounded-sm border border-border bg-card px-5 py-3"><p className="font-serif text-2xl text-card-foreground">{(totals.data?.members ?? 0).toLocaleString()}</p><p className="text-xs uppercase tracking-wider text-muted-foreground">Members</p></div>
+        <div className="rounded-sm border border-border bg-card px-5 py-3"><p className="font-serif text-2xl text-card-foreground">{(totals.data?.posts ?? 0).toLocaleString()}</p><p className="text-xs uppercase tracking-wider text-muted-foreground">Discussions & Reviews</p></div>
+        <p className="self-center text-xs text-muted-foreground">Live counts — they grow as members join and post.</p>
+      </div>
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 lg:grid-cols-[220px_1fr_260px]">
         {/* Left sidebar */}
         <nav aria-label="Rooms" className="flex flex-wrap gap-2 lg:flex-col">
@@ -120,7 +134,7 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
         {/* Main feed */}
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-3">
-            <Input placeholder="Search posts…" value={search} onChange={(e) => setSearch(e.target.value)} className="max-w-xs" aria-label="Search posts" />
+            <Input placeholder="Search titles, authors, posts…" value={search} onChange={(e) => setSearch(e.target.value)} className="max-w-xs" aria-label="Search posts" />
             <NewPost userId={userId} cats={cats.filter((c) => c.key !== "announcements" || staff)} staff={staff} defaultCat={cat} />
           </div>
           {posts.isLoading ? <p className="py-8 text-sm text-muted-foreground">Loading posts…</p> : null}
@@ -249,6 +263,7 @@ function PostRow({ post: p, userId, staff, open, onToggle, onMod }: {
             </form>
           ) : null}
 
+          {bookByKey(p.book_key) ? <CommunityBookCard book={bookByKey(p.book_key)!} /> : null}
           {open && !editing ? <Thread post={p} userId={userId} staff={staff} /> : null}
 
           <div className="mt-2 flex flex-wrap items-center gap-1">
@@ -284,15 +299,15 @@ function PostRow({ post: p, userId, staff, open, onToggle, onMod }: {
 function NewPost({ userId, cats, staff, defaultCat }: { userId: string; cats: readonly { key: string; label: string }[]; staff: boolean; defaultCat: string }) {
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
-  const [f, setF] = useState({ name: "", category: "", title: "", body: "" });
+  const [f, setF] = useState({ name: "", category: "", title: "", body: "", book: "" });
   const save = useMutation({
     mutationFn: async () => {
       const category = f.category || (defaultCat !== "all" && cats.some((c) => c.key === defaultCat) ? defaultCat : "discussions");
       if (f.name.trim().length < 1 || f.title.trim().length < 3 || !f.body.trim()) throw new Error("Please add your display name, a title (3+ characters) and your post.");
-      const { error } = await supabase.from("community_posts").insert({ author_id: userId, author_name: f.name.trim().slice(0, 80), category, title: f.title.trim().slice(0, 160), body: f.body.trim().slice(0, 10000) });
+      const { error } = await supabase.from("community_posts").insert({ author_id: userId, author_name: f.name.trim().slice(0, 80), category, title: f.title.trim().slice(0, 160), body: f.body.trim().slice(0, 10000), book_key: f.book || null });
       if (error) throw new Error(error.message.includes("too quickly") ? error.message : "Could not publish your post.");
     },
-    onSuccess: () => { setF({ ...f, title: "", body: "" }); setOpen(false); qc.invalidateQueries({ queryKey: ["community"] }); toast.success("Posted"); },
+    onSuccess: () => { setF({ ...f, title: "", body: "", book: "" }); setOpen(false); qc.invalidateQueries({ queryKey: ["community"] }); toast.success("Posted"); },
     onError: (e) => toast.error(e.message),
   });
   if (!open) return <Button onClick={() => setOpen(true)}>Create Post</Button>;
@@ -307,6 +322,10 @@ function NewPost({ userId, cats, staff, defaultCat }: { userId: string; cats: re
         </select>
       </div>
       <Input placeholder="Title" value={f.title} onChange={(e) => setF({ ...f, title: e.target.value })} maxLength={160} />
+      <select aria-label="Attach a book" className="h-9 rounded-md border border-input bg-background px-2 text-sm" value={f.book} onChange={(e) => setF({ ...f, book: e.target.value })}>
+        <option value="">Attach a book card (optional)</option>
+        {COMMUNITY_BOOKS.map((b) => <option key={b.key} value={b.key}>{b.title} — {b.author}</option>)}
+      </select>
       <Textarea placeholder="What would you like to share?" rows={5} value={f.body} onChange={(e) => setF({ ...f, body: e.target.value })} maxLength={10000} />
       <div className="flex gap-2"><Button type="submit" disabled={save.isPending}>Publish</Button><Button type="button" variant="ghost" onClick={() => setOpen(false)}>Cancel</Button></div>
       {staff ? <p className="text-xs text-muted-foreground">As staff you can post in Announcements.</p> : null}

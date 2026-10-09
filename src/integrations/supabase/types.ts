@@ -105,6 +105,7 @@ export type Database = {
           author_id: string
           author_name: string
           body: string
+          book_key: string | null
           category: string
           created_at: string
           hidden: boolean
@@ -120,6 +121,7 @@ export type Database = {
           author_id: string
           author_name: string
           body: string
+          book_key?: string | null
           category: string
           created_at?: string
           hidden?: boolean
@@ -135,6 +137,7 @@ export type Database = {
           author_id?: string
           author_name?: string
           body?: string
+          book_key?: string | null
           category?: string
           created_at?: string
           hidden?: boolean
@@ -756,6 +759,8 @@ export type Database = {
         }
         Returns: undefined
       }
+      community_member_total: { Args: never; Returns: number }
+      community_post_total: { Args: never; Returns: number }
       critique_contact: { Args: { _request_id: string }; Returns: string }
       decide_team_application: {
         Args: { _id: string; _status: string }
