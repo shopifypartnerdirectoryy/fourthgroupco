@@ -14,3 +14,5 @@
 
 - Keep large editorial directories in typed local data modules so public pages remain fast, portable, and independent of runtime services.
 - Keep editorial opportunity records and author profiles in typed local data modules so filters remain consistent across public directories.
+- Business policy values (support email, price, payment link, review link) live in src/data/policies.ts so copy stays consistent across pages.
+- Admin rights come only from public.user_roles via has_role(); UI checks are cosmetic, RLS enforces access.
