@@ -4,7 +4,7 @@ import { Heart, MessageCircle } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/hooks/use-session";
-import { CATEGORIES } from "@/data/community";
+import { COMMUNITY_CATEGORIES as CATEGORIES } from "@/data/community";
 
 export const Route = createFileRoute("/_authenticated/scale-preview")({
   staticData: { sitemap: false },
