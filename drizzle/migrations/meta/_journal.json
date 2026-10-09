@@ -57,6 +57,13 @@
       "when": 1791583596400,
       "tag": "0007_community_author_badges",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791584442840,
+      "tag": "0008_require_referral_code",
+      "breakpoints": true
     }
   ]
 }
