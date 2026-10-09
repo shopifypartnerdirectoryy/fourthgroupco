@@ -4,6 +4,8 @@ import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
 import { AuthorSpotlightForm } from "@/components/author-spotlight-form";
+import { WeeklySpotlights } from "@/components/weekly-spotlights";
+import { COUNTS, TOTAL_OPPORTUNITIES } from "@/data/directory-counts";
 import { SITE } from "@/data/site";
 import heroDesk from "@/assets/hero-desk.jpg";
 import earlyMornings from "@/assets/early-mornings-with-dick.jpg";
@@ -148,10 +150,10 @@ const events = [
 ] as const;
 
 const writerTools = [
-  { icon: Search, label: "Find Opportunities", detail: "Grants, awards and contests", to: "/grants-awards" },
-  { icon: Library, label: "Publish Your Writing", detail: "Magazines, presses and agents", to: "/literary-magazines" },
+  { icon: Search, label: "Find Opportunities", detail: `${COUNTS.grants} grants · ${COUNTS.contests} contests · ${COUNTS.residencies} residencies`, to: "/grants-awards" },
+  { icon: Library, label: "Publish Your Writing", detail: `${COUNTS.magazines} magazines · ${COUNTS.presses} presses · ${COUNTS.agents} agents`, to: "/literary-magazines" },
   { icon: Film, label: "Pitch for the Screen", detail: "Put your story before producers", to: "/movie-adaptation" },
-  { icon: Users, label: "Meet the Community", detail: "Authors, events and conversations", to: "/directory" },
+  { icon: Users, label: "Meet the Community", detail: `${COUNTS.authors} authors in the directory`, to: "/directory" },
   { icon: Feather, label: "Strengthen Your Craft", detail: "Prompts, practice and support", to: "/writing-prompts" },
 ] as const;
 
@@ -178,6 +180,8 @@ function Index() {
       </section>
 
       <ClaimArticleDialog autoOpenOnScroll hideTrigger />
+
+      <WeeklySpotlights />
 
       <section className="border-b border-border bg-accent/35">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
@@ -209,8 +213,8 @@ function Index() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Write about a room you have not entered in years. Let the objects speak before the people do, and end on a sound rather than an image.</p>
             <Button asChild variant="outline" className="mt-7 rounded-none"><Link to="/writing-prompts">Start writing <ArrowRight /></Link></Button>
             <div className="mt-10 border-t border-border pt-8">
-              <p className="font-serif text-5xl text-primary">1,200+</p>
-              <p className="mt-2 text-xs font-semibold uppercase text-muted-foreground">Literary opportunities researched for writers</p>
+              <p className="font-serif text-5xl text-primary">{TOTAL_OPPORTUNITIES.toLocaleString()}</p>
+              <p className="mt-2 text-xs font-semibold uppercase text-muted-foreground">Magazines, presses, agents, grants, contests and residencies listed today</p>
             </div>
           </div>
         </div>
