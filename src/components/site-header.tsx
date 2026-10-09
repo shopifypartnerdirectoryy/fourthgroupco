@@ -40,7 +40,7 @@ export function SiteHeader() {
           <Link to="/contact" className="text-secondary-foreground/75 hover:text-secondary-foreground">Contact</Link>
           {signedIn ? (
             <>
-              <Link to="/pitch-dashboard" className="text-secondary-foreground/75 hover:text-secondary-foreground">My dashboard</Link>
+              <Link to="/dashboard" className="text-secondary-foreground/75 hover:text-secondary-foreground">My dashboard</Link><Link to="/submissions" className="text-secondary-foreground/75 hover:text-secondary-foreground">My Desk</Link>
               <button type="button" onClick={signOut} className="text-secondary-foreground/75 hover:text-secondary-foreground">Sign out</button>
             </>
           ) : (
