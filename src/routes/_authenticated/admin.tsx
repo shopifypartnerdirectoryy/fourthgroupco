@@ -40,6 +40,9 @@ function AdminPage() {
             <TabsTrigger value="pitches">Pitches</TabsTrigger>
             <TabsTrigger value="weekly">Weekly spotlights</TabsTrigger>
             <TabsTrigger value="reports">Critique reports</TabsTrigger>
+            <TabsTrigger value="team">Team</TabsTrigger>
+            <TabsTrigger value="referrals">Referrals</TabsTrigger>
+            <TabsTrigger value="roles">Roles</TabsTrigger>
           </TabsList>
           <TabsContent value="spotlights"><Spotlights /></TabsContent>
           <TabsContent value="claims"><Claims /></TabsContent>
@@ -49,6 +52,9 @@ function AdminPage() {
           <TabsContent value="pitches"><Pitches /></TabsContent>
           <TabsContent value="weekly"><Weekly /></TabsContent>
           <TabsContent value="reports"><Reports /></TabsContent>
+          <TabsContent value="team"><Team /></TabsContent>
+          <TabsContent value="referrals"><Referrals /></TabsContent>
+          <TabsContent value="roles"><Roles /></TabsContent>
         </Tabs>
       </div>
     </PageShell>
@@ -102,7 +108,7 @@ function Memberships() {
   };
   return <div>{data.map((m) => (
     <Row key={m.id}>
-      <div><p className="font-semibold">Member {m.user_id.slice(0, 8)} · {m.status.replace("_", " ")}</p>
+      <div><p className="font-semibold">{m.contact_name ?? `Member ${m.user_id.slice(0, 8)}`} · {m.plan === "pro" ? "Pro" : "Standard"} · {m.status.replace("_", " ")}{m.referral_code ? ` · referral ${m.referral_code}` : ""}</p>
         <p className="text-xs text-muted-foreground">Requested {m.created_at.slice(0, 10)}{m.expires_on ? ` · paid through ${m.expires_on}` : ""}{m.cancel_requested_at ? " · cancellation requested" : ""} · terms {m.terms_version}</p></div>
       <div className="flex flex-wrap gap-2">
         {m.status !== "active" ? <Button size="sm" onClick={() => { if (confirm("Confirm payment was received and activate for 12 months?")) activate(m.id); }}>Confirm payment</Button> : null}
@@ -199,4 +205,54 @@ function Reports() {
   if (!data.length) return <Empty />;
   return <div>{data.map((r) => <Row key={r.id}><div><p className="font-semibold">{r.project_title} <span className="font-normal text-muted-foreground">· {r.status}</span></p><p className="text-xs">{r.message}</p><p className="text-xs text-muted-foreground">From {r.requester_id.slice(0, 8)} to {r.recipient_id.slice(0, 8)} · {r.created_at.slice(0, 10)}</p></div>
     <div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => up.mutate({ id: r.id, patch: { status: "withdrawn", reported: false } })}>Close request</Button><Button size="sm" variant="ghost" onClick={() => up.mutate({ id: r.id, patch: { reported: false } })}>Dismiss report</Button></div></Row>)}</div>;
+}
+
+function Team() {
+  const qc = useQueryClient();
+  const { data = [] } = useTable("team", () => supabase.from("team_applications").select("*").order("created_at", { ascending: false }));
+  const decide = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => { const { error } = await supabase.rpc("decide_team_application", { _id: id, _status: status }); if (error) throw error; },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin", "team"] }); toast.success("Updated"); },
+    onError: () => toast.error("Update failed"),
+  });
+  if (!data.length) return <Empty />;
+  return <div>{data.map((a) => (
+    <Row key={a.id}>
+      <div><p className="font-semibold">{a.full_name} · {a.role_interest} · {a.status}{a.referral_code ? ` · code ${a.referral_code}` : ""}</p>
+        <p className="text-xs text-muted-foreground">{a.email}{a.phone ? ` · ${a.phone}` : ""}{a.country ? ` · ${a.country}` : ""} · {a.created_at.slice(0, 10)}</p>
+        <p className="mt-1 text-xs">{a.motivation}</p></div>
+      <div className="flex flex-wrap gap-2">
+        {a.status !== "approved" ? <Button size="sm" onClick={() => decide.mutate({ id: a.id, status: "approved" })}>Approve & issue code</Button> : <Button size="sm" variant="outline" onClick={() => decide.mutate({ id: a.id, status: "suspended" })}>Suspend</Button>}
+        {a.status === "pending" ? <Button size="sm" variant="ghost" onClick={() => decide.mutate({ id: a.id, status: "rejected" })}>Reject</Button> : null}
+      </div>
+    </Row>))}</div>;
+}
+
+function Referrals() {
+  const { data: team = [] } = useTable("team", () => supabase.from("team_applications").select("*").order("created_at", { ascending: false }));
+  const { data: ms = [] } = useTable("memberships", () => supabase.from("memberships").select("*").order("created_at", { ascending: false }));
+  const codes = team.filter((t) => t.referral_code);
+  if (!codes.length) return <Empty />;
+  return <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="text-left text-xs uppercase text-muted-foreground"><th className="py-2">Code</th><th>Team member</th><th>Status</th><th>Confirmed paid referrals</th><th>Awaiting payment</th></tr></thead><tbody>
+    {codes.map((t) => {
+      const mine = ms.filter((m) => m.referral_code === t.referral_code);
+      return <tr key={t.id} className="border-t border-border"><td className="py-2 font-mono">{t.referral_code}</td><td>{t.full_name}</td><td>{t.status}</td>
+        <td>{mine.filter((m) => m.started_on).length}</td><td>{mine.filter((m) => m.status === "pending_payment").length}</td></tr>;
+    })}</tbody></table>
+    <p className="mt-3 text-xs text-muted-foreground">Only memberships whose payment was confirmed by staff are counted as referrals.</p></div>;
+}
+
+function Roles() {
+  const [email, setEmail] = useState(""); const [role, setRole] = useState<"moderator" | "admin">("moderator");
+  const run = useMutation({
+    mutationFn: async (grant: boolean) => { const { error } = await supabase.rpc("admin_set_role", { _email: email, _role: role, _grant: grant }); if (error) throw error; },
+    onSuccess: () => toast.success("Role updated"),
+    onError: (e: Error) => toast.error(e.message.includes("No account") ? "No account uses that email yet." : "Update failed"),
+  });
+  return <div className="grid max-w-md gap-3 py-6">
+    <p className="text-sm text-muted-foreground">Give or remove moderator or admin access. The person must already have an account.</p>
+    <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+    <select aria-label="Role" className={sel} value={role} onChange={(e) => setRole(e.target.value as "moderator" | "admin")}><option value="moderator">Moderator</option><option value="admin">Admin</option></select>
+    <div className="flex gap-2"><Button size="sm" onClick={() => run.mutate(true)}>Grant</Button><Button size="sm" variant="outline" onClick={() => run.mutate(false)}>Remove</Button></div>
+  </div>;
 }
