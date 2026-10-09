@@ -41,6 +41,8 @@ export const NAV_GROUPS = [
   {
     label: "Community",
     items: [
+      { label: "Community Preview", to: "/community" },
+      { label: "Author Community", to: "/author-community" },
       { label: "Author Directory", to: "/directory" },
       { label: "Literary Events", to: "/events" },
       { label: "News & Articles", to: "/news" },
