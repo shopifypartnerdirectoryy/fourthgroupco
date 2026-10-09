@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContestsRouteImport } from './routes/contests'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as CraftPracticeRouteImport } from './routes/craft-practice'
+import { Route as CritiqueExchangeRouteImport } from './routes/critique-exchange'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GrantsAwardsRouteImport } from './routes/grants-awards'
@@ -88,6 +89,11 @@ const CookiePolicyRoute = CookiePolicyRouteImport.update({
 const CraftPracticeRoute = CraftPracticeRouteImport.update({
   id: '/craft-practice',
   path: '/craft-practice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CritiqueExchangeRoute = CritiqueExchangeRouteImport.update({
+  id: '/critique-exchange',
+  path: '/critique-exchange',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirectoryRoute = DirectoryRouteImport.update({
@@ -238,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/craft-practice': typeof CraftPracticeRoute
+  '/critique-exchange': typeof CritiqueExchangeRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -275,6 +282,7 @@ export interface FileRoutesByTo {
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/craft-practice': typeof CraftPracticeRoute
+  '/critique-exchange': typeof CritiqueExchangeRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -314,6 +322,7 @@ export interface FileRoutesById {
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/craft-practice': typeof CraftPracticeRoute
+  '/critique-exchange': typeof CritiqueExchangeRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -353,6 +362,7 @@ export interface FileRouteTypes {
     | '/contests'
     | '/cookie-policy'
     | '/craft-practice'
+    | '/critique-exchange'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -390,6 +400,7 @@ export interface FileRouteTypes {
     | '/contests'
     | '/cookie-policy'
     | '/craft-practice'
+    | '/critique-exchange'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -428,6 +439,7 @@ export interface FileRouteTypes {
     | '/contests'
     | '/cookie-policy'
     | '/craft-practice'
+    | '/critique-exchange'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -467,6 +479,7 @@ export interface RootRouteChildren {
   ContestsRoute: typeof ContestsRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   CraftPracticeRoute: typeof CraftPracticeRoute
+  CritiqueExchangeRoute: typeof CritiqueExchangeRoute
   DirectoryRoute: typeof DirectoryRoute
   EventsRoute: typeof EventsRoute
   GrantsAwardsRoute: typeof GrantsAwardsRoute
@@ -554,6 +567,13 @@ declare module '@tanstack/react-router' {
       path: '/craft-practice'
       fullPath: '/craft-practice'
       preLoaderRoute: typeof CraftPracticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/critique-exchange': {
+      id: '/critique-exchange'
+      path: '/critique-exchange'
+      fullPath: '/critique-exchange'
+      preLoaderRoute: typeof CritiqueExchangeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/directory': {
@@ -777,6 +797,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContestsRoute: ContestsRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   CraftPracticeRoute: CraftPracticeRoute,
+  CritiqueExchangeRoute: CritiqueExchangeRoute,
   DirectoryRoute: DirectoryRoute,
   EventsRoute: EventsRoute,
   GrantsAwardsRoute: GrantsAwardsRoute,
