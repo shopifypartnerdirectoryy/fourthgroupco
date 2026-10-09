@@ -41,6 +41,87 @@ export type Database = {
         }
         Relationships: []
       }
+      critique_profiles: {
+        Row: {
+          bio: string | null
+          created_at: string
+          display_name: string
+          experience: string
+          forms: string[]
+          genres: string[]
+          id: string
+          looking_for: string | null
+          open_to_requests: boolean
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          display_name: string
+          experience?: string
+          forms?: string[]
+          genres?: string[]
+          id?: string
+          looking_for?: string | null
+          open_to_requests?: boolean
+          role: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          display_name?: string
+          experience?: string
+          forms?: string[]
+          genres?: string[]
+          id?: string
+          looking_for?: string | null
+          open_to_requests?: boolean
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      critique_requests: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          project_title: string
+          recipient_id: string
+          reported: boolean
+          requester_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          project_title: string
+          recipient_id: string
+          reported?: boolean
+          requester_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          project_title?: string
+          recipient_id?: string
+          reported?: boolean
+          requester_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       desk_items: {
         Row: {
           category: string
@@ -154,6 +235,56 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      pitch_deck_requests: {
+        Row: {
+          company: string | null
+          created_at: string
+          id: string
+          message: string
+          owner_id: string
+          owner_reply: string | null
+          pitch_id: string
+          requester_id: string
+          requester_name: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          id?: string
+          message: string
+          owner_id: string
+          owner_reply?: string | null
+          pitch_id: string
+          requester_id: string
+          requester_name: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          owner_id?: string
+          owner_reply?: string | null
+          pitch_id?: string
+          requester_id?: string
+          requester_name?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pitch_deck_requests_pitch_id_fkey"
+            columns: ["pitch_id"]
+            isOneToOne: false
+            referencedRelation: "pitches"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       pitches: {
         Row: {
@@ -328,11 +459,55 @@ export type Database = {
         }
         Relationships: []
       }
+      weekly_spotlights: {
+        Row: {
+          created_at: string
+          creator_name: string
+          description: string
+          id: string
+          image_url: string | null
+          kind: string
+          link_url: string | null
+          specialty: string | null
+          status: string
+          title: string
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          creator_name: string
+          description: string
+          id?: string
+          image_url?: string | null
+          kind: string
+          link_url?: string | null
+          specialty?: string | null
+          status?: string
+          title: string
+          week_start: string
+        }
+        Update: {
+          created_at?: string
+          creator_name?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          kind?: string
+          link_url?: string | null
+          specialty?: string | null
+          status?: string
+          title?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      critique_contact: { Args: { _request_id: string }; Returns: string }
+      deck_request_contact: { Args: { _request_id: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
