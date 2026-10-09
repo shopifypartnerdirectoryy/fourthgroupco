@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, Globe2, Mail } from "lucide-react";
 import { PageHeader, PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
+import { EventRsvp } from "@/components/event-rsvp";
 import { EVENT_PROGRAMMES, UPCOMING_EVENTS } from "@/data/editorial-content";
 import { SITE } from "@/data/site";
 
@@ -56,7 +57,7 @@ function EventsPage() {
               <article key={event.title} className="grid gap-4 py-7 sm:grid-cols-[10rem_1fr_auto] sm:items-center">
                 <div><span className="text-[10px] font-semibold uppercase text-primary">{event.type}</span><p className="mt-1 flex items-center gap-2 text-xs text-muted-foreground"><CalendarDays className="size-3.5" />To be announced</p></div>
                 <div><h3 className="font-serif text-xl">{event.title}</h3><p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">{event.note}</p><p className="mt-2 text-xs font-medium text-foreground">{event.format}</p></div>
-                <Button asChild variant="outline" size="sm"><a href={`mailto:${SITE.email}?subject=${encodeURIComponent(`Event interest: ${event.title}`)}`}><Mail />Register interest</a></Button>
+                <EventRsvp eventKey={event.title} title={event.title} />
               </article>
             ))}
           </div>

@@ -40,8 +40,11 @@ import { Route as SmallPressesRouteImport } from './routes/small-presses'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustStandardsRouteImport } from './routes/trust-standards'
 import { Route as WritingPromptsRouteImport } from './routes/writing-prompts'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCreatePitchRouteImport } from './routes/_authenticated/create-pitch'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedPitchDashboardRouteImport } from './routes/_authenticated/pitch-dashboard'
+import { Route as AuthenticatedSubmissionsRouteImport } from './routes/_authenticated/submissions'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -197,16 +200,32 @@ const WritingPromptsRoute = WritingPromptsRouteImport.update({
   path: '/writing-prompts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedCreatePitchRoute =
   AuthenticatedCreatePitchRouteImport.update({
     id: '/create-pitch',
     path: '/create-pitch',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPitchDashboardRoute =
   AuthenticatedPitchDashboardRouteImport.update({
     id: '/pitch-dashboard',
     path: '/pitch-dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSubmissionsRoute =
+  AuthenticatedSubmissionsRouteImport.update({
+    id: '/submissions',
+    path: '/submissions',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -241,8 +260,11 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/trust-standards': typeof TrustStandardsRoute
   '/writing-prompts': typeof WritingPromptsRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/create-pitch': typeof AuthenticatedCreatePitchRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
+  '/submissions': typeof AuthenticatedSubmissionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -275,8 +297,11 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/trust-standards': typeof TrustStandardsRoute
   '/writing-prompts': typeof WritingPromptsRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/create-pitch': typeof AuthenticatedCreatePitchRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
+  '/submissions': typeof AuthenticatedSubmissionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -311,8 +336,11 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/trust-standards': typeof TrustStandardsRoute
   '/writing-prompts': typeof WritingPromptsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/create-pitch': typeof AuthenticatedCreatePitchRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
+  '/_authenticated/submissions': typeof AuthenticatedSubmissionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -347,8 +375,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/trust-standards'
     | '/writing-prompts'
+    | '/admin'
     | '/create-pitch'
+    | '/dashboard'
     | '/pitch-dashboard'
+    | '/submissions'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -381,8 +412,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/trust-standards'
     | '/writing-prompts'
+    | '/admin'
     | '/create-pitch'
+    | '/dashboard'
     | '/pitch-dashboard'
+    | '/submissions'
   id:
     | '__root__'
     | '/'
@@ -416,8 +450,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/trust-standards'
     | '/writing-prompts'
+    | '/_authenticated/admin'
     | '/_authenticated/create-pitch'
+    | '/_authenticated/dashboard'
     | '/_authenticated/pitch-dashboard'
+    | '/_authenticated/submissions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -673,11 +710,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WritingPromptsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/create-pitch': {
       id: '/_authenticated/create-pitch'
       path: '/create-pitch'
       fullPath: '/create-pitch'
       preLoaderRoute: typeof AuthenticatedCreatePitchRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/pitch-dashboard': {
@@ -687,17 +738,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPitchDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/submissions': {
+      id: '/_authenticated/submissions'
+      path: '/submissions'
+      fullPath: '/submissions'
+      preLoaderRoute: typeof AuthenticatedSubmissionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedCreatePitchRoute: typeof AuthenticatedCreatePitchRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedPitchDashboardRoute: typeof AuthenticatedPitchDashboardRoute
+  AuthenticatedSubmissionsRoute: typeof AuthenticatedSubmissionsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedCreatePitchRoute: AuthenticatedCreatePitchRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedPitchDashboardRoute: AuthenticatedPitchDashboardRoute,
+  AuthenticatedSubmissionsRoute: AuthenticatedSubmissionsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { PageShell, PageHeader } from "@/components/page-shell";
 import { SITE, FAQ } from "@/data/site";
+import { POLICY } from "@/data/policies";
 
 export const Route = createFileRoute("/membership")({
   staticData: { sitemap: true },
@@ -53,6 +54,7 @@ function Page() {
             ))}
           </ul>
 
+          <p className="mt-8 text-sm text-muted-foreground">Read the <Link to="/membership-terms" className="text-primary underline">Membership Terms</Link>, <Link to="/refund-policy" className="text-primary underline">Refund Policy</Link> and <Link to="/trust-standards" className="text-primary underline">Trust & Transparency</Link> page.</p>
           <h2 className="mt-14 font-serif text-2xl text-foreground">Questions</h2>
           <div className="mt-6 space-y-6">
             {FAQ.map((f) => (
@@ -67,13 +69,17 @@ function Page() {
         <aside className="h-fit rounded-2xl border border-border bg-card p-8">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">Annual</p>
           <p className="mt-3 font-serif text-5xl text-card-foreground">${SITE.membership}</p>
-          <p className="mt-1 text-sm text-muted-foreground">per year, cancel any time</p>
-          <a
-            href={`mailto:${SITE.email}?subject=Membership`}
+          <p className="mt-1 text-sm text-muted-foreground">per year · renews manually</p>
+          <Link
+            to="/dashboard"
             className="mt-6 block rounded-full bg-primary px-5 py-3 text-center text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
             Become a member
-          </a>
+          </Link>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            {POLICY.durationMonths} months · manual renewal only, never charged automatically · price confirmed at checkout.
+            {POLICY.paymentUrl ? "" : " Online payment opens soon — create your account now and we'll send the secure payment link."}
+          </p>
           <Link
             to="/contact"
             className="mt-3 block rounded-full border border-border px-5 py-3 text-center text-sm text-foreground"
