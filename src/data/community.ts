@@ -1,10 +1,15 @@
 export const COMMUNITY_CATEGORIES = [
   { key: "announcements", label: "Announcements", note: "Updates from the Fourth Group & Co team." },
-  { key: "introductions", label: "Introductions", note: "Say hello and share what you are working on." },
-  { key: "craft", label: "Craft & Revision", note: "Drafts, structure, voice and the long middle." },
-  { key: "publishing", label: "Publishing & Submissions", note: "Agents, presses, journals and query letters." },
+  { key: "discussions", label: "Author Discussions", note: "Craft, structure, voice and the long middle." },
+  { key: "success", label: "Success Stories", note: "Deals, publications and milestones worth celebrating." },
+  { key: "reviews", label: "Book Reviews", note: "What members are reading and recommending." },
+  { key: "publishing", label: "Publishing", note: "Presses, journals, query letters and submissions." },
   { key: "marketing", label: "Marketing & Promotion", note: "Launches, readings and reaching readers." },
-  { key: "screen", label: "Screen & Adaptation", note: "Pitches, treatments and rights." },
+  { key: "agents", label: "Literary Agents", note: "Querying, offers and working with representation." },
+  { key: "film", label: "Film & Media", note: "Pitches, treatments, adaptation and rights." },
+  { key: "resources", label: "Author Resources", note: "Tools, templates and verified links worth saving." },
+  { key: "book-updates", label: "Book Updates", note: "Progress reports on works in progress and releases." },
+  { key: "questions", label: "Questions", note: "Ask the community and share what you know." },
   { key: "pro", label: "Pro Lounge", note: "A quieter room for Pro Members." },
 ] as const;
 export type CommunityCategory = (typeof COMMUNITY_CATEGORIES)[number]["key"];
