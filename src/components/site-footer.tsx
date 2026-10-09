@@ -2,6 +2,30 @@ import { Link } from "@tanstack/react-router";
 import { NAV, SITE } from "@/data/site";
 import brandLogo from "@/assets/fourth-group-footer-logo.webp";
 
+const FOOTER_GROUPS: { title: string; links: { to: string; label: string }[] }[] = [
+  { title: "Explore", links: NAV.slice(0, 6).map((n) => ({ to: n.to, label: n.label })) },
+  {
+    title: "Company",
+    links: [
+      { to: "/about", label: "About us" },
+      { to: "/membership", label: "Membership" },
+      { to: "/trust-standards", label: "Trust & Transparency" },
+      { to: "/team-register", label: "Team Registration" },
+      { to: "/contact", label: "Contact" },
+    ],
+  },
+  {
+    title: "Policies",
+    links: [
+      { to: "/terms", label: "Terms of Service" },
+      { to: "/privacy", label: "Privacy Policy" },
+      { to: "/refund-policy", label: "Refund Policy" },
+      { to: "/membership-terms", label: "Membership Terms" },
+      { to: "/cookie-policy", label: "Cookie Policy" },
+    ],
+  },
+];
+
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-secondary-foreground/10 bg-secondary text-secondary-foreground">
