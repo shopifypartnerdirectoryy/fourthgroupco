@@ -85,6 +85,13 @@
       "when": 1791587383841,
       "tag": "0011_community_reader_rooms_books_open_access",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791587572621,
+      "tag": "0012_public_community_access",
+      "breakpoints": true
     }
   ]
 }

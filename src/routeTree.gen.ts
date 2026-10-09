@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthorCommunityRouteImport } from './routes/author-community'
 import { Route as AuthorProtectionRouteImport } from './routes/author-protection'
 import { Route as AuthorServicesRouteImport } from './routes/author-services'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -45,7 +46,6 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustStandardsRouteImport } from './routes/trust-standards'
 import { Route as WritingPromptsRouteImport } from './routes/writing-prompts'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as AuthenticatedAuthorCommunityRouteImport } from './routes/_authenticated/author-community'
 import { Route as AuthenticatedCreatePitchRouteImport } from './routes/_authenticated/create-pitch'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedPitchDashboardRouteImport } from './routes/_authenticated/pitch-dashboard'
@@ -70,6 +70,11 @@ const AboutRoute = AboutRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorCommunityRoute = AuthorCommunityRouteImport.update({
+  id: '/author-community',
+  path: '/author-community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthorProtectionRoute = AuthorProtectionRouteImport.update({
@@ -232,12 +237,6 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAuthorCommunityRoute =
-  AuthenticatedAuthorCommunityRouteImport.update({
-    id: '/author-community',
-    path: '/author-community',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
 const AuthenticatedCreatePitchRoute =
   AuthenticatedCreatePitchRouteImport.update({
     id: '/create-pitch',
@@ -278,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-community': typeof AuthorCommunityRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/community': typeof CommunityRoute
@@ -310,7 +310,6 @@ export interface FileRoutesByFullPath {
   '/trust-standards': typeof TrustStandardsRoute
   '/writing-prompts': typeof WritingPromptsRoute
   '/admin': typeof AuthenticatedAdminRoute
-  '/author-community': typeof AuthenticatedAuthorCommunityRoute
   '/create-pitch': typeof AuthenticatedCreatePitchRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
@@ -322,6 +321,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-community': typeof AuthorCommunityRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/community': typeof CommunityRoute
@@ -354,7 +354,6 @@ export interface FileRoutesByTo {
   '/trust-standards': typeof TrustStandardsRoute
   '/writing-prompts': typeof WritingPromptsRoute
   '/admin': typeof AuthenticatedAdminRoute
-  '/author-community': typeof AuthenticatedAuthorCommunityRoute
   '/create-pitch': typeof AuthenticatedCreatePitchRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
@@ -368,6 +367,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-community': typeof AuthorCommunityRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/community': typeof CommunityRoute
@@ -400,7 +400,6 @@ export interface FileRoutesById {
   '/trust-standards': typeof TrustStandardsRoute
   '/writing-prompts': typeof WritingPromptsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
-  '/_authenticated/author-community': typeof AuthenticatedAuthorCommunityRoute
   '/_authenticated/create-pitch': typeof AuthenticatedCreatePitchRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
@@ -414,6 +413,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-community'
     | '/author-protection'
     | '/author-services'
     | '/community'
@@ -446,7 +446,6 @@ export interface FileRouteTypes {
     | '/trust-standards'
     | '/writing-prompts'
     | '/admin'
-    | '/author-community'
     | '/create-pitch'
     | '/dashboard'
     | '/pitch-dashboard'
@@ -458,6 +457,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-community'
     | '/author-protection'
     | '/author-services'
     | '/community'
@@ -490,7 +490,6 @@ export interface FileRouteTypes {
     | '/trust-standards'
     | '/writing-prompts'
     | '/admin'
-    | '/author-community'
     | '/create-pitch'
     | '/dashboard'
     | '/pitch-dashboard'
@@ -503,6 +502,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/author-community'
     | '/author-protection'
     | '/author-services'
     | '/community'
@@ -535,7 +535,6 @@ export interface FileRouteTypes {
     | '/trust-standards'
     | '/writing-prompts'
     | '/_authenticated/admin'
-    | '/_authenticated/author-community'
     | '/_authenticated/create-pitch'
     | '/_authenticated/dashboard'
     | '/_authenticated/pitch-dashboard'
@@ -549,6 +548,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  AuthorCommunityRoute: typeof AuthorCommunityRoute
   AuthorProtectionRoute: typeof AuthorProtectionRoute
   AuthorServicesRoute: typeof AuthorServicesRoute
   CommunityRoute: typeof CommunityRoute
@@ -610,6 +610,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/author-community': {
+      id: '/author-community'
+      path: '/author-community'
+      fullPath: '/author-community'
+      preLoaderRoute: typeof AuthorCommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/author-protection': {
@@ -836,13 +843,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/author-community': {
-      id: '/_authenticated/author-community'
-      path: '/author-community'
-      fullPath: '/author-community'
-      preLoaderRoute: typeof AuthenticatedAuthorCommunityRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/create-pitch': {
       id: '/_authenticated/create-pitch'
       path: '/create-pitch'
@@ -890,7 +890,6 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
-  AuthenticatedAuthorCommunityRoute: typeof AuthenticatedAuthorCommunityRoute
   AuthenticatedCreatePitchRoute: typeof AuthenticatedCreatePitchRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedPitchDashboardRoute: typeof AuthenticatedPitchDashboardRoute
@@ -901,7 +900,6 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
-  AuthenticatedAuthorCommunityRoute: AuthenticatedAuthorCommunityRoute,
   AuthenticatedCreatePitchRoute: AuthenticatedCreatePitchRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedPitchDashboardRoute: AuthenticatedPitchDashboardRoute,
@@ -918,6 +916,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  AuthorCommunityRoute: AuthorCommunityRoute,
   AuthorProtectionRoute: AuthorProtectionRoute,
   AuthorServicesRoute: AuthorServicesRoute,
   CommunityRoute: CommunityRoute,
