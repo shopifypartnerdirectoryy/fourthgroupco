@@ -181,7 +181,10 @@ function Index() {
 
       <ClaimArticleDialog autoOpenOnScroll hideTrigger />
 
-      <WeeklySpotlights />
+      <WeeklySpotlights fallback={{
+        book: { title: "Early Mornings with “Dick”", creator_name: "Jack Ryan", specialty: "Memoir · Humour", description: "Our editors' pick this week: a warm, wry book about the small rituals that hold a life together — the kind of read you finish and immediately recommend.", image_url: earlyMornings, link_url: "https://www.amazon.com/Early-Mornings-Dick-Jack-Ryan/dp/1808570472" },
+        creative: { title: "Stjarna's Stars", creator_name: "Patricia Squire", specialty: "Author · Storyteller", description: "This week we celebrate Patricia Squire, whose imaginative storytelling and care for young readers make her a creative voice worth following.", image_url: stjarnasStars, link_url: "https://www.amazon.com/Stjarnas-Stars-Patricia-Squire/dp/1039192289" },
+      }} />
 
       <section className="border-b border-border bg-accent/35">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center">

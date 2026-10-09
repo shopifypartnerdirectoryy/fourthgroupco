@@ -58,6 +58,7 @@ export const NAV_GROUPS = [
       { label: "Copyright & Badges", to: "/author-protection" },
       { label: "About Us", to: "/about" },
       { label: "Trust & Transparency", to: "/trust-standards" },
+      { label: "Team Registration", to: "/team-register" },
     ],
   },
 ] as const;
