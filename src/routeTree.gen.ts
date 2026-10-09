@@ -49,6 +49,7 @@ import { Route as AuthenticatedAuthorCommunityRouteImport } from './routes/_auth
 import { Route as AuthenticatedCreatePitchRouteImport } from './routes/_authenticated/create-pitch'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedPitchDashboardRouteImport } from './routes/_authenticated/pitch-dashboard'
+import { Route as AuthenticatedScalePreviewRouteImport } from './routes/_authenticated/scale-preview'
 import { Route as AuthenticatedSubmissionsRouteImport } from './routes/_authenticated/submissions'
 import { Route as AuthenticatedTeamRegisterRouteImport } from './routes/_authenticated/team-register'
 
@@ -254,6 +255,12 @@ const AuthenticatedPitchDashboardRoute =
     path: '/pitch-dashboard',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedScalePreviewRoute =
+  AuthenticatedScalePreviewRouteImport.update({
+    id: '/scale-preview',
+    path: '/scale-preview',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSubmissionsRoute =
   AuthenticatedSubmissionsRouteImport.update({
     id: '/submissions',
@@ -307,6 +314,7 @@ export interface FileRoutesByFullPath {
   '/create-pitch': typeof AuthenticatedCreatePitchRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
+  '/scale-preview': typeof AuthenticatedScalePreviewRoute
   '/submissions': typeof AuthenticatedSubmissionsRoute
   '/team-register': typeof AuthenticatedTeamRegisterRoute
 }
@@ -350,6 +358,7 @@ export interface FileRoutesByTo {
   '/create-pitch': typeof AuthenticatedCreatePitchRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
+  '/scale-preview': typeof AuthenticatedScalePreviewRoute
   '/submissions': typeof AuthenticatedSubmissionsRoute
   '/team-register': typeof AuthenticatedTeamRegisterRoute
 }
@@ -395,6 +404,7 @@ export interface FileRoutesById {
   '/_authenticated/create-pitch': typeof AuthenticatedCreatePitchRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/pitch-dashboard': typeof AuthenticatedPitchDashboardRoute
+  '/_authenticated/scale-preview': typeof AuthenticatedScalePreviewRoute
   '/_authenticated/submissions': typeof AuthenticatedSubmissionsRoute
   '/_authenticated/team-register': typeof AuthenticatedTeamRegisterRoute
 }
@@ -440,6 +450,7 @@ export interface FileRouteTypes {
     | '/create-pitch'
     | '/dashboard'
     | '/pitch-dashboard'
+    | '/scale-preview'
     | '/submissions'
     | '/team-register'
   fileRoutesByTo: FileRoutesByTo
@@ -483,6 +494,7 @@ export interface FileRouteTypes {
     | '/create-pitch'
     | '/dashboard'
     | '/pitch-dashboard'
+    | '/scale-preview'
     | '/submissions'
     | '/team-register'
   id:
@@ -527,6 +539,7 @@ export interface FileRouteTypes {
     | '/_authenticated/create-pitch'
     | '/_authenticated/dashboard'
     | '/_authenticated/pitch-dashboard'
+    | '/_authenticated/scale-preview'
     | '/_authenticated/submissions'
     | '/_authenticated/team-register'
   fileRoutesById: FileRoutesById
@@ -851,6 +864,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPitchDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/scale-preview': {
+      id: '/_authenticated/scale-preview'
+      path: '/scale-preview'
+      fullPath: '/scale-preview'
+      preLoaderRoute: typeof AuthenticatedScalePreviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/submissions': {
       id: '/_authenticated/submissions'
       path: '/submissions'
@@ -874,6 +894,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCreatePitchRoute: typeof AuthenticatedCreatePitchRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedPitchDashboardRoute: typeof AuthenticatedPitchDashboardRoute
+  AuthenticatedScalePreviewRoute: typeof AuthenticatedScalePreviewRoute
   AuthenticatedSubmissionsRoute: typeof AuthenticatedSubmissionsRoute
   AuthenticatedTeamRegisterRoute: typeof AuthenticatedTeamRegisterRoute
 }
@@ -884,6 +905,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCreatePitchRoute: AuthenticatedCreatePitchRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedPitchDashboardRoute: AuthenticatedPitchDashboardRoute,
+  AuthenticatedScalePreviewRoute: AuthenticatedScalePreviewRoute,
   AuthenticatedSubmissionsRoute: AuthenticatedSubmissionsRoute,
   AuthenticatedTeamRegisterRoute: AuthenticatedTeamRegisterRoute,
 }
