@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-session";
 
-export type DeskOpportunity = { key: string; title: string; category: string; url?: string; deadline?: string };
+export type DeskOpportunity = { key: string; title: string; category: string; url?: string | undefined; deadline?: string | undefined };
 
 export function SaveToDesk({ item }: { item: DeskOpportunity }) {
   const { user, ready } = useSession();

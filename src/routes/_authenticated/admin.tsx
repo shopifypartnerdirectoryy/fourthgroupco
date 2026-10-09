@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-session";
 
 export const Route = createFileRoute("/_authenticated/admin")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "Admin | Fourth Group & Co" }, { name: "description", content: "Staff administration." },
     { property: "og:title", content: "Admin | Fourth Group & Co" }, { property: "og:description", content: "Staff administration." },
@@ -100,7 +101,7 @@ function Memberships() {
       <div><p className="font-semibold">Member {m.user_id.slice(0, 8)} · {m.status.replace("_", " ")}</p>
         <p className="text-xs text-muted-foreground">Requested {m.created_at.slice(0, 10)}{m.expires_on ? ` · paid through ${m.expires_on}` : ""}{m.cancel_requested_at ? " · cancellation requested" : ""} · terms {m.terms_version}</p></div>
       <div className="flex flex-wrap gap-2">
-        {m.status !== "active" ? <Button size="sm" onClick={() => confirm("Confirm payment was received and activate for 12 months?") && activate(m.id)}>Confirm payment</Button> : null}
+        {m.status !== "active" ? <Button size="sm" onClick={() => { if (confirm("Confirm payment was received and activate for 12 months?")) activate(m.id); }}>Confirm payment</Button> : null}
         <select aria-label="Status" className={sel} value={m.status} onChange={(e) => up.mutate({ id: m.id, patch: { status: e.target.value, updated_at: new Date().toISOString() } })}>
           {["pending_payment", "active", "expired", "cancelled", "refunded"].map((v) => <option key={v} value={v}>{v.replace("_", " ")}</option>)}
         </select>

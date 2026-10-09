@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
 export const Route = createFileRoute("/_authenticated/submissions")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "My Desk — Submission Tracker | Fourth Group & Co" },
     { name: "description", content: "Your saved opportunities, submissions and deadlines." },

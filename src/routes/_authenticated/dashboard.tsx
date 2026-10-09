@@ -10,6 +10,7 @@ import { POLICY } from "@/data/policies";
 import { useSession } from "@/hooks/use-session";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "Member Dashboard | Fourth Group & Co" },
     { name: "description", content: "Your membership, desk, events and pitches in one place." },
