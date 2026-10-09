@@ -23,7 +23,7 @@ export function ScrollReveal() {
     );
 
     const timer = window.setTimeout(() => {
-      const els = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR));
+      const els = Array.from(document.querySelectorAll<HTMLElement>(`${SELECTOR}, main .reveal`));
       const vh = window.innerHeight;
       els.forEach((el, i) => {
         if (el.dataset["revealBound"]) return;
