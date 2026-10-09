@@ -129,7 +129,7 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
             {list.map((p) => (
               <PostRow key={p.id} post={p} userId={userId} staff={staff} open={openId === p.id}
                 onToggle={() => setOpenId(openId === p.id ? null : p.id)}
-                onMod={(patch, del) => mod.mutate({ id: p.id, patch, del })} />
+                onMod={(patch, del) => mod.mutate(del ? { id: p.id, del } : { id: p.id, patch })} />
             ))}
           </ul>
           {posts.hasNextPage ? <Button variant="outline" className="mt-4" onClick={() => posts.fetchNextPage()} disabled={posts.isFetchingNextPage}>Load more</Button> : null}
