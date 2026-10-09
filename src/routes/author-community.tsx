@@ -12,6 +12,7 @@ import { COMMUNITY_CATEGORIES, COMMUNITY_BOOKS, bookByKey, categoryLabel } from 
 import { CommunityBookCard } from "@/components/community-book-card";
 
 export const Route = createFileRoute("/author-community")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Fourth Group Authors & Readers Community | Fourth Group & Co" }, { name: "description", content: "A place for authors to connect, share experiences, review books, and discuss agents, publishing, marketing, and media." },
     { property: "og:title", content: "Fourth Group Authors & Readers Community | Fourth Group & Co" }, { property: "og:description", content: "Open discussion rooms for authors and readers." },
