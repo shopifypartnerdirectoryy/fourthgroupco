@@ -31,7 +31,7 @@ const schema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(120),
   email: z.string().trim().email("Please enter a valid email").max(255),
   plan: z.enum(["standard", "pro"]),
-  referral: z.string().trim().regex(/^(\d{4})?$/, "Referral codes are exactly four digits"),
+  referral: z.string().trim().regex(/^\d{4}$/, "Enter your four-digit referral code"),
   terms: z.literal(true, { errorMap: () => ({ message: "Please accept the membership terms" }) }),
 });
 
@@ -92,9 +92,9 @@ function Checkout() {
     if (!r.success) { const m: Record<string, string> = {}; r.error.issues.forEach((i) => { m[String(i.path[0])] = i.message; }); setErrors(m); return; }
     setErrors({}); setBusy(true);
     try {
-      if (r.data.referral) {
+      {
         const { data: ok } = await supabase.rpc("validate_referral_code", { _code: r.data.referral });
-        if (!ok) { setErrors({ referral: "That referral code isn't recognised. Check it or leave it blank." }); return; }
+        if (!ok) { setErrors({ referral: "That referral code isn't recognised. Please check it with the team member who referred you." }); return; }
       }
       if (!user) {
         sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...f, terms: false }));
@@ -103,7 +103,7 @@ function Checkout() {
         return;
       }
       const { error } = await supabase.from("memberships").insert({
-        user_id: user.id, plan: r.data.plan, referral_code: r.data.referral || null, contact_name: r.data.name, terms_version: POLICY.termsVersion,
+        user_id: user.id, plan: r.data.plan, referral_code: r.data.referral, contact_name: r.data.name, terms_version: POLICY.termsVersion,
       });
       if (error) throw error;
       sessionStorage.removeItem(DRAFT_KEY);
@@ -139,7 +139,7 @@ function Checkout() {
             ))}
           </div>
         </fieldset>
-        <label className="text-sm">Team referral code <span className="text-muted-foreground">(optional)</span><Input inputMode="numeric" maxLength={4} value={f.referral} onChange={(e) => setF({ ...f, referral: e.target.value.replace(/\D/g, "") })} className="mt-1" placeholder="4 digits" />{err("referral")}</label>
+        <label className="text-sm">Team referral code <span className="text-destructive">*</span><Input inputMode="numeric" maxLength={4} value={f.referral} onChange={(e) => setF({ ...f, referral: e.target.value.replace(/\D/g, "") })} className="mt-1" placeholder="4 digits" />{err("referral")}</label>
         <label className="flex gap-2 text-sm text-muted-foreground"><input type="checkbox" checked={f.terms} onChange={(e) => setF({ ...f, terms: e.target.checked })} className="mt-1" />I accept the Membership Terms{f.plan === "pro" ? " and understand Pro membership is non-refundable" : ""}.</label>{err("terms")}
       </div>
       <Button type="submit" disabled={busy || !ready} className="mt-6 w-full">{busy ? "Saving…" : "Proceed to secure checkout"}</Button>

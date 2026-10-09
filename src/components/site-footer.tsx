@@ -46,6 +46,7 @@ export function SiteFooter() {
               </Link>
             </li>
             <li><Link to="/trust-standards" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Trust & Transparency</Link></li>
+            <li><Link to="/team-register" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Team Registration</Link></li>
             <li><Link to="/membership-terms" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Membership Terms</Link></li>
             <li><Link to="/refund-policy" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Refund Policy</Link></li>
             <li><Link to="/privacy" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Privacy Policy</Link></li>

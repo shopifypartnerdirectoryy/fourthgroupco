@@ -3,16 +3,20 @@ import { ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 /** Book of the Week + Creative of the Week. Shows the latest published entry whose week has started. */
-export function WeeklySpotlights() {
+export type SpotlightFallback = { title: string; creator_name: string; specialty: string | null; description: string; image_url: string | null; link_url: string | null };
+
+export function WeeklySpotlights({ fallback }: { fallback?: { book: SpotlightFallback; creative: SpotlightFallback } }) {
   const { data, isLoading } = useQuery({
     queryKey: ["weekly-spotlights"],
     queryFn: async () => {
       const { data, error } = await supabase.from("weekly_spotlights").select("*").eq("status", "published").order("week_start", { ascending: false }).limit(20);
       if (error) throw error;
-      return { book: data.find((d) => d.kind === "book"), creative: data.find((d) => d.kind === "creative") };
+      const today = new Date().toISOString().slice(0, 10);
+      const live = data.filter((d) => d.week_start <= today);
+      return { book: live.find((d) => d.kind === "book") ?? fallback?.book, creative: live.find((d) => d.kind === "creative") ?? fallback?.creative };
     },
   });
-  if (isLoading || (!data?.book && !data?.creative)) return null;
+  if (isLoading || !data || (!data.book && !data.creative)) return null;
 
   return (
     <section className="border-b border-border bg-background">
