@@ -3,6 +3,7 @@ import { ArrowRight, CalendarDays, ExternalLink, Feather, Film, Globe2, Library,
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
+import { AuthorSpotlightForm } from "@/components/author-spotlight-form";
 import { SITE } from "@/data/site";
 import heroDesk from "@/assets/hero-desk.jpg";
 import earlyMornings from "@/assets/early-mornings-with-dick.jpg";
@@ -177,6 +178,18 @@ function Index() {
       </section>
 
       <ClaimArticleDialog autoOpenOnScroll hideTrigger />
+
+      <section className="border-b border-border bg-accent/35">
+        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase text-primary">Author Spotlight</p>
+            <h2 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">We Write About Your Work — At No Cost</h2>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground">Have a new book launch, award, or publication milestone? Submit your details, and our editorial team will write a featured post for our literary network.</p>
+            <p className="mt-4 text-xs text-muted-foreground">Every request is reviewed by an editor. Nothing is published without your approval.</p>
+          </div>
+          <AuthorSpotlightForm />
+        </div>
+      </section>
 
       <section className="bg-background">
         <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-[1.25fr_.75fr] md:items-stretch">
