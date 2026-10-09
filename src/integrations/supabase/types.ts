@@ -43,6 +43,7 @@ export type Database = {
       }
       community_posts: {
         Row: {
+          author_badge: string
           author_id: string
           author_name: string
           body: string
@@ -56,6 +57,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          author_badge?: string
           author_id: string
           author_name: string
           body: string
@@ -69,6 +71,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          author_badge?: string
           author_id?: string
           author_name?: string
           body?: string
@@ -85,6 +88,7 @@ export type Database = {
       }
       community_replies: {
         Row: {
+          author_badge: string
           author_id: string
           author_name: string
           body: string
@@ -94,6 +98,7 @@ export type Database = {
           post_id: string
         }
         Insert: {
+          author_badge?: string
           author_id: string
           author_name: string
           body: string
@@ -103,6 +108,7 @@ export type Database = {
           post_id: string
         }
         Update: {
+          author_badge?: string
           author_id?: string
           author_name?: string
           body?: string

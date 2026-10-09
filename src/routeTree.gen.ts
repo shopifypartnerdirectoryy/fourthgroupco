@@ -15,6 +15,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthorProtectionRouteImport } from './routes/author-protection'
 import { Route as AuthorServicesRouteImport } from './routes/author-services'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as CommunityGuidelinesRouteImport } from './routes/community-guidelines'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContestsRouteImport } from './routes/contests'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
@@ -75,6 +77,16 @@ const AuthorProtectionRoute = AuthorProtectionRouteImport.update({
 const AuthorServicesRoute = AuthorServicesRouteImport.update({
   id: '/author-services',
   path: '/author-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityGuidelinesRoute = CommunityGuidelinesRouteImport.update({
+  id: '/community-guidelines',
+  path: '/community-guidelines',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -247,6 +259,8 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
+  '/community': typeof CommunityRoute
+  '/community-guidelines': typeof CommunityGuidelinesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -286,6 +300,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
+  '/community': typeof CommunityRoute
+  '/community-guidelines': typeof CommunityGuidelinesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -327,6 +343,8 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
+  '/community': typeof CommunityRoute
+  '/community-guidelines': typeof CommunityGuidelinesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -368,6 +386,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/author-protection'
     | '/author-services'
+    | '/community'
+    | '/community-guidelines'
     | '/contact'
     | '/contests'
     | '/cookie-policy'
@@ -407,6 +427,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/author-protection'
     | '/author-services'
+    | '/community'
+    | '/community-guidelines'
     | '/contact'
     | '/contests'
     | '/cookie-policy'
@@ -447,6 +469,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/author-protection'
     | '/author-services'
+    | '/community'
+    | '/community-guidelines'
     | '/contact'
     | '/contests'
     | '/cookie-policy'
@@ -488,6 +512,8 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   AuthorProtectionRoute: typeof AuthorProtectionRoute
   AuthorServicesRoute: typeof AuthorServicesRoute
+  CommunityRoute: typeof CommunityRoute
+  CommunityGuidelinesRoute: typeof CommunityGuidelinesRoute
   ContactRoute: typeof ContactRoute
   ContestsRoute: typeof ContestsRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
@@ -559,6 +585,20 @@ declare module '@tanstack/react-router' {
       path: '/author-services'
       fullPath: '/author-services'
       preLoaderRoute: typeof AuthorServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community-guidelines': {
+      id: '/community-guidelines'
+      path: '/community-guidelines'
+      fullPath: '/community-guidelines'
+      preLoaderRoute: typeof CommunityGuidelinesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -814,6 +854,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   AuthorProtectionRoute: AuthorProtectionRoute,
   AuthorServicesRoute: AuthorServicesRoute,
+  CommunityRoute: CommunityRoute,
+  CommunityGuidelinesRoute: CommunityGuidelinesRoute,
   ContactRoute: ContactRoute,
   ContestsRoute: ContestsRoute,
   CookiePolicyRoute: CookiePolicyRoute,
