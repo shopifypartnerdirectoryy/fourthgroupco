@@ -13,11 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthorProtectionRouteImport } from './routes/author-protection'
 import { Route as AuthorServicesRouteImport } from './routes/author-services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContestsRouteImport } from './routes/contests'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as CraftPracticeRouteImport } from './routes/craft-practice'
+import { Route as CritiqueExchangeRouteImport } from './routes/critique-exchange'
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GrantsAwardsRouteImport } from './routes/grants-awards'
@@ -65,6 +67,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthorProtectionRoute = AuthorProtectionRouteImport.update({
+  id: '/author-protection',
+  path: '/author-protection',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthorServicesRoute = AuthorServicesRouteImport.update({
   id: '/author-services',
   path: '/author-services',
@@ -88,6 +95,11 @@ const CookiePolicyRoute = CookiePolicyRouteImport.update({
 const CraftPracticeRoute = CraftPracticeRouteImport.update({
   id: '/craft-practice',
   path: '/craft-practice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CritiqueExchangeRoute = CritiqueExchangeRouteImport.update({
+  id: '/critique-exchange',
+  path: '/critique-exchange',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DirectoryRoute = DirectoryRouteImport.update({
@@ -233,11 +245,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/craft-practice': typeof CraftPracticeRoute
+  '/critique-exchange': typeof CritiqueExchangeRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -270,11 +284,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/craft-practice': typeof CraftPracticeRoute
+  '/critique-exchange': typeof CritiqueExchangeRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -309,11 +325,13 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/craft-practice': typeof CraftPracticeRoute
+  '/critique-exchange': typeof CritiqueExchangeRoute
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
@@ -348,11 +366,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-protection'
     | '/author-services'
     | '/contact'
     | '/contests'
     | '/cookie-policy'
     | '/craft-practice'
+    | '/critique-exchange'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -385,11 +405,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-protection'
     | '/author-services'
     | '/contact'
     | '/contests'
     | '/cookie-policy'
     | '/craft-practice'
+    | '/critique-exchange'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -423,11 +445,13 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/author-protection'
     | '/author-services'
     | '/contact'
     | '/contests'
     | '/cookie-policy'
     | '/craft-practice'
+    | '/critique-exchange'
     | '/directory'
     | '/events'
     | '/grants-awards'
@@ -462,11 +486,13 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  AuthorProtectionRoute: typeof AuthorProtectionRoute
   AuthorServicesRoute: typeof AuthorServicesRoute
   ContactRoute: typeof ContactRoute
   ContestsRoute: typeof ContestsRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   CraftPracticeRoute: typeof CraftPracticeRoute
+  CritiqueExchangeRoute: typeof CritiqueExchangeRoute
   DirectoryRoute: typeof DirectoryRoute
   EventsRoute: typeof EventsRoute
   GrantsAwardsRoute: typeof GrantsAwardsRoute
@@ -521,6 +547,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/author-protection': {
+      id: '/author-protection'
+      path: '/author-protection'
+      fullPath: '/author-protection'
+      preLoaderRoute: typeof AuthorProtectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/author-services': {
       id: '/author-services'
       path: '/author-services'
@@ -554,6 +587,13 @@ declare module '@tanstack/react-router' {
       path: '/craft-practice'
       fullPath: '/craft-practice'
       preLoaderRoute: typeof CraftPracticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/critique-exchange': {
+      id: '/critique-exchange'
+      path: '/critique-exchange'
+      fullPath: '/critique-exchange'
+      preLoaderRoute: typeof CritiqueExchangeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/directory': {
@@ -772,11 +812,13 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  AuthorProtectionRoute: AuthorProtectionRoute,
   AuthorServicesRoute: AuthorServicesRoute,
   ContactRoute: ContactRoute,
   ContestsRoute: ContestsRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   CraftPracticeRoute: CraftPracticeRoute,
+  CritiqueExchangeRoute: CritiqueExchangeRoute,
   DirectoryRoute: DirectoryRoute,
   EventsRoute: EventsRoute,
   GrantsAwardsRoute: GrantsAwardsRoute,

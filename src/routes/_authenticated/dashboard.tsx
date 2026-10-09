@@ -103,6 +103,14 @@ function Dashboard() {
           <p>{data?.pitches.length ?? 0} pitches · {data?.pitches.filter((p) => p.published).length ?? 0} listed publicly</p>
           <Button asChild variant="outline" className="mt-4"><Link to="/pitch-dashboard">Pitch dashboard</Link></Button>
         </Card>
+        <Card title="Critique pods">
+          <p>Find beta readers and critique partners, and manage your requests.</p>
+          <Button asChild variant="outline" className="mt-4"><Link to="/critique-exchange">Open critique exchange</Link></Button>
+        </Card>
+        <Card title="Author tools">
+          <p>Create a copyright notice and download your badges.</p>
+          <Button asChild variant="outline" className="mt-4"><Link to="/author-protection">Copyright & badges</Link></Button>
+        </Card>
         <Card title="Refunds">
           {data?.refunds.map((r) => <p key={r.id} className="text-xs">Request from {r.created_at.slice(0, 10)}: <strong>{r.status.replace("_", " ")}</strong>{r.decision_notes ? ` — ${r.decision_notes}` : ""}</p>)}
           {m && m.status !== "refunded" ? (

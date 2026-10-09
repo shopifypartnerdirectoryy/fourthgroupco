@@ -1,3 +1,4 @@
+import { DeckRequests } from "@/components/deck-requests";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageHeader, PageShell } from "@/components/page-shell";
@@ -62,6 +63,7 @@ function Dashboard() {
             </article>
           ))}
         </div>
+        <DeckRequests uid={user.id} />
       </section>
     </PageShell>
   );

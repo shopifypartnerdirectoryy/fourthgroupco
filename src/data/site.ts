@@ -1,3 +1,5 @@
+import { COUNTS } from "@/data/directory-counts";
+
 export const SITE = {
   name: "Fourth Group & Co",
   short: "Fourth Group",
@@ -5,7 +7,6 @@ export const SITE = {
   tagline:
     "A global network for authors, poets and screenwriters — resources, opportunity listings and a community that reads you closely.",
   membership: 25,
-  subscribers: "60+",
 };
 
 export const NAV_GROUPS = [
@@ -43,6 +44,7 @@ export const NAV_GROUPS = [
       { label: "Author Directory", to: "/directory" },
       { label: "Literary Events", to: "/events" },
       { label: "News & Articles", to: "/news" },
+      { label: "Critique Exchange", to: "/critique-exchange" },
     ],
   },
   {
@@ -51,6 +53,7 @@ export const NAV_GROUPS = [
       { label: "Writing Prompts", to: "/writing-prompts" },
       { label: "Craft & Practice", to: "/craft-practice" },
       { label: "Author Services", to: "/author-services" },
+      { label: "Copyright & Badges", to: "/author-protection" },
       { label: "About Us", to: "/about" },
       { label: "Trust & Transparency", to: "/trust-standards" },
     ],
@@ -70,12 +73,12 @@ export const NAV = [
 ] as const;
 
 export const TOOLS = [
-  { label: "Literary Magazines", count: "340+", to: "/literary-magazines" },
-  { label: "Small Presses", count: "120+", to: "/small-presses" },
-  { label: "Grants & Awards", count: "210+", to: "/grants-awards" },
-  { label: "Writing Contests", count: "140+", to: "/contests" },
-  { label: "Retreats & Residencies", count: "85+", to: "/residencies" },
-  { label: "Author Directory", count: "480+", to: "/directory" },
+  { label: "Literary Magazines", count: String(COUNTS.magazines), to: "/literary-magazines" },
+  { label: "Small Presses", count: String(COUNTS.presses), to: "/small-presses" },
+  { label: "Grants & Awards", count: String(COUNTS.grants), to: "/grants-awards" },
+  { label: "Writing Contests", count: String(COUNTS.contests), to: "/contests" },
+  { label: "Retreats & Residencies", count: String(COUNTS.residencies), to: "/residencies" },
+  { label: "Author Directory", count: String(COUNTS.authors), to: "/directory" },
 ] as const;
 
 export const PROMPT = {

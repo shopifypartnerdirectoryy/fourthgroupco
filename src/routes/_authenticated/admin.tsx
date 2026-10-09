@@ -38,6 +38,8 @@ function AdminPage() {
             <TabsTrigger value="refunds">Refunds</TabsTrigger>
             <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
             <TabsTrigger value="pitches">Pitches</TabsTrigger>
+            <TabsTrigger value="weekly">Weekly spotlights</TabsTrigger>
+            <TabsTrigger value="reports">Critique reports</TabsTrigger>
           </TabsList>
           <TabsContent value="spotlights"><Spotlights /></TabsContent>
           <TabsContent value="claims"><Claims /></TabsContent>
@@ -45,6 +47,8 @@ function AdminPage() {
           <TabsContent value="refunds"><Refunds /></TabsContent>
           <TabsContent value="testimonials"><Testimonials /></TabsContent>
           <TabsContent value="pitches"><Pitches /></TabsContent>
+          <TabsContent value="weekly"><Weekly /></TabsContent>
+          <TabsContent value="reports"><Reports /></TabsContent>
         </Tabs>
       </div>
     </PageShell>
@@ -54,7 +58,7 @@ function AdminPage() {
 function useTable<T>(key: string, fn: () => PromiseLike<{ data: T[] | null; error: unknown }>) {
   return useQuery({ queryKey: ["admin", key], queryFn: async () => { const { data, error } = await fn(); if (error) throw error; return data ?? []; } });
 }
-function useUpdate(table: "spotlight_submissions" | "memberships" | "refund_requests" | "testimonials" | "pitches", key: string) {
+function useUpdate(table: "spotlight_submissions" | "memberships" | "refund_requests" | "testimonials" | "pitches" | "weekly_spotlights" | "critique_requests", key: string) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, patch }: { id: string; patch: Record<string, unknown> }) => {
@@ -158,4 +162,41 @@ function Pitches() {
 function NoteEditor({ initial, onSave, label = "Internal notes" }: { initial: string; onSave: (v: string) => void; label?: string }) {
   const [v, setV] = useState(initial);
   return <div className="mt-2 flex gap-2"><Textarea aria-label={label} placeholder={label} value={v} maxLength={4000} onChange={(e) => setV(e.target.value)} className="min-h-9 text-xs" /><Button type="button" size="sm" variant="outline" onClick={() => onSave(v)}>Save</Button></div>;
+}
+
+function Weekly() {
+  const qc = useQueryClient();
+  const { data = [] } = useTable("weekly", () => supabase.from("weekly_spotlights").select("*").order("week_start", { ascending: false }));
+  const up = useUpdate("weekly_spotlights", "weekly");
+  const blank = { kind: "book", title: "", creator_name: "", specialty: "", description: "", image_url: "", link_url: "", week_start: new Date().toISOString().slice(0, 10) };
+  const [f, setF] = useState(blank);
+  async function add(e: FormEvent) {
+    e.preventDefault();
+    const { error } = await supabase.from("weekly_spotlights").insert({ ...f, title: f.title.trim(), creator_name: f.creator_name.trim(), description: f.description.trim(), specialty: f.specialty || null, image_url: f.image_url || null, link_url: f.link_url || null });
+    if (error) { toast.error("Check the fields (description 10+ characters, links must start with https://)."); return; }
+    setF(blank); qc.invalidateQueries({ queryKey: ["admin", "weekly"] }); toast.success("Saved as draft — publish it when ready");
+  }
+  return <div>
+    <form onSubmit={add} className="grid gap-2 border-b border-border py-4 md:grid-cols-2">
+      <select aria-label="Type" className="h-9 rounded-sm border border-input bg-background px-2 text-sm" value={f.kind} onChange={(e) => setF({ ...f, kind: e.target.value })}><option value="book">Book of the Week</option><option value="creative">Creative of the Week</option></select>
+      <label className="text-xs">Week starting<Input type="date" required value={f.week_start} onChange={(e) => setF({ ...f, week_start: e.target.value })} /></label>
+      <Input required placeholder="Book or project title" value={f.title} onChange={(e) => setF({ ...f, title: e.target.value })} />
+      <Input required placeholder="Author / creative name" value={f.creator_name} onChange={(e) => setF({ ...f, creator_name: e.target.value })} />
+      <Input placeholder="Genre or specialty" value={f.specialty} onChange={(e) => setF({ ...f, specialty: e.target.value })} />
+      <Input placeholder="Image URL (https://, with permission)" value={f.image_url} onChange={(e) => setF({ ...f, image_url: e.target.value })} />
+      <Input className="md:col-span-2" placeholder="Link (https://) e.g. Amazon or portfolio" value={f.link_url} onChange={(e) => setF({ ...f, link_url: e.target.value })} />
+      <Textarea required className="md:col-span-2" placeholder="Short description" value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} />
+      <Button type="submit" className="md:w-fit">Add spotlight</Button>
+    </form>
+    {data.map((w) => <Row key={w.id}><div><p className="font-semibold">{w.kind === "book" ? "Book" : "Creative"} · {w.title} <span className="font-normal text-muted-foreground">· {w.creator_name}</span></p><p className="text-xs text-muted-foreground">Week of {w.week_start} — shows on the homepage once published and the week has started</p></div>
+      <select aria-label="Status" className={sel} value={w.status} onChange={(e) => up.mutate({ id: w.id, patch: { status: e.target.value } })}>{["draft", "published", "archived"].map((v) => <option key={v}>{v}</option>)}</select></Row>)}
+  </div>;
+}
+
+function Reports() {
+  const { data = [] } = useTable("reports", () => supabase.from("critique_requests").select("*").eq("reported", true).order("created_at", { ascending: false }));
+  const up = useUpdate("critique_requests", "reports");
+  if (!data.length) return <Empty />;
+  return <div>{data.map((r) => <Row key={r.id}><div><p className="font-semibold">{r.project_title} <span className="font-normal text-muted-foreground">· {r.status}</span></p><p className="text-xs">{r.message}</p><p className="text-xs text-muted-foreground">From {r.requester_id.slice(0, 8)} to {r.recipient_id.slice(0, 8)} · {r.created_at.slice(0, 10)}</p></div>
+    <div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => up.mutate({ id: r.id, patch: { status: "withdrawn", reported: false } })}>Close request</Button><Button size="sm" variant="ghost" onClick={() => up.mutate({ id: r.id, patch: { reported: false } })}>Dismiss report</Button></div></Row>)}</div>;
 }

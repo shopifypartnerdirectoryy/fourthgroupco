@@ -47,8 +47,8 @@
 - [x] Event registration
 - [ ] Payment link — waiting on owner (set POLICY.paymentUrl)
 - [ ] Review link (Trustpilot) — waiting on owner URL
-- [ ] Weekly spotlights (Book / Creative of the Week) DB + admin
-- [ ] Peer critique & beta-reader exchange
-- [ ] Screen Pitch Studio pitch-deck request workflow
-- [ ] Copyright boilerplate generator + downloadable badges
-- [ ] Replace estimated directory counts on homepage with real counts
+- [x] Weekly spotlights (Book / Creative of the Week) DB + admin
+- [x] Peer critique & beta-reader exchange
+- [x] Screen Pitch Studio pitch-deck request workflow
+- [x] Copyright boilerplate generator + downloadable badges
+- [x] Replace estimated directory counts on homepage with real counts

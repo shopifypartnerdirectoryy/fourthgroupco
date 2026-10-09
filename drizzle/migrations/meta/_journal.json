@@ -29,6 +29,13 @@
       "when": 1791563421549,
       "tag": "0003_platform_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791564232900,
+      "tag": "0004_community_and_studio",
+      "breakpoints": true
     }
   ]
 }
