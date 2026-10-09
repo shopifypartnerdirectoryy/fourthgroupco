@@ -41,6 +41,86 @@ export type Database = {
         }
         Relationships: []
       }
+      community_posts: {
+        Row: {
+          author_id: string
+          author_name: string
+          body: string
+          category: string
+          created_at: string
+          hidden: boolean
+          id: string
+          pinned: boolean
+          reply_count: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          author_name: string
+          body: string
+          category: string
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          pinned?: boolean
+          reply_count?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          author_name?: string
+          body?: string
+          category?: string
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          pinned?: boolean
+          reply_count?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      community_replies: {
+        Row: {
+          author_id: string
+          author_name: string
+          body: string
+          created_at: string
+          hidden: boolean
+          id: string
+          post_id: string
+        }
+        Insert: {
+          author_id: string
+          author_name: string
+          body: string
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          post_id: string
+        }
+        Update: {
+          author_id?: string
+          author_name?: string
+          body?: string
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          post_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_replies_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       critique_profiles: {
         Row: {
           bio: string | null
@@ -201,9 +281,13 @@ export type Database = {
         Row: {
           admin_notes: string | null
           cancel_requested_at: string | null
+          contact_name: string | null
           created_at: string
           expires_on: string | null
           id: string
+          payment_reference: string | null
+          plan: string
+          referral_code: string | null
           started_on: string | null
           status: string
           terms_version: string
@@ -213,9 +297,13 @@ export type Database = {
         Insert: {
           admin_notes?: string | null
           cancel_requested_at?: string | null
+          contact_name?: string | null
           created_at?: string
           expires_on?: string | null
           id?: string
+          payment_reference?: string | null
+          plan?: string
+          referral_code?: string | null
           started_on?: string | null
           status?: string
           terms_version?: string
@@ -225,9 +313,13 @@ export type Database = {
         Update: {
           admin_notes?: string | null
           cancel_requested_at?: string | null
+          contact_name?: string | null
           created_at?: string
           expires_on?: string | null
           id?: string
+          payment_reference?: string | null
+          plan?: string
+          referral_code?: string | null
           started_on?: string | null
           status?: string
           terms_version?: string
@@ -405,6 +497,54 @@ export type Database = {
         }
         Relationships: []
       }
+      team_applications: {
+        Row: {
+          admin_notes: string | null
+          country: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          motivation: string
+          phone: string | null
+          referral_code: string | null
+          role_interest: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          country?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          motivation: string
+          phone?: string | null
+          referral_code?: string | null
+          role_interest: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_notes?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          motivation?: string
+          phone?: string | null
+          referral_code?: string | null
+          role_interest?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       testimonials: {
         Row: {
           created_at: string
@@ -506,8 +646,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_set_role: {
+        Args: {
+          _email: string
+          _grant: boolean
+          _role: Database["public"]["Enums"]["app_role"]
+        }
+        Returns: undefined
+      }
       critique_contact: { Args: { _request_id: string }; Returns: string }
+      decide_team_application: {
+        Args: { _id: string; _status: string }
+        Returns: string
+      }
       deck_request_contact: { Args: { _request_id: string }; Returns: string }
+      has_member_access: { Args: { _uid: string }; Returns: boolean }
+      has_pro: { Args: { _uid: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -515,10 +669,12 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_staff: { Args: { _uid: string }; Returns: boolean }
       request_membership_cancellation: {
         Args: { _id: string }
         Returns: undefined
       }
+      validate_referral_code: { Args: { _code: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "member" | "moderator"

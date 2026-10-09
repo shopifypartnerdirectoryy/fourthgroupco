@@ -43,6 +43,13 @@
       "when": 1791583475548,
       "tag": "0005_add_moderator_role",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791583515505,
+      "tag": "0006_community_team_referrals",
+      "breakpoints": true
     }
   ]
 }
