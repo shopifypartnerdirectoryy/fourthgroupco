@@ -1,3 +1,4 @@
+import { SaveToDesk } from "@/components/save-to-desk";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHeader, PageShell } from "@/components/page-shell";
@@ -49,6 +50,7 @@ function LiteraryMagazinesPage() {
                 <div className="flex flex-wrap items-center gap-2"><h2 className="font-serif text-xl text-card-foreground">{item.name}</h2><StatusBadge status={item.status} /></div>
                 <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">{item.description}</p>
                 <div className="mt-4"><GenreTags genres={item.genres} /></div>
+                <SaveToDesk item={{ key: `Literary magazine:${item.name}`, title: item.name, category: "Literary magazine", url: item.website, deadline: item.reading }} />
               </div>
               <dl className="grid content-start gap-2 border-t border-border pt-4 text-xs md:border-l md:border-t-0 md:pl-5 md:pt-0">
                 <div className="flex justify-between gap-3"><dt className="text-muted-foreground">Reading</dt><dd className="font-medium">{item.reading}</dd></div>

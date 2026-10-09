@@ -52,6 +52,7 @@ export const NAV_GROUPS = [
       { label: "Craft & Practice", to: "/craft-practice" },
       { label: "Author Services", to: "/author-services" },
       { label: "About Us", to: "/about" },
+      { label: "Trust & Transparency", to: "/trust-standards" },
     ],
   },
 ] as const;

@@ -30,7 +30,7 @@ function Page() {
         title="Writing contests now open"
         intro="Compare established competitions across poetry, fiction, essays and books, with fees and prize information shown plainly."
       />
-      <OpportunityDirectory items={CONTESTS} searchPlaceholder="Search contests, genres, or entry fees" renderDetails={(item) => <><p><span className="text-muted-foreground">Prize:</span> <strong>{item.prize}</strong></p><p><span className="text-muted-foreground">Entry:</span> {item.fee}</p><p><span className="text-muted-foreground">Deadline:</span> {item.deadline}</p></>} />
+      <OpportunityDirectory category="Contest" items={CONTESTS} searchPlaceholder="Search contests, genres, or entry fees" renderDetails={(item) => <><p><span className="text-muted-foreground">Prize:</span> <strong>{item.prize}</strong></p><p><span className="text-muted-foreground">Entry:</span> {item.fee}</p><p><span className="text-muted-foreground">Deadline:</span> {item.deadline}</p></>} />
     </PageShell>
   );
 }

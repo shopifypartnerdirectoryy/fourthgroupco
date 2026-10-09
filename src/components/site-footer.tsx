@@ -45,6 +45,13 @@ export function SiteFooter() {
                 About us
               </Link>
             </li>
+            <li><Link to="/trust-standards" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Trust & Transparency</Link></li>
+            <li><Link to="/membership-terms" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Membership Terms</Link></li>
+            <li><Link to="/refund-policy" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Refund Policy</Link></li>
+            <li><Link to="/privacy" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Privacy Policy</Link></li>
+            <li><Link to="/terms" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Terms of Service</Link></li>
+            <li><Link to="/cookie-policy" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">Cookie Policy</Link></li>
+            <li><a href="mailto:support@fourthgroup.co" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">support@fourthgroup.co</a></li>
             <li>
               <Link to="/contact" className="text-sm text-secondary-foreground/65 hover:text-secondary-foreground">
                 Contact

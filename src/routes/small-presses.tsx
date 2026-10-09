@@ -1,3 +1,4 @@
+import { SaveToDesk } from "@/components/save-to-desk";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHeader, PageShell } from "@/components/page-shell";
@@ -49,6 +50,7 @@ function SmallPressesPage() {
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
               <div className="mt-4"><GenreTags genres={item.genres} /></div>
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4"><Location>{item.location}</Location><SiteLink href={item.website} label={`Visit ${item.name}`} /></div>
+              <SaveToDesk item={{ key: `Small press:${item.name}`, title: item.name, category: "Small press", url: item.website }} />
             </article>
           ))}
         </div> : <EmptyDirectory />}

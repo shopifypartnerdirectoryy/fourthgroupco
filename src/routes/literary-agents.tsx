@@ -1,3 +1,4 @@
+import { SaveToDesk } from "@/components/save-to-desk";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHeader, PageShell } from "@/components/page-shell";
@@ -56,7 +57,7 @@ function LiteraryAgentsPage() {
               <p className="mt-2 text-sm font-semibold text-primary">{item.agency}</p>
               <div className="mt-3"><Location>{item.location}</Location></div>
               <div className="mt-5 flex-1"><GenreTags genres={item.genres} /></div>
-              <div className="mt-5 border-t border-border pt-4"><SiteLink href={item.website} label="Visit agency" /></div>
+              <div className="mt-5 border-t border-border pt-4"><SiteLink href={item.website} label="Visit agency" /><SaveToDesk item={{ key: `Literary agent:${item.id}`, title: `${item.name} — ${item.agency}`, category: "Literary agent", url: item.website }} /></div>
             </article>
           ))}
         </div> : <EmptyDirectory />}

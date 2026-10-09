@@ -22,6 +22,13 @@
       "when": 1790846297850,
       "tag": "0002_create_pitches",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791563421549,
+      "tag": "0003_platform_foundation",
+      "breakpoints": true
     }
   ]
 }

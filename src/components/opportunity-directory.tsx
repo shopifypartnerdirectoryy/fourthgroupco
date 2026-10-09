@@ -3,6 +3,7 @@ import { CalendarDays, ExternalLink, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { StatusBadge, GenreTags } from "@/components/publishing-directory";
+import { SaveToDesk } from "@/components/save-to-desk";
 
 type BaseItem = {
   name: string;
@@ -16,7 +17,9 @@ export function OpportunityDirectory<T extends BaseItem>({
   items,
   searchPlaceholder,
   renderDetails,
+  category = "Opportunity",
 }: {
+  category?: string;
   items: T[];
   searchPlaceholder: string;
   renderDetails: (item: T) => React.ReactNode;
@@ -65,6 +68,7 @@ export function OpportunityDirectory<T extends BaseItem>({
             <a href={item.website} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               Check official details <ExternalLink className="size-3" aria-hidden="true" />
             </a>
+            <SaveToDesk item={{ key: `${category}:${item.name}`, title: item.name, category, url: item.website, deadline: (item as { deadline?: string }).deadline }} />
           </article>
         ))}
       </div> : <div className="border border-dashed border-border py-16 text-center text-sm text-muted-foreground">No opportunities match those filters.</div>}

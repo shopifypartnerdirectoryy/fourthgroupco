@@ -36,3 +36,19 @@
 - [x] Expand News & Articles and Craft & Practice with original editorial collections
 - [x] Expand Author Services with personalized support pathways
 - [x] Verify the expanded author and editorial pages on desktop and mobile
+
+
+## Platform upgrade (brief, Oct 2026)
+- [x] Admin role (fourthgroupco@gmail.com), protected /admin
+- [x] Author Spotlight form on homepage + admin review
+- [x] /trust-standards FAQ, testimonials (approved only), policy pages (draft)
+- [x] Memberships: manual renewal, cancellation, refund requests, admin payment confirmation
+- [x] Save to My Desk + /submissions tracker + /dashboard
+- [x] Event registration
+- [ ] Payment link — waiting on owner (set POLICY.paymentUrl)
+- [ ] Review link (Trustpilot) — waiting on owner URL
+- [ ] Weekly spotlights (Book / Creative of the Week) DB + admin
+- [ ] Peer critique & beta-reader exchange
+- [ ] Screen Pitch Studio pitch-deck request workflow
+- [ ] Copyright boilerplate generator + downloadable badges
+- [ ] Replace estimated directory counts on homepage with real counts
