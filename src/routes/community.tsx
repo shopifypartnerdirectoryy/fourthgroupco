@@ -8,9 +8,9 @@ export const Route = createFileRoute("/community")({
   head: () => ({
     links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/community" }],
     meta: [
-      { title: "Author Community Preview | Fourth Group & Co" },
+      { title: "Authors & Readers Community | Fourth Group & Co" },
       { name: "description", content: "A look inside the members-only Fourth Group Author Community: rooms for craft, publishing, promotion and screen adaptation." },
-      { property: "og:title", content: "Author Community Preview | Fourth Group & Co" },
+      { property: "og:title", content: "Authors & Readers Community | Fourth Group & Co" },
       { property: "og:description", content: "Rooms for craft, publishing, promotion and adaptation — open to members." },
       { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://fourthgroupco.lovable.app/community" },
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/community")({
 function Page() {
   return (
     <PageShell>
-      <PageHeader kicker="Community preview" title="The Fourth Group Author Community" intro="A members-only room where writers trade drafts, submission news and launch plans. Here is what's inside." />
+      <PageHeader kicker="Community preview" title="Fourth Group Authors & Readers Community" intro="A global literary network where writers, screenwriters, and avid readers connect, discover new books, leave reviews, and discuss publishing. Free to join with an account." />
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {COMMUNITY_CATEGORIES.map((c) => (
