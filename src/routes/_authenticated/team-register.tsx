@@ -70,7 +70,7 @@ function TeamPage() {
             {([["full_name", "Full name"], ["email", "Email"], ["phone", "Phone (optional)"], ["country", "Country (optional)"], ["role_interest", "Role you're applying for"]] as const).map(([k, l]) => (
               <label key={k} className="text-sm">{l}<Input value={f[k]} onChange={(e) => setF({ ...f, [k]: e.target.value })} className="mt-1" />{errors[k] ? <span className="mt-1 block text-xs text-destructive">{errors[k]}</span> : null}</label>
             ))}
-            <label className="text-sm">Why do you want to join the team?<Textarea rows={5} value={f.motivation} onChange={(e) => setF({ ...f, motivation: e.target.value })} className="mt-1" />{errors.motivation ? <span className="mt-1 block text-xs text-destructive">{errors.motivation}</span> : null}</label>
+            <label className="text-sm">Why do you want to join the team?<Textarea rows={5} value={f.motivation} onChange={(e) => setF({ ...f, motivation: e.target.value })} className="mt-1" />{errors["motivation"] ? <span className="mt-1 block text-xs text-destructive">{errors["motivation"]}</span> : null}</label>
             <Button type="submit" disabled={save.isPending}>Submit registration</Button>
           </form>
         )}
