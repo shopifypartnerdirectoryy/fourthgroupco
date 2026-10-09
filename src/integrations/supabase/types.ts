@@ -41,6 +41,120 @@ export type Database = {
         }
         Relationships: []
       }
+      desk_items: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          notes: string | null
+          official_deadline: string | null
+          opportunity_key: string
+          response_notes: string | null
+          status: string
+          submitted_on: string | null
+          target_date: string | null
+          title: string
+          updated_at: string
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          official_deadline?: string | null
+          opportunity_key: string
+          response_notes?: string | null
+          status?: string
+          submitted_on?: string | null
+          target_date?: string | null
+          title: string
+          updated_at?: string
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          official_deadline?: string | null
+          opportunity_key?: string
+          response_notes?: string | null
+          status?: string
+          submitted_on?: string | null
+          target_date?: string | null
+          title?: string
+          updated_at?: string
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      event_rsvps: {
+        Row: {
+          created_at: string
+          event_key: string
+          event_title: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_key: string
+          event_title: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_key?: string
+          event_title?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      memberships: {
+        Row: {
+          admin_notes: string | null
+          cancel_requested_at: string | null
+          created_at: string
+          expires_on: string | null
+          id: string
+          started_on: string | null
+          status: string
+          terms_version: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          cancel_requested_at?: string | null
+          created_at?: string
+          expires_on?: string | null
+          id?: string
+          started_on?: string | null
+          status?: string
+          terms_version?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_notes?: string | null
+          cancel_requested_at?: string | null
+          created_at?: string
+          expires_on?: string | null
+          id?: string
+          started_on?: string | null
+          status?: string
+          terms_version?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       pitches: {
         Row: {
           created_at: string
@@ -83,15 +197,156 @@ export type Database = {
         }
         Relationships: []
       }
+      refund_requests: {
+        Row: {
+          created_at: string
+          decision_notes: string | null
+          id: string
+          membership_id: string | null
+          reason: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          decision_notes?: string | null
+          id?: string
+          membership_id?: string | null
+          reason: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          decision_notes?: string | null
+          id?: string
+          membership_id?: string | null
+          reason?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refund_requests_membership_id_fkey"
+            columns: ["membership_id"]
+            isOneToOne: false
+            referencedRelation: "memberships"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      spotlight_submissions: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          email: string
+          full_name: string
+          genre: string
+          id: string
+          project_title: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          genre: string
+          id?: string
+          project_title: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          genre?: string
+          id?: string
+          project_title?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          created_at: string
+          id: string
+          member_name: string
+          portrait_url: string | null
+          profile_url: string | null
+          quote: string
+          specialty: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          member_name: string
+          portrait_url?: string | null
+          profile_url?: string | null
+          quote: string
+          specialty?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          member_name?: string
+          portrait_url?: string | null
+          profile_url?: string | null
+          quote?: string
+          specialty?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      request_membership_cancellation: {
+        Args: { _id: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "member"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -218,6 +473,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "member"],
+    },
   },
 } as const
