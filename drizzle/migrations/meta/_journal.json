@@ -71,6 +71,13 @@
       "when": 1791585351268,
       "tag": "0009_community_actions_and_capacity",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791585915287,
+      "tag": "0010_community_categories_twelve_rooms",
+      "breakpoints": true
     }
   ]
 }
