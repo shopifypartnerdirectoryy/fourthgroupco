@@ -30,7 +30,7 @@ function Page() {
         title="Retreats and residencies"
         intro="Explore respected places offering writers protected time, accommodation and creative community, with funding information shown up front."
       />
-      <OpportunityDirectory items={RESIDENCIES} searchPlaceholder="Search residencies, locations, or funding" renderDetails={(item) => <><p><span className="text-muted-foreground">Location:</span> <strong>{item.location}</strong></p><p><span className="text-muted-foreground">Duration:</span> {item.duration}</p><p><span className="text-muted-foreground">Funding:</span> {item.funding}</p></>} />
+      <OpportunityDirectory category="Residency" items={RESIDENCIES} searchPlaceholder="Search residencies, locations, or funding" renderDetails={(item) => <><p><span className="text-muted-foreground">Location:</span> <strong>{item.location}</strong></p><p><span className="text-muted-foreground">Duration:</span> {item.duration}</p><p><span className="text-muted-foreground">Funding:</span> {item.funding}</p></>} />
     </PageShell>
   );
 }

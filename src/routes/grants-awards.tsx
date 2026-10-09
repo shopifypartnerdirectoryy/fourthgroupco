@@ -30,7 +30,7 @@ function Page() {
         title="Grants, fellowships and awards"
         intro="Research fellowships, project grants and literary awards. Each entry leads to the funder’s official guidance for current dates and eligibility."
       />
-      <OpportunityDirectory items={GRANTS} searchPlaceholder="Search grants, awards, genres, or eligibility" renderDetails={(item) => <><p><span className="text-muted-foreground">Award:</span> <strong>{item.amount}</strong></p><p><span className="text-muted-foreground">Deadline:</span> {item.deadline}</p><p><span className="text-muted-foreground">Eligibility:</span> {item.eligibility}</p></>} />
+      <OpportunityDirectory category="Grant & award" items={GRANTS} searchPlaceholder="Search grants, awards, genres, or eligibility" renderDetails={(item) => <><p><span className="text-muted-foreground">Award:</span> <strong>{item.amount}</strong></p><p><span className="text-muted-foreground">Deadline:</span> {item.deadline}</p><p><span className="text-muted-foreground">Eligibility:</span> {item.eligibility}</p></>} />
     </PageShell>
   );
 }
