@@ -11,12 +11,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { COMMUNITY_CATEGORIES, COMMUNITY_BOOKS, bookByKey, categoryLabel } from "@/data/community";
 import { CommunityBookCard } from "@/components/community-book-card";
 
-export const Route = createFileRoute("/_authenticated/author-community")({
-  staticData: { sitemap: false },
+export const Route = createFileRoute("/author-community")({
   head: () => ({ meta: [
     { title: "Fourth Group Authors & Readers Community | Fourth Group & Co" }, { name: "description", content: "A place for authors to connect, share experiences, review books, and discuss agents, publishing, marketing, and media." },
-    { property: "og:title", content: "Fourth Group Authors & Readers Community | Fourth Group & Co" }, { property: "og:description", content: "Members-only discussion rooms." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex, nofollow" },
+    { property: "og:title", content: "Fourth Group Authors & Readers Community | Fourth Group & Co" }, { property: "og:description", content: "Open discussion rooms for authors and readers." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" },
+    { rel: "canonical", href: "https://fourthgroupco.lovable.app/author-community" } as never,
   ] }),
   component: CommunityPage,
 });
@@ -36,30 +36,23 @@ function Avatar({ name }: { name: string }) {
 }
 
 function CommunityPage() {
-  const { user } = Route.useRouteContext();
-  const access = useQuery({
-    queryKey: ["community-access", user.id],
+  const session = useQuery({
+    queryKey: ["community-session"],
     queryFn: async () => {
-      const [m, p, s] = await Promise.all([
-        supabase.rpc("has_member_access", { _uid: user.id }), supabase.rpc("has_pro", { _uid: user.id }), supabase.rpc("is_staff", { _uid: user.id }),
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) return { userId: null as string | null, staff: false, pro: false };
+      const [p, s] = await Promise.all([
+        supabase.rpc("has_pro", { _uid: data.user.id }), supabase.rpc("is_staff", { _uid: data.user.id }),
       ]);
-      return { member: !!m.data, pro: !!p.data, staff: !!s.data };
+      return { userId: data.user.id as string | null, pro: !!p.data, staff: !!s.data };
     },
+    staleTime: 60_000,
   });
-  if (access.isLoading) return <PageShell><p className="p-12 text-center text-sm">Checking your membership…</p></PageShell>;
-  if (!access.data?.member) return (
-    <PageShell>
-      <PageHeader kicker="Members only" title="Fourth Group Author Community" intro="A place for authors to connect, share experiences, review books, and discuss agents, publishing, marketing, and media. This room opens once your paid membership is active." />
-      <div className="mx-auto flex max-w-3xl flex-wrap gap-3 px-5 py-12">
-        <Button asChild><Link to="/membership">Become a member</Link></Button>
-        <Button asChild variant="outline"><Link to="/community">Preview the community</Link></Button>
-      </div>
-    </PageShell>
-  );
-  return <Board userId={user.id} {...access.data} />;
+  if (session.isLoading) return <PageShell><p className="p-12 text-center text-sm">Loading the community…</p></PageShell>;
+  return <Board userId={session.data?.userId ?? null} pro={!!session.data?.pro} staff={!!session.data?.staff} />;
 }
 
-function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: boolean }) {
+function Board({ userId, pro, staff }: { userId: string | null; pro: boolean; staff: boolean }) {
   const qc = useQueryClient();
   const [cat, setCat] = useState<string>("all");
   const [sort, setSort] = useState<"latest" | "trending">("latest");
@@ -123,6 +116,12 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
         <div className="rounded-sm border border-border bg-card px-5 py-3"><p className="font-serif text-2xl text-card-foreground">{(totals.data?.posts ?? 0).toLocaleString()}</p><p className="text-xs uppercase tracking-wider text-muted-foreground">Discussions & Reviews</p></div>
         <p className="self-center text-xs text-muted-foreground">Live counts — they grow as members join and post.</p>
       </div>
+      {!userId ? (
+        <div className="mx-auto mt-6 flex max-w-7xl flex-wrap items-center gap-3 rounded-sm border border-primary/30 bg-primary/5 px-5 py-4 lg:mx-auto lg:max-w-7xl mx-5">
+          <p className="text-sm text-foreground">You're reading as a guest. Sign in free to post, reply, like and save discussions.</p>
+          <Button asChild size="sm"><Link to="/auth" search={{ redirect: "/author-community" }}>Sign in or create a free account</Link></Button>
+        </div>
+      ) : null}
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 lg:grid-cols-[220px_1fr_260px]">
         {/* Left sidebar */}
         <nav aria-label="Rooms" className="flex flex-wrap gap-2 lg:flex-col">
@@ -135,7 +134,7 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <Input placeholder="Search titles, authors, posts…" value={search} onChange={(e) => setSearch(e.target.value)} className="max-w-xs" aria-label="Search posts" />
-            <NewPost userId={userId} cats={cats.filter((c) => c.key !== "announcements" || staff)} staff={staff} defaultCat={cat} />
+            {userId ? <NewPost userId={userId} cats={cats.filter((c) => c.key !== "announcements" || staff)} staff={staff} defaultCat={cat} /> : null}
           </div>
           {posts.isLoading ? <p className="py-8 text-sm text-muted-foreground">Loading posts…</p> : null}
           {!posts.isLoading && !list.length ? <p className="py-8 text-sm text-muted-foreground">No posts here yet — start the first conversation.</p> : null}
@@ -183,7 +182,7 @@ function Board({ userId, pro, staff }: { userId: string; pro: boolean; staff: bo
 }
 
 function PostRow({ post: p, userId, staff, open, onToggle, onMod }: {
-  post: Post; userId: string; staff: boolean; open: boolean;
+  post: Post; userId: string | null; staff: boolean; open: boolean;
   onToggle: () => void; onMod: (patch?: Record<string, unknown>, del?: boolean) => void;
 }) {
   const qc = useQueryClient();
@@ -194,10 +193,11 @@ function PostRow({ post: p, userId, staff, open, onToggle, onMod }: {
 
   const state = useQuery({
     queryKey: ["post-state", p.id, userId],
+    enabled: !!userId,
     queryFn: async () => {
       const [l, b] = await Promise.all([
-        supabase.from("community_likes").select("id").eq("post_id", p.id).eq("user_id", userId).maybeSingle(),
-        supabase.from("community_bookmarks").select("id").eq("post_id", p.id).eq("user_id", userId).maybeSingle(),
+        supabase.from("community_likes").select("id").eq("post_id", p.id).eq("user_id", userId!).maybeSingle(),
+        supabase.from("community_bookmarks").select("id").eq("post_id", p.id).eq("user_id", userId!).maybeSingle(),
       ]);
       return { liked: !!l.data, saved: !!b.data };
     },
@@ -207,8 +207,8 @@ function PostRow({ post: p, userId, staff, open, onToggle, onMod }: {
     mutationFn: async ({ kind, on }: { kind: "like" | "bookmark"; on: boolean }) => {
       const table = kind === "like" ? "community_likes" : "community_bookmarks";
       const r = on
-        ? await supabase.from(table).insert({ post_id: p.id, user_id: userId })
-        : await supabase.from(table).delete().eq("post_id", p.id).eq("user_id", userId);
+        ? await supabase.from(table).insert({ post_id: p.id, user_id: userId! })
+        : await supabase.from(table).delete().eq("post_id", p.id).eq("user_id", userId!);
       if (r.error) throw r.error;
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["post-state", p.id] }); qc.invalidateQueries({ queryKey: ["community"] }); },
@@ -228,7 +228,7 @@ function PostRow({ post: p, userId, staff, open, onToggle, onMod }: {
   const report = useMutation({
     mutationFn: async () => {
       if (reason.trim().length < 5) throw new Error("Tell us briefly what's wrong (5+ characters).");
-      const { error } = await supabase.from("community_reports").insert({ post_id: p.id, reporter_id: userId, reason: reason.trim().slice(0, 500) });
+      const { error } = await supabase.from("community_reports").insert({ post_id: p.id, reporter_id: userId!, reason: reason.trim().slice(0, 500) });
       if (error) throw new Error("Could not send your report.");
     },
     onSuccess: () => { setReporting(false); setReason(""); toast.success("Report sent to the moderators"); },
@@ -267,21 +267,27 @@ function PostRow({ post: p, userId, staff, open, onToggle, onMod }: {
           {open && !editing ? <Thread post={p} userId={userId} staff={staff} /> : null}
 
           <div className="mt-2 flex flex-wrap items-center gap-1">
-            <Button size="sm" variant="ghost" onClick={() => act.mutate({ kind: "like", on: !liked })} aria-pressed={liked}>
-              <Heart className={`mr-1 size-4 ${liked ? "fill-primary text-primary" : ""}`} />{p.like_count}
-            </Button>
+            {userId ? (
+              <Button size="sm" variant="ghost" onClick={() => act.mutate({ kind: "like", on: !liked })} aria-pressed={liked}>
+                <Heart className={`mr-1 size-4 ${liked ? "fill-primary text-primary" : ""}`} />{p.like_count}
+              </Button>
+            ) : (
+              <span className="inline-flex items-center px-2 text-sm text-muted-foreground"><Heart className="mr-1 size-4" />{p.like_count}</span>
+            )}
             <Button size="sm" variant="ghost" onClick={onToggle}>{p.reply_count} {p.reply_count === 1 ? "reply" : "replies"}</Button>
-            <Button size="sm" variant="ghost" onClick={() => act.mutate({ kind: "bookmark", on: !saved })} aria-pressed={saved}>
-              <Bookmark className={`mr-1 size-4 ${saved ? "fill-primary text-primary" : ""}`} />{saved ? "Saved" : "Save"}
-            </Button>
+            {userId ? (
+              <Button size="sm" variant="ghost" onClick={() => act.mutate({ kind: "bookmark", on: !saved })} aria-pressed={saved}>
+                <Bookmark className={`mr-1 size-4 ${saved ? "fill-primary text-primary" : ""}`} />{saved ? "Saved" : "Save"}
+              </Button>
+            ) : null}
             <Button size="sm" variant="ghost" onClick={share}><Share2 className="mr-1 size-4" />Share</Button>
-            {p.author_id !== userId ? <Button size="sm" variant="ghost" onClick={() => setReporting(!reporting)}><Flag className="mr-1 size-4" />Report</Button> : null}
-            {p.author_id === userId && !editing ? <Button size="sm" variant="ghost" onClick={() => setEditing(true)}><Pencil className="mr-1 size-4" />Edit</Button> : null}
+            {userId && p.author_id !== userId ? <Button size="sm" variant="ghost" onClick={() => setReporting(!reporting)}><Flag className="mr-1 size-4" />Report</Button> : null}
+            {userId && p.author_id === userId && !editing ? <Button size="sm" variant="ghost" onClick={() => setEditing(true)}><Pencil className="mr-1 size-4" />Edit</Button> : null}
             {staff ? <>
               <Button size="sm" variant="ghost" onClick={() => onMod({ pinned: !p.pinned })}>{p.pinned ? "Unpin" : "Pin"}</Button>
               <Button size="sm" variant="ghost" onClick={() => onMod({ hidden: !p.hidden })}>{p.hidden ? "Unhide" : "Hide"}</Button>
             </> : null}
-            {staff || p.author_id === userId ? <Button size="sm" variant="ghost" onClick={() => { if (confirm("Delete this post?")) onMod(undefined, true); }}>Delete</Button> : null}
+            {staff || (userId && p.author_id === userId) ? <Button size="sm" variant="ghost" onClick={() => { if (confirm("Delete this post?")) onMod(undefined, true); }}>Delete</Button> : null}
           </div>
 
           {reporting ? (
@@ -333,7 +339,7 @@ function NewPost({ userId, cats, staff, defaultCat }: { userId: string; cats: re
   );
 }
 
-function Thread({ post, userId, staff }: { post: Post; userId: string; staff: boolean }) {
+function Thread({ post, userId, staff }: { post: Post; userId: string | null; staff: boolean }) {
   const qc = useQueryClient();
   const replies = useQuery({
     queryKey: ["replies", post.id],
@@ -343,7 +349,7 @@ function Thread({ post, userId, staff }: { post: Post; userId: string; staff: bo
   const send = useMutation({
     mutationFn: async () => {
       if (!name.trim() || !body.trim()) throw new Error("Add your display name and a reply.");
-      const { error } = await supabase.from("community_replies").insert({ post_id: post.id, author_id: userId, author_name: name.trim().slice(0, 80), body: body.trim().slice(0, 5000) });
+      const { error } = await supabase.from("community_replies").insert({ post_id: post.id, author_id: userId!, author_name: name.trim().slice(0, 80), body: body.trim().slice(0, 5000) });
       if (error) throw new Error("Could not post your reply.");
     },
     onSuccess: () => { setBody(""); qc.invalidateQueries({ queryKey: ["replies", post.id] }); qc.invalidateQueries({ queryKey: ["community"] }); },
@@ -360,16 +366,22 @@ function Thread({ post, userId, staff }: { post: Post; userId: string; staff: bo
         {(replies.data ?? []).map((r) => (
           <li key={r.id} className="text-sm">
             <p className="text-xs text-muted-foreground">{r.author_name}<Badge b={r.author_badge} /> · {new Date(r.created_at).toLocaleDateString()}
-              {staff || r.author_id === userId ? <button type="button" className="ml-2 underline" onClick={() => del.mutate(r.id)}>delete</button> : null}</p>
+              {staff || (userId && r.author_id === userId) ? <button type="button" className="ml-2 underline" onClick={() => del.mutate(r.id)}>delete</button> : null}</p>
             <p className="whitespace-pre-wrap">{r.body}</p>
           </li>
         ))}
       </ul>
-      <form className="mt-3 grid gap-2" onSubmit={(e) => { e.preventDefault(); send.mutate(); }}>
-        <Input placeholder="Display name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} />
-        <Textarea placeholder="Write a reply" rows={2} value={body} onChange={(e) => setBody(e.target.value)} maxLength={5000} />
-        <Button type="submit" size="sm" disabled={send.isPending} className="w-fit">Reply</Button>
-      </form>
+      {userId ? (
+        <form className="mt-3 grid gap-2" onSubmit={(e) => { e.preventDefault(); send.mutate(); }}>
+          <Input placeholder="Display name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} />
+          <Textarea placeholder="Write a reply" rows={2} value={body} onChange={(e) => setBody(e.target.value)} maxLength={5000} />
+          <Button type="submit" size="sm" disabled={send.isPending} className="w-fit">Reply</Button>
+        </form>
+      ) : (
+        <p className="mt-3 text-sm text-muted-foreground">
+          <Link to="/auth" search={{ redirect: "/author-community" }} className="text-primary underline-offset-4 hover:underline">Sign in free</Link> to reply to this discussion.
+        </p>
+      )}
     </div>
   );
 }
