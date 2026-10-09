@@ -36,6 +36,13 @@
       "when": 1791564232900,
       "tag": "0004_community_and_studio",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791583475548,
+      "tag": "0005_add_moderator_role",
+      "breakpoints": true
     }
   ]
 }
