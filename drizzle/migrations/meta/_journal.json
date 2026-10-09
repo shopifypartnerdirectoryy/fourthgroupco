@@ -64,6 +64,13 @@
       "when": 1791584442840,
       "tag": "0008_require_referral_code",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791585351268,
+      "tag": "0009_community_actions_and_capacity",
+      "breakpoints": true
     }
   ]
 }
