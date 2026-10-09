@@ -102,6 +102,7 @@ function Dashboard() {
         <Card title="Screen pitches">
           <p>{data?.pitches.length ?? 0} pitches · {data?.pitches.filter((p) => p.published).length ?? 0} listed publicly</p>
           <Button asChild variant="outline" className="mt-4"><Link to="/pitch-dashboard">Pitch dashboard</Link></Button>
+          <Button asChild variant="outline" className="ml-2 mt-4"><Link to="/author-community">Author Community</Link></Button>
         </Card>
         <Card title="Critique pods">
           <p>Find beta readers and critique partners, and manage your requests.</p>
