@@ -41,3 +41,33 @@ export const TRUST_FAQ: { q: string; a: string }[] = [
   { q: "How can members contact support?",
     a: `Email ${POLICY.supportEmail}. We aim to reply as soon as we can.` },
 ];
+
+/** Membership plans. Payment is confirmed manually by staff until a checkout provider is connected. */
+export const PLANS = {
+  standard: {
+    name: "Standard Member",
+    priceUsd: 25,
+    durationMonths: 12,
+    refundNote: "Refund requests are reviewed case by case.",
+    benefits: [
+      "Every magazine, press, agent, grant, contest and residency listing",
+      "Save to My Desk submission tracker with deadlines",
+      "The members-only Fourth Group Author Community",
+      "Event registration and member updates",
+      "Critique Exchange and pitch-deck requests",
+    ],
+  },
+  pro: {
+    name: "Pro Member",
+    priceUsd: 25,
+    durationMonths: 12,
+    refundNote: "Pro membership is non-refundable once activated.",
+    benefits: [
+      "Everything in Standard membership",
+      "Pro Member badge on your community posts",
+      "Access to the Pro Lounge discussion room",
+      "Priority consideration for editorial spotlights",
+    ],
+  },
+} as const;
+export type PlanKey = keyof typeof PLANS;
