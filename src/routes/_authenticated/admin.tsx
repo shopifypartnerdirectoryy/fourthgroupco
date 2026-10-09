@@ -131,7 +131,7 @@ function Testimonials() {
   async function add(e: FormEvent) {
     e.preventDefault();
     const { error } = await supabase.from("testimonials").insert({ member_name: f.member_name.trim(), quote: f.quote.trim(), specialty: f.specialty || null, portrait_url: f.portrait_url || null, profile_url: f.profile_url || null });
-    if (error) return toast.error("Check the fields (links must start with https://).");
+    if (error) { toast.error("Check the fields (links must start with https://)."); return; }
     setF({ member_name: "", specialty: "", quote: "", portrait_url: "", profile_url: "" });
     qc.invalidateQueries({ queryKey: ["admin", "testimonials"] }); toast.success("Saved as draft");
   }
