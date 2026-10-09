@@ -44,6 +44,7 @@ export const NAV_GROUPS = [
       { label: "Author Directory", to: "/directory" },
       { label: "Literary Events", to: "/events" },
       { label: "News & Articles", to: "/news" },
+      { label: "Critique Exchange", to: "/critique-exchange" },
     ],
   },
   {
@@ -52,6 +53,7 @@ export const NAV_GROUPS = [
       { label: "Writing Prompts", to: "/writing-prompts" },
       { label: "Craft & Practice", to: "/craft-practice" },
       { label: "Author Services", to: "/author-services" },
+      { label: "Copyright & Badges", to: "/author-protection" },
       { label: "About Us", to: "/about" },
       { label: "Trust & Transparency", to: "/trust-standards" },
     ],

@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthorProtectionRouteImport } from './routes/author-protection'
 import { Route as AuthorServicesRouteImport } from './routes/author-services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContestsRouteImport } from './routes/contests'
@@ -64,6 +65,11 @@ const AboutRoute = AboutRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorProtectionRoute = AuthorProtectionRouteImport.update({
+  id: '/author-protection',
+  path: '/author-protection',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthorServicesRoute = AuthorServicesRouteImport.update({
@@ -239,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
@@ -277,6 +284,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
@@ -317,6 +325,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
   '/contact': typeof ContactRoute
   '/contests': typeof ContestsRoute
@@ -357,6 +366,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-protection'
     | '/author-services'
     | '/contact'
     | '/contests'
@@ -395,6 +405,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-protection'
     | '/author-services'
     | '/contact'
     | '/contests'
@@ -434,6 +445,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/author-protection'
     | '/author-services'
     | '/contact'
     | '/contests'
@@ -474,6 +486,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  AuthorProtectionRoute: typeof AuthorProtectionRoute
   AuthorServicesRoute: typeof AuthorServicesRoute
   ContactRoute: typeof ContactRoute
   ContestsRoute: typeof ContestsRoute
@@ -532,6 +545,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/author-protection': {
+      id: '/author-protection'
+      path: '/author-protection'
+      fullPath: '/author-protection'
+      preLoaderRoute: typeof AuthorProtectionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/author-services': {
@@ -792,6 +812,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  AuthorProtectionRoute: AuthorProtectionRoute,
   AuthorServicesRoute: AuthorServicesRoute,
   ContactRoute: ContactRoute,
   ContestsRoute: ContestsRoute,
