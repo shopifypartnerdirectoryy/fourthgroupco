@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 export type SpotlightFallback = { title: string; creator_name: string; specialty: string | null; description: string; image_url: string | null; link_url: string | null };
 
 export function WeeklySpotlights({ fallback }: { fallback?: { book: SpotlightFallback; creative: SpotlightFallback } }) {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["weekly-spotlights"],
     queryFn: async () => {
       const { data, error } = await supabase.from("weekly_spotlights").select("*").eq("status", "published").order("week_start", { ascending: false }).limit(20);
@@ -16,16 +16,17 @@ export function WeeklySpotlights({ fallback }: { fallback?: { book: SpotlightFal
       return { book: live.find((d) => d.kind === "book") ?? fallback?.book, creative: live.find((d) => d.kind === "creative") ?? fallback?.creative };
     },
   });
-  if (isLoading || !data || (!data.book && !data.creative)) return null;
+  const picks = data ?? fallback;
+  if (!picks || (!picks.book && !picks.creative)) return null;
 
   return (
     <section className="border-b border-border bg-background">
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2">
-        {[{ label: "Book of the Week", item: data.book }, { label: "Creative of the Week", item: data.creative }].map(({ label, item }) =>
+        {[{ label: "Book of the Week", item: picks.book }, { label: "Creative of the Week", item: picks.creative }].map(({ label, item }) =>
           item ? (
-            <article key={label} className="grid grid-cols-[110px_1fr] gap-6 border-t-2 border-primary bg-card p-6 shadow-sm">
-              {item.image_url ? <img src={item.image_url} alt={item.title} loading="lazy" className="w-full rounded-sm object-cover" /> : <div className="aspect-[3/4] rounded-sm bg-secondary" />}
-              <div>
+            <article key={label} className="grid grid-cols-[80px_minmax(0,1fr)] gap-4 border-t-2 border-primary bg-card p-4 shadow-sm sm:grid-cols-[110px_minmax(0,1fr)] sm:gap-6 sm:p-6">
+              {item.image_url ? <img src={item.image_url} alt={item.title} loading="lazy" className="aspect-[2/3] w-full rounded-sm object-contain" /> : <div className="aspect-[3/4] rounded-sm bg-secondary" />}
+              <div className="min-w-0 break-words">
                 <p className="text-xs font-semibold uppercase text-primary">{label}</p>
                 <h2 className="mt-2 font-serif text-2xl leading-tight text-card-foreground">{item.title}</h2>
                 <p className="mt-1 text-sm text-muted-foreground">{item.creator_name}{item.specialty ? ` · ${item.specialty}` : ""}</p>
