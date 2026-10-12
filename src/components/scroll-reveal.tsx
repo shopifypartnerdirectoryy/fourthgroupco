@@ -2,14 +2,15 @@ import { useEffect } from "react";
 import { useRouterState } from "@tanstack/react-router";
 
 const SELECTOR =
-  "main section, main article, main h1, main h2, main li, main form, main img, footer > div";
+  "main article, main section > div, main .reveal, footer > div";
 
 /** Adds a gentle fade/slide-in to page content as it scrolls into view. */
 export function ScrollReveal() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -19,19 +20,18 @@ export function ScrollReveal() {
           }
         }
       },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0, rootMargin: "0px" },
     );
 
     const timer = window.setTimeout(() => {
-      const els = Array.from(document.querySelectorAll<HTMLElement>(`${SELECTOR}, main .reveal`));
+      const els = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR));
       const vh = window.innerHeight;
       els.forEach((el, i) => {
-        if (el.dataset["revealBound"]) return;
-        el.dataset["revealBound"] = "1";
+        if (el.classList.contains("is-revealed")) return;
         const rect = el.getBoundingClientRect();
         el.classList.add("reveal");
         el.style.setProperty("--reveal-delay", `${Math.min(i % 6, 5) * 60}ms`);
-        if (rect.top < vh) {
+        if (rect.top < vh && rect.bottom > 0) {
           requestAnimationFrame(() => el.classList.add("is-revealed"));
         } else {
           observer.observe(el);

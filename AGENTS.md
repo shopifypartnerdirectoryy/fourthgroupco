@@ -16,3 +16,5 @@
 - Keep editorial opportunity records and author profiles in typed local data modules so filters remain consistent across public directories.
 - Business policy values (support email, price, payment link, review link) live in src/data/policies.ts so copy stays consistent across pages.
 - Admin rights come only from public.user_roles via has_role(); UI checks are cosmetic, RLS enforces access.
+- Scroll animations must leave content visible by default and never hide whole sections; this prevents blank pages when observers, navigation, or scripts are interrupted.
+- Use a shared visible router pending screen so slow route and account checks do not leave an empty page.
