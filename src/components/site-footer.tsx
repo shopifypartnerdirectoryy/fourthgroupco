@@ -28,7 +28,7 @@ const FOOTER_GROUPS: { title: string; links: { to: string; label: string }[] }[]
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-secondary-foreground/10 bg-secondary text-secondary-foreground">
+    <footer className="border-t border-secondary-foreground/10 bg-secondary text-secondary-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div className="sm:col-span-2">
           <Link to="/" aria-label="Fourth Group and Co home" className="inline-block rounded-sm bg-background p-3">
