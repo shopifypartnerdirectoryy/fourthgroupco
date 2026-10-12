@@ -1,7 +1,7 @@
 # Roadmap
 
-- [ ] Fix fail-closed scroll visibility and provide a visible page-loading state
-- [ ] Verify visitor pages, rapid scrolling, navigation, and script-disabled content
+- [x] Fix fail-closed scroll visibility and provide a visible page-loading state
+- [x] Verify visitor pages, rapid scrolling, navigation, and script-disabled content
 
 - [x] Rebuild shared header with desktop dropdowns and expandable mobile groups
 - [x] Apply the navy, ivory, white, and gold visual system
