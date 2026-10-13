@@ -20,7 +20,7 @@ function AuthorDirectory() {
   const [craft, setCraft] = useState("all");
   const [availability, setAvailability] = useState("all");
   const directoryAuthors = useMemo(() => [
-    ...FEATURED_AUTHORS.map((author) => ({ name: author.name, craft: author.genres.replaceAll(", ", " · "), location: "Fourth Group community", books: 1, available: ["Author enquiries"], bio: author.summary, featured: true, notableWork: author.notableWork })),
+    ...FEATURED_AUTHORS.map((author) => ({ name: author.name, craft: author.genres.replaceAll(", ", " · "), location: "Fourth Group community", books: author.notableWork.split(" · ").length, available: ["Author enquiries"], bio: author.summary, featured: true, notableWork: author.notableWork })),
     ...AUTHORS.filter((author) => author.name === "Jack Ryan").map((author) => ({ ...author, notableWork: "Early Mornings with “Dick”" })),
   ], []);
   const crafts = [...new Set(directoryAuthors.flatMap((author) => author.craft.split(" · ")))].sort();

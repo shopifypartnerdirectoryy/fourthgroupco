@@ -11,6 +11,10 @@ import finishTheRace from "@/assets/finish-the-race.jpg";
 import gunfighters from "@/assets/gunfighters.jpg";
 import boundaries from "@/assets/boundaries.jpg";
 import egyptStars from "@/assets/egypt-under-the-stars.jpg";
+import walkingWounded from "@/assets/walking-wounded-revised.jpg";
+import nobelPursuits from "@/assets/nobel-pursuits.jpg";
+import valleySaintAnne from "@/assets/valley-of-saint-anne.jpg";
+import himbaPondDance from "@/assets/himba-pond-dance.jpg";
 
 export const COMMUNITY_CATEGORIES = [
   { key: "announcements", label: "Announcements", note: "Updates from the Fourth Group & Co team." },
@@ -32,6 +36,10 @@ export const categoryLabel = (k: string) => COMMUNITY_CATEGORIES.find((c) => c.k
 
 export type CommunityBook = { key: string; title: string; author: string; format: string; image: string; url: string };
 export const COMMUNITY_BOOKS: CommunityBook[] = [
+  { key: "walking-wounded", title: "The Walking Wounded Revised: The Healing Journey: Restoring Hope from Your Abusive Past", author: "Deborah Ling", format: "Paperback", image: walkingWounded, url: "https://www.amazon.com/dp/B0GTLS5JDN" },
+  { key: "nobel-pursuits", title: "Nobel Pursuits", author: "Rosemarie Aquilina & Robert Leader†", format: "Kindle Edition", image: nobelPursuits, url: "https://www.amazon.com/dp/B0DR3389GV" },
+  { key: "valley-saint-anne", title: "Valley of Saint Anne", author: "Dave Gioia", format: "Kindle Edition", image: valleySaintAnne, url: "https://www.amazon.com/dp/B0FKQF9GYD" },
+  { key: "himba-pond-dance", title: "Himba Pond Dance", author: "Dave Gioia", format: "Kindle Edition", image: himbaPondDance, url: "https://www.amazon.com/dp/B0FLB4NYSK" },
   { key: "early-mornings", title: "Early Mornings with “Dick”", author: "Jack Ryan", format: "Hardcover", image: earlyMornings, url: "https://www.amazon.com/dp/1808570472" },
   { key: "socrates", title: "Blame It on Socrates", author: "Jack Ryan", format: "Kindle Edition", image: socratesDog, url: "https://www.amazon.com/dp/B0F2SJZY24" },
   { key: "proud-american", title: "Proud American", author: "Sergio A. Tinoco", format: "Kindle Edition", image: proudAmerican, url: "https://www.amazon.com/dp/B0H1348M12" },
