@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
 import { AuthorSpotlightForm } from "@/components/author-spotlight-form";
 import { WeeklySpotlights } from "@/components/weekly-spotlights";
+import { FilterableShelf, NewsletterSignup } from "@/components/home-extras";
 import { COUNTS, TOTAL_OPPORTUNITIES } from "@/data/directory-counts";
 import { SITE } from "@/data/site";
 import heroDesk from "@/assets/hero-desk.jpg";
@@ -263,18 +264,7 @@ function Index() {
       <section className="bg-secondary text-secondary-foreground">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="text-center"><p className="text-xs font-semibold uppercase text-primary">On Our Reading Table</p><h2 className="mt-3 font-serif text-4xl">Books worth meeting</h2><p className="mx-auto mt-3 max-w-2xl text-sm text-secondary-foreground/65">A Fourth Group &amp; Co selection of history, memoir, literary fiction, and stories of public life.</p></div>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {books.map((book) => (
-              <article key={`${book.title}-${book.image}`} className="flex min-w-0 flex-col">
-                <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-sm bg-background/5 p-3"><img src={book.image} alt={`${book.title} book cover`} className="max-h-full max-w-full object-contain shadow-xl" /></div>
-                <p className="mt-5 text-[10px] font-semibold uppercase text-primary">{book.tag}</p>
-                <h3 className="mt-2 font-serif text-xl leading-tight">{book.title}</h3><p className="mt-1 text-xs text-secondary-foreground/60">by {book.author} · {book.format}</p>
-                <div className="mt-3 flex items-center gap-2 text-xs text-primary">{book.rating !== "Available now" ? <Star aria-hidden="true" className="size-3 shrink-0 fill-current" /> : null}<span>{book.rating}</span></div>
-                <p className="mt-4 line-clamp-4 text-xs leading-relaxed text-secondary-foreground/65">{book.description}</p>
-                <Button asChild variant="link" className="mt-auto h-auto w-fit px-0 pt-5 text-primary"><a href={book.link} target="_blank" rel="noopener noreferrer">View on Amazon <ExternalLink /></a></Button>
-              </article>
-            ))}
-          </div>
+          <FilterableShelf books={books} />
         </div>
       </section>
 
