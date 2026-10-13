@@ -92,6 +92,13 @@
       "when": 1791587572621,
       "tag": "0012_public_community_access",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1791872795303,
+      "tag": "0013_newsletter_subscribers",
+      "breakpoints": true
     }
   ]
 }

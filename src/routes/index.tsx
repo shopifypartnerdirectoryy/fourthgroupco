@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
 import { AuthorSpotlightForm } from "@/components/author-spotlight-form";
 import { WeeklySpotlights } from "@/components/weekly-spotlights";
+import { FilterableShelf, NewsletterSignup } from "@/components/home-extras";
 import { COUNTS, TOTAL_OPPORTUNITIES } from "@/data/directory-counts";
 import { SITE } from "@/data/site";
 import heroDesk from "@/assets/hero-desk.jpg";
@@ -263,18 +264,7 @@ function Index() {
       <section className="bg-secondary text-secondary-foreground">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="text-center"><p className="text-xs font-semibold uppercase text-primary">On Our Reading Table</p><h2 className="mt-3 font-serif text-4xl">Books worth meeting</h2><p className="mx-auto mt-3 max-w-2xl text-sm text-secondary-foreground/65">A Fourth Group &amp; Co selection of history, memoir, literary fiction, and stories of public life.</p></div>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {books.map((book) => (
-              <article key={`${book.title}-${book.image}`} className="flex min-w-0 flex-col">
-                <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-sm bg-background/5 p-3"><img src={book.image} alt={`${book.title} book cover`} className="max-h-full max-w-full object-contain shadow-xl" /></div>
-                <p className="mt-5 text-[10px] font-semibold uppercase text-primary">{book.tag}</p>
-                <h3 className="mt-2 font-serif text-xl leading-tight">{book.title}</h3><p className="mt-1 text-xs text-secondary-foreground/60">by {book.author} · {book.format}</p>
-                <div className="mt-3 flex items-center gap-2 text-xs text-primary">{book.rating !== "Available now" ? <Star aria-hidden="true" className="size-3 shrink-0 fill-current" /> : null}<span>{book.rating}</span></div>
-                <p className="mt-4 line-clamp-4 text-xs leading-relaxed text-secondary-foreground/65">{book.description}</p>
-                <Button asChild variant="link" className="mt-auto h-auto w-fit px-0 pt-5 text-primary"><a href={book.link} target="_blank" rel="noopener noreferrer">View on Amazon <ExternalLink /></a></Button>
-              </article>
-            ))}
-          </div>
+          <FilterableShelf books={books} />
         </div>
       </section>
 
@@ -311,6 +301,8 @@ function Index() {
       <section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-6xl px-5 py-20"><div className="flex items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase text-primary">Fourth Group Journal</p><h2 className="mt-3 font-serif text-4xl">Notes for a writing life</h2></div><Link to="/news" className="text-sm font-semibold text-primary">All journal entries</Link></div><div className="mt-10 grid gap-8 md:grid-cols-3">{journal.map((item)=><article key={item.title} className="border-t border-secondary-foreground/25 pt-6"><p className="text-[10px] font-semibold uppercase text-primary">{item.label}</p><h3 className="mt-3 font-serif text-2xl leading-tight">{item.title}</h3><p className="mt-4 text-sm leading-relaxed text-secondary-foreground/65">{item.body}</p><Link to="/news" className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-primary">Continue reading <ArrowRight className="size-3"/></Link></article>)}</div></div></section>
 
       <section className="bg-background"><div className="mx-auto max-w-6xl px-5 py-20"><div className="grid gap-10 lg:grid-cols-[.75fr_1.25fr]"><div><p className="text-xs font-semibold uppercase text-primary">Coming to the Programme</p><h2 className="mt-3 font-serif text-4xl">Gatherings for curious writers</h2><p className="mt-4 text-sm leading-relaxed text-muted-foreground">These planned formats will bring authors, editors, and fellow writers together for focused conversation and practical learning. Dates will be announced.</p><Button asChild variant="outline" className="mt-7 rounded-none"><Link to="/events">Visit the events page <CalendarDays/></Link></Button></div><div className="divide-y divide-border border-y border-border">{events.map((event)=><article key={event.title} className="grid grid-cols-[68px_1fr] gap-5 py-6"><p className="font-serif text-lg leading-tight text-primary">{event.date}</p><div><p className="text-[10px] font-semibold uppercase text-muted-foreground">{event.type}</p><h3 className="mt-2 font-serif text-xl">{event.title}</h3></div></article>)}</div></div></div></section>
+
+      <NewsletterSignup />
 
       <section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-3xl px-5 py-16 text-center"><Globe2 className="mx-auto size-6 text-primary" /><h2 className="mt-4 font-serif text-3xl">Your next chapter deserves good company</h2><p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-secondary-foreground/65">Come for the research. Stay for the conversations, shared knowledge, and steady encouragement that help serious work find its readers.</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><Button asChild size="lg" className="rounded-none"><Link to="/membership">Become a member — ${SITE.membership}/year <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="rounded-none border-secondary-foreground/30 bg-transparent text-secondary-foreground hover:bg-secondary-foreground/10 hover:text-secondary-foreground"><Link to="/events"><CalendarDays /> Browse gatherings</Link></Button></div><p className="mt-5 text-xs text-secondary-foreground/50">One annual membership. No tiers or hidden charges.</p></div></section>
     </PageShell>
