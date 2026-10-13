@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 
 export type ShelfBook = { title: string; author: string; format: string; rating: string; image: string; description: string; link: string; tag: string };
 
-export function FilterableShelf({ books }: { books: ShelfBook[] }) {
+export function FilterableShelf({ books }: { books: readonly ShelfBook[] }) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");
   const tags = useMemo(() => ["All", ...Array.from(new Set(books.map((b) => b.tag)))], [books]);
@@ -50,7 +50,7 @@ export function NewsletterSignup() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const parsed = schema.safeParse({ first_name: name, email });
-    if (!parsed.success) return setError(parsed.error.issues[0].message);
+    if (!parsed.success) return setError(parsed.error.issues[0]?.message ?? "Please check your details");
     setError(""); setState("busy");
     const { error: err } = await supabase.from("newsletter_subscribers").insert({ email: parsed.data.email.toLowerCase(), first_name: parsed.data.first_name || null });
     if (err && err.code !== "23505") { setState("idle"); return setError("Something went wrong. Please try again."); }
