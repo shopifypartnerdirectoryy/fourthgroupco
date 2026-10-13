@@ -22,6 +22,10 @@ import finishTheRace from "@/assets/finish-the-race.jpg";
 import gunfighters from "@/assets/gunfighters.jpg";
 import boundaries from "@/assets/boundaries.jpg";
 import egyptStars from "@/assets/egypt-under-the-stars.jpg";
+import walkingWounded from "@/assets/walking-wounded-revised.jpg";
+import nobelPursuits from "@/assets/nobel-pursuits.jpg";
+import valleySaintAnne from "@/assets/valley-of-saint-anne.jpg";
+import himbaPondDance from "@/assets/himba-pond-dance.jpg";
 
 export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
@@ -39,6 +43,26 @@ export const Route = createFileRoute("/")({
 });
 
 const books = [
+  {
+    title: "The Walking Wounded Revised: The Healing Journey: Restoring Hope from Your Abusive Past", author: "Deborah Ling", format: "Paperback", rating: "5.0 · 1 Amazon review", image: walkingWounded,
+    description: "Pastor Deborah Ling draws on her experience of abuse and her Christian faith to explore healing, forgiveness, and renewed hope. Scripture and end-of-chapter questions invite readers to reflect on their own journey.",
+    link: "https://www.amazon.com/dp/B0GTLS5JDN", tag: "Christian living & healing",
+  },
+  {
+    title: "Nobel Pursuits", author: "Rosemarie Aquilina & Robert Leader†", format: "Kindle Edition", rating: "4.6 · 3 Amazon reviews", image: nobelPursuits,
+    description: "A cancer breakthrough at New York’s Falk Institute turns deadly when a research assistant is found dead. As scientific fraud threatens his career and his wife’s life, Dr. Steve Thurston must uncover the truth behind a ruthless pursuit of glory.",
+    link: "https://www.amazon.com/dp/B0DR3389GV", tag: "Medical thriller",
+  },
+  {
+    title: "Valley of Saint Anne", author: "Dave Gioia", format: "Kindle Edition", rating: "3.7 · 8 Amazon reviews", image: valleySaintAnne,
+    description: "Inspired by Anne Frank’s diary, twelve-year-old Dee Dee records a Southern California childhood shaped by grief, family change, and the confidence she finds through surfing. Her perspective anchors a wider portrait of community and growing up.",
+    link: "https://www.amazon.com/dp/B0FKQF9GYD", tag: "Coming-of-age fiction",
+  },
+  {
+    title: "Himba Pond Dance", author: "Dave Gioia", format: "Kindle Edition", rating: "4.2 · 7 Amazon reviews", image: himbaPondDance,
+    description: "During the Great Recession, siblings Trey and Kim face their parents’ separation, foreclosure, and an uncertain new home. Their journeys explore identity, friendship, and belonging amid the complicated relationships of Southern California life.",
+    link: "https://www.amazon.com/dp/B0FLB4NYSK", tag: "Contemporary fiction",
+  },
   {
     title: 'Early Mornings with “Dick”', author: "Jack Ryan", format: "Hardcover", rating: "5.0 · 1 review", image: earlyMornings,
     description: "A compelling historical novel following a Georgetown law student whose private breakfasts with President Richard Nixon reshape his understanding of leadership, truth, and public service.",
@@ -245,7 +269,7 @@ function Index() {
                 <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-sm bg-background/5 p-3"><img src={book.image} alt={`${book.title} book cover`} className="max-h-full max-w-full object-contain shadow-xl" /></div>
                 <p className="mt-5 text-[10px] font-semibold uppercase text-primary">{book.tag}</p>
                 <h3 className="mt-2 font-serif text-xl leading-tight">{book.title}</h3><p className="mt-1 text-xs text-secondary-foreground/60">by {book.author} · {book.format}</p>
-                <div className="mt-3 flex items-center gap-2 text-xs text-primary"><span className="flex">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-current" />)}</span><span>{book.rating}</span></div>
+                <div className="mt-3 flex items-center gap-2 text-xs text-primary">{book.rating !== "Available now" ? <Star aria-hidden="true" className="size-3 shrink-0 fill-current" /> : null}<span>{book.rating}</span></div>
                 <p className="mt-4 line-clamp-4 text-xs leading-relaxed text-secondary-foreground/65">{book.description}</p>
                 <Button asChild variant="link" className="mt-auto h-auto w-fit px-0 pt-5 text-primary"><a href={book.link} target="_blank" rel="noopener noreferrer">View on Amazon <ExternalLink /></a></Button>
               </article>
