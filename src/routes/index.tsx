@@ -275,6 +275,33 @@ function Index() {
         </div>
       </section>
 
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto max-w-6xl px-5 py-20">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase text-primary"><TrendingUp className="size-4" /> This Week’s Breakout Reads</p>
+              <h2 className="mt-3 font-serif text-4xl">Books rising fast</h2>
+              <p className="mt-3 max-w-2xl text-sm text-muted-foreground">Four titles our editors are watching closely this week — stories gathering readers, conversation, and word of mouth across the Fourth Group &amp; Co community.</p>
+            </div>
+            <Button asChild variant="outline" className="w-fit rounded-none"><Link to="/directory">Meet the authors <ArrowRight /></Link></Button>
+          </div>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {breakoutReads.map((book, index) => (
+              <article key={`breakout-${book.title}`} className="flex flex-col bg-card p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <img src={book.image} alt={`${book.title} book cover`} loading="lazy" className="h-32 w-22 object-contain shadow-md" />
+                  <span className="font-serif text-3xl text-primary/40">0{index + 1}</span>
+                </div>
+                <h3 className="mt-5 font-serif text-lg leading-tight">{book.title}</h3>
+                <p className="mt-1 text-xs text-muted-foreground">by {book.author}</p>
+                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{book.note}</p>
+                <Button asChild variant="link" className="mt-auto h-auto w-fit px-0 pt-4 text-primary"><a href={book.link} target="_blank" rel="noopener noreferrer">View on Amazon <ExternalLink /></a></Button>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-background">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><p className="text-xs font-semibold uppercase text-primary">From the Fourth Group Shelf</p><h2 className="mt-3 font-serif text-4xl">Titles currently in conversation</h2></div><Button asChild variant="outline" className="w-fit rounded-none"><Link to="/news">Browse editorial coverage <ArrowRight /></Link></Button></div>
