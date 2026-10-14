@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, ExternalLink, Feather, Film, Globe2, Library, MessageCircle, Quote, Search, Star, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, ExternalLink, Feather, Film, Globe2, Library, MessageCircle, Quote, Search, Star, TrendingUp, Users } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
