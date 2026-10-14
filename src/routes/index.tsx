@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, ExternalLink, Feather, Film, Globe2, Library, MessageCircle, Quote, Search, Star, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, ExternalLink, Feather, Film, Globe2, Library, MessageCircle, Quote, Search, Star, TrendingUp, Users } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { ClaimArticleDialog } from "@/components/claim-article-dialog";
@@ -174,6 +174,13 @@ const events = [
   { date: "Soon", title: "From Book Premise to Screen Pitch", type: "Planned virtual panel" },
 ] as const;
 
+const breakoutReads = [
+  { title: "Nobel Pursuits", author: "Rosemarie Aquilina & Robert Leader†", image: nobelPursuits, link: "https://www.amazon.com/dp/B0DR3389GV", note: "A medical thriller gathering momentum with readers who like their science high-stakes." },
+  { title: "The Walking Wounded Revised", author: "Deborah Ling", image: walkingWounded, link: "https://www.amazon.com/dp/B0GTLS5JDN", note: "A healing memoir finding its way onto reading lists for faith and recovery circles." },
+  { title: "Himba Pond Dance", author: "Dave Gioia", image: himbaPondDance, link: "https://www.amazon.com/dp/B0FLB4NYSK", note: "A Great Recession coming-of-age story drawing fresh attention this season." },
+  { title: "Proud American", author: "Sergio A. Tinoco", image: proudAmerican, link: "https://www.amazon.com/Proud-American-Migrant-Soldier-Agent-ebook/dp/B0H1348M12", note: "A true story of service and perseverance that readers keep passing along." },
+] as const;
+
 const writerTools = [
   { icon: Search, label: "Find Opportunities", detail: `${COUNTS.grants} grants · ${COUNTS.contests} contests · ${COUNTS.residencies} residencies`, to: "/grants-awards" },
   { icon: Library, label: "Publish Your Writing", detail: `${COUNTS.magazines} magazines · ${COUNTS.presses} presses · ${COUNTS.agents} agents`, to: "/literary-magazines" },
@@ -265,6 +272,33 @@ function Index() {
         <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="text-center"><p className="text-xs font-semibold uppercase text-primary">On Our Reading Table</p><h2 className="mt-3 font-serif text-4xl">Books worth meeting</h2><p className="mx-auto mt-3 max-w-2xl text-sm text-secondary-foreground/65">A Fourth Group &amp; Co selection of history, memoir, literary fiction, and stories of public life.</p></div>
           <FilterableShelf books={books} />
+        </div>
+      </section>
+
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto max-w-6xl px-5 py-20">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase text-primary"><TrendingUp className="size-4" /> This Week’s Breakout Reads</p>
+              <h2 className="mt-3 font-serif text-4xl">Books rising fast</h2>
+              <p className="mt-3 max-w-2xl text-sm text-muted-foreground">Four titles our editors are watching closely this week — stories gathering readers, conversation, and word of mouth across the Fourth Group &amp; Co community.</p>
+            </div>
+            <Button asChild variant="outline" className="w-fit rounded-none"><Link to="/directory">Meet the authors <ArrowRight /></Link></Button>
+          </div>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {breakoutReads.map((book, index) => (
+              <article key={`breakout-${book.title}`} className="flex flex-col bg-card p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <img src={book.image} alt={`${book.title} book cover`} loading="lazy" className="h-32 w-22 object-contain shadow-md" />
+                  <span className="font-serif text-3xl text-primary/40">0{index + 1}</span>
+                </div>
+                <h3 className="mt-5 font-serif text-lg leading-tight">{book.title}</h3>
+                <p className="mt-1 text-xs text-muted-foreground">by {book.author}</p>
+                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{book.note}</p>
+                <Button asChild variant="link" className="mt-auto h-auto w-fit px-0 pt-4 text-primary"><a href={book.link} target="_blank" rel="noopener noreferrer">View on Amazon <ExternalLink /></a></Button>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
