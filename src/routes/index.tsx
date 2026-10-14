@@ -174,6 +174,13 @@ const events = [
   { date: "Soon", title: "From Book Premise to Screen Pitch", type: "Planned virtual panel" },
 ] as const;
 
+const breakoutReads = [
+  { title: "Nobel Pursuits", author: "Rosemarie Aquilina & Robert Leader†", image: nobelPursuits, link: "https://www.amazon.com/dp/B0DR3389GV", note: "A medical thriller gathering momentum with readers who like their science high-stakes." },
+  { title: "The Walking Wounded Revised", author: "Deborah Ling", image: walkingWounded, link: "https://www.amazon.com/dp/B0GTLS5JDN", note: "A healing memoir finding its way onto reading lists for faith and recovery circles." },
+  { title: "Himba Pond Dance", author: "Dave Gioia", image: himbaPondDance, link: "https://www.amazon.com/dp/B0FLB4NYSK", note: "A Great Recession coming-of-age story drawing fresh attention this season." },
+  { title: "Proud American", author: "Sergio A. Tinoco", image: proudAmerican, link: "https://www.amazon.com/Proud-American-Migrant-Soldier-Agent-ebook/dp/B0H1348M12", note: "A true story of service and perseverance that readers keep passing along." },
+] as const;
+
 const writerTools = [
   { icon: Search, label: "Find Opportunities", detail: `${COUNTS.grants} grants · ${COUNTS.contests} contests · ${COUNTS.residencies} residencies`, to: "/grants-awards" },
   { icon: Library, label: "Publish Your Writing", detail: `${COUNTS.magazines} magazines · ${COUNTS.presses} presses · ${COUNTS.agents} agents`, to: "/literary-magazines" },
