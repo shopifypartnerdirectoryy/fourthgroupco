@@ -41,6 +41,45 @@ export type Database = {
         }
         Relationships: []
       }
+      campaign_requests: {
+        Row: {
+          budget_range: string | null
+          campaign_goal: string
+          consent: boolean
+          created_at: string
+          email: string
+          full_name: string
+          genre: string
+          id: string
+          interest: string | null
+          project_title: string
+        }
+        Insert: {
+          budget_range?: string | null
+          campaign_goal: string
+          consent?: boolean
+          created_at?: string
+          email: string
+          full_name: string
+          genre: string
+          id?: string
+          interest?: string | null
+          project_title: string
+        }
+        Update: {
+          budget_range?: string | null
+          campaign_goal?: string
+          consent?: boolean
+          created_at?: string
+          email?: string
+          full_name?: string
+          genre?: string
+          id?: string
+          interest?: string | null
+          project_title?: string
+        }
+        Relationships: []
+      }
       community_bookmarks: {
         Row: {
           created_at: string

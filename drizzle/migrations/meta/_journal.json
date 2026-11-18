@@ -99,6 +99,13 @@
       "when": 1791872795303,
       "tag": "0013_newsletter_subscribers",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1795001939858,
+      "tag": "0014_create_campaign_requests",
+      "breakpoints": true
     }
   ]
 }
