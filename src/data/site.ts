@@ -5,9 +5,17 @@ export const SITE = {
   short: "Fourth Group",
   email: "hello@fourthgroup.co",
   tagline:
-    "A global network for authors, poets and screenwriters — resources, opportunity listings and a community that reads you closely.",
+    "Premium book promotion, publicity and author marketing. Your Story. Our Strategy. Greater Reach.",
   membership: 25,
 };
+
+export const PRIMARY_NAV = [
+  { label: "Launch Packages", to: "/launch-packages" },
+  { label: "Marketing Services", to: "/marketing-services" },
+  { label: "Client Campaigns", to: "/client-campaigns" },
+  { label: "Screen Adaptation", to: "/screen-adaptation" },
+  { label: "About", to: "/about" },
+] as const;
 
 export const NAV_GROUPS = [
   {

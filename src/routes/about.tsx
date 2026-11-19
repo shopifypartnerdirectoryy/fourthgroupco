@@ -1,19 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { PageShell, PageHeader } from "@/components/page-shell";
-import { FEATURES, SITE } from "@/data/site";
+import { Button } from "@/components/ui/button";
+import { LeadershipCards, SectionIntro, WhyGrid } from "@/components/agency";
 
 export const Route = createFileRoute("/about")({
   staticData: { sitemap: true },
   head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/about" }],
     meta: [
-      { title: "About Fourth Group & Co" },
-      {
-        name: "description",
-        content:
-          "Fourth Group & Co is a global network for authors, poets and screenwriters, built on verified listings and plain dealing.",
-      },
-      { property: "og:title", content: "About Fourth Group & Co" },
-      { property: "og:description", content: "Who we are and how the platform works." },
+      { title: "About Fourth Group & Co | Book Marketing & Publicity Agency" },
+      { name: "description", content: "Fourth Group & Co is a premium book promotion, publicity and literary marketing agency for authors, poets, independent publishers and storytellers." },
+      { property: "og:title", content: "About Fourth Group & Co | Book Marketing & Publicity Agency" },
+      { property: "og:description", content: "A strategic partner for authors and literary professionals. Meet our leadership team." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/about" },
     ],
@@ -21,66 +19,27 @@ export const Route = createFileRoute("/about")({
   component: Page,
 });
 
-const TEAM = [
-  { name: "Mou Barrac", role: "Founder & Managing Director", note: "Sets the direction of Fourth Group & Co and oversees partnerships, membership and the overall reader and writer experience." },
-  { name: "Aliyu Adam", role: "Editorial Director", note: "Leads the research desk, verifies every listing, and edits the Journal, author spotlights and featured articles." },
-  { name: "James Kamy", role: "Head of Film Adaptation & Partnerships", note: "Runs the movie adaptation programme, reviews story pitches and builds relationships with producers and presses." },
-  { name: "Emily Grace", role: "Community & Author Relations Manager", note: "Looks after members and directory authors, hosts literary events, and answers questions at hello@fourthgroup.co." },
-];
-
 function Page() {
   return (
     <PageShell>
-      <PageHeader
-        kicker="About us"
-        title="A network built for the people doing the writing"
-        intro={SITE.tagline}
-      />
-      <div className="mx-auto max-w-3xl px-5 py-14">
-        <p className="text-base leading-relaxed text-muted-foreground">
-          Fourth Group &amp; Co began as a shared list passed between a handful of writers who were tired
-          of chasing dead links and expired deadlines. It grew into a research desk: every magazine,
-          press, grant, contest and residency we publish is confirmed with the organisation before it
-          goes live, and reviewed again each season.
-        </p>
-        <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-          We do not sell editorial services, we do not charge for a directory profile, and we do not
-          take a cut of anything a writer wins. Membership pays for the research, and that is the whole
-          business model.
-        </p>
-
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          {FEATURES.map((f) => (
-            <div key={f.title} className="rounded-xl border border-border bg-card p-6">
-              <h2 className="font-serif text-lg text-card-foreground">{f.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-            </div>
-          ))}
+      <PageHeader kicker="About Us" title="A Strategic Partner for Authors and Literary Professionals." intro="Your Story. Our Strategy. Greater Reach." />
+      <section className="mx-auto max-w-3xl space-y-5 px-5 py-16 text-base leading-relaxed text-muted-foreground">
+        <p className="font-serif text-2xl leading-snug text-foreground">Fourth Group &amp; Co was built around the belief that a book's journey does not end at publication.</p>
+        <p>We work with authors, poets, independent publishers and storytellers to develop professional promotional strategies, create compelling marketing materials and expand the visibility of literary works.</p>
+        <p>Our services bring together creative production, digital marketing, reader outreach and author development under one professional agency.</p>
+        <p>Our goal is to make professional book promotion more accessible, strategic and effective through carefully structured services and personalised campaign support.</p>
+      </section>
+      <section className="border-y border-border bg-muted/40">
+        <div className="mx-auto max-w-6xl px-5 py-16">
+          <SectionIntro kicker="Our Leadership & Team" title="Driven by Vision. United by a Passion for Stories." />
+          <LeadershipCards />
         </div>
-
-        <h2 className="mt-14 font-serif text-3xl text-foreground">Our team</h2>
-        <div className="mt-6 grid gap-5 sm:grid-cols-2">
-          {TEAM.map((m) => (
-            <div key={m.name} className="flex gap-4 rounded-xl border border-border bg-card p-6">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-secondary font-serif text-secondary-foreground">
-                {m.name.split(" ").map((x) => x[0]).join("")}
-              </div>
-              <div>
-                <h3 className="font-serif text-lg text-card-foreground">{m.name}</h3>
-                <p className="text-sm text-primary">{m.role}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.note}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <p className="mt-12 text-base text-muted-foreground">
-          Questions, corrections or listings to add?{" "}
-          <a href={`mailto:${SITE.email}`} className="text-foreground underline underline-offset-4">
-            {SITE.email}
-          </a>
-        </p>
-      </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-5 py-16">
+        <SectionIntro kicker="Why Fourth Group & Co" title="A professional partner for your literary work" />
+        <WhyGrid />
+        <div className="mt-12 text-center"><Button asChild size="lg" className="h-12 rounded-none"><Link to="/campaign-proposal" search={{ interest: undefined }}>Request a Campaign Proposal <ArrowRight /></Link></Button></div>
+      </section>
     </PageShell>
   );
 }

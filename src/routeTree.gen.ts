@@ -16,6 +16,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthorCommunityRouteImport } from './routes/author-community'
 import { Route as AuthorProtectionRouteImport } from './routes/author-protection'
 import { Route as AuthorServicesRouteImport } from './routes/author-services'
+import { Route as CampaignProposalRouteImport } from './routes/campaign-proposal'
+import { Route as ClientCampaignsRouteImport } from './routes/client-campaigns'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CommunityGuidelinesRouteImport } from './routes/community-guidelines'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -26,8 +28,10 @@ import { Route as CritiqueExchangeRouteImport } from './routes/critique-exchange
 import { Route as DirectoryRouteImport } from './routes/directory'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GrantsAwardsRouteImport } from './routes/grants-awards'
+import { Route as LaunchPackagesRouteImport } from './routes/launch-packages'
 import { Route as LiteraryAgentsRouteImport } from './routes/literary-agents'
 import { Route as LiteraryMagazinesRouteImport } from './routes/literary-magazines'
+import { Route as MarketingServicesRouteImport } from './routes/marketing-services'
 import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as MembershipTermsRouteImport } from './routes/membership-terms'
 import { Route as MovieAdaptationRouteImport } from './routes/movie-adaptation'
@@ -38,6 +42,7 @@ import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as ResidenciesRouteImport } from './routes/residencies'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RightAgentRouteImport } from './routes/right-agent'
+import { Route as ScreenAdaptationRouteImport } from './routes/screen-adaptation'
 import { Route as SearchPitchesRouteImport } from './routes/search-pitches'
 import { Route as ShortStoriesRouteImport } from './routes/short-stories'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -85,6 +90,16 @@ const AuthorProtectionRoute = AuthorProtectionRouteImport.update({
 const AuthorServicesRoute = AuthorServicesRouteImport.update({
   id: '/author-services',
   path: '/author-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CampaignProposalRoute = CampaignProposalRouteImport.update({
+  id: '/campaign-proposal',
+  path: '/campaign-proposal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientCampaignsRoute = ClientCampaignsRouteImport.update({
+  id: '/client-campaigns',
+  path: '/client-campaigns',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunityRoute = CommunityRouteImport.update({
@@ -137,6 +152,11 @@ const GrantsAwardsRoute = GrantsAwardsRouteImport.update({
   path: '/grants-awards',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LaunchPackagesRoute = LaunchPackagesRouteImport.update({
+  id: '/launch-packages',
+  path: '/launch-packages',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LiteraryAgentsRoute = LiteraryAgentsRouteImport.update({
   id: '/literary-agents',
   path: '/literary-agents',
@@ -145,6 +165,11 @@ const LiteraryAgentsRoute = LiteraryAgentsRouteImport.update({
 const LiteraryMagazinesRoute = LiteraryMagazinesRouteImport.update({
   id: '/literary-magazines',
   path: '/literary-magazines',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketingServicesRoute = MarketingServicesRouteImport.update({
+  id: '/marketing-services',
+  path: '/marketing-services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembershipRoute = MembershipRouteImport.update({
@@ -195,6 +220,11 @@ const ResourcesRoute = ResourcesRouteImport.update({
 const RightAgentRoute = RightAgentRouteImport.update({
   id: '/right-agent',
   path: '/right-agent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScreenAdaptationRoute = ScreenAdaptationRouteImport.update({
+  id: '/screen-adaptation',
+  path: '/screen-adaptation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchPitchesRoute = SearchPitchesRouteImport.update({
@@ -280,6 +310,8 @@ export interface FileRoutesByFullPath {
   '/author-community': typeof AuthorCommunityRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
+  '/campaign-proposal': typeof CampaignProposalRoute
+  '/client-campaigns': typeof ClientCampaignsRoute
   '/community': typeof CommunityRoute
   '/community-guidelines': typeof CommunityGuidelinesRoute
   '/contact': typeof ContactRoute
@@ -290,8 +322,10 @@ export interface FileRoutesByFullPath {
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
+  '/launch-packages': typeof LaunchPackagesRoute
   '/literary-agents': typeof LiteraryAgentsRoute
   '/literary-magazines': typeof LiteraryMagazinesRoute
+  '/marketing-services': typeof MarketingServicesRoute
   '/membership': typeof MembershipRoute
   '/membership-terms': typeof MembershipTermsRoute
   '/movie-adaptation': typeof MovieAdaptationRoute
@@ -302,6 +336,7 @@ export interface FileRoutesByFullPath {
   '/residencies': typeof ResidenciesRoute
   '/resources': typeof ResourcesRoute
   '/right-agent': typeof RightAgentRoute
+  '/screen-adaptation': typeof ScreenAdaptationRoute
   '/search-pitches': typeof SearchPitchesRoute
   '/short-stories': typeof ShortStoriesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -324,6 +359,8 @@ export interface FileRoutesByTo {
   '/author-community': typeof AuthorCommunityRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
+  '/campaign-proposal': typeof CampaignProposalRoute
+  '/client-campaigns': typeof ClientCampaignsRoute
   '/community': typeof CommunityRoute
   '/community-guidelines': typeof CommunityGuidelinesRoute
   '/contact': typeof ContactRoute
@@ -334,8 +371,10 @@ export interface FileRoutesByTo {
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
+  '/launch-packages': typeof LaunchPackagesRoute
   '/literary-agents': typeof LiteraryAgentsRoute
   '/literary-magazines': typeof LiteraryMagazinesRoute
+  '/marketing-services': typeof MarketingServicesRoute
   '/membership': typeof MembershipRoute
   '/membership-terms': typeof MembershipTermsRoute
   '/movie-adaptation': typeof MovieAdaptationRoute
@@ -346,6 +385,7 @@ export interface FileRoutesByTo {
   '/residencies': typeof ResidenciesRoute
   '/resources': typeof ResourcesRoute
   '/right-agent': typeof RightAgentRoute
+  '/screen-adaptation': typeof ScreenAdaptationRoute
   '/search-pitches': typeof SearchPitchesRoute
   '/short-stories': typeof ShortStoriesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -370,6 +410,8 @@ export interface FileRoutesById {
   '/author-community': typeof AuthorCommunityRoute
   '/author-protection': typeof AuthorProtectionRoute
   '/author-services': typeof AuthorServicesRoute
+  '/campaign-proposal': typeof CampaignProposalRoute
+  '/client-campaigns': typeof ClientCampaignsRoute
   '/community': typeof CommunityRoute
   '/community-guidelines': typeof CommunityGuidelinesRoute
   '/contact': typeof ContactRoute
@@ -380,8 +422,10 @@ export interface FileRoutesById {
   '/directory': typeof DirectoryRoute
   '/events': typeof EventsRoute
   '/grants-awards': typeof GrantsAwardsRoute
+  '/launch-packages': typeof LaunchPackagesRoute
   '/literary-agents': typeof LiteraryAgentsRoute
   '/literary-magazines': typeof LiteraryMagazinesRoute
+  '/marketing-services': typeof MarketingServicesRoute
   '/membership': typeof MembershipRoute
   '/membership-terms': typeof MembershipTermsRoute
   '/movie-adaptation': typeof MovieAdaptationRoute
@@ -392,6 +436,7 @@ export interface FileRoutesById {
   '/residencies': typeof ResidenciesRoute
   '/resources': typeof ResourcesRoute
   '/right-agent': typeof RightAgentRoute
+  '/screen-adaptation': typeof ScreenAdaptationRoute
   '/search-pitches': typeof SearchPitchesRoute
   '/short-stories': typeof ShortStoriesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -416,6 +461,8 @@ export interface FileRouteTypes {
     | '/author-community'
     | '/author-protection'
     | '/author-services'
+    | '/campaign-proposal'
+    | '/client-campaigns'
     | '/community'
     | '/community-guidelines'
     | '/contact'
@@ -426,8 +473,10 @@ export interface FileRouteTypes {
     | '/directory'
     | '/events'
     | '/grants-awards'
+    | '/launch-packages'
     | '/literary-agents'
     | '/literary-magazines'
+    | '/marketing-services'
     | '/membership'
     | '/membership-terms'
     | '/movie-adaptation'
@@ -438,6 +487,7 @@ export interface FileRouteTypes {
     | '/residencies'
     | '/resources'
     | '/right-agent'
+    | '/screen-adaptation'
     | '/search-pitches'
     | '/short-stories'
     | '/sitemap.xml'
@@ -460,6 +510,8 @@ export interface FileRouteTypes {
     | '/author-community'
     | '/author-protection'
     | '/author-services'
+    | '/campaign-proposal'
+    | '/client-campaigns'
     | '/community'
     | '/community-guidelines'
     | '/contact'
@@ -470,8 +522,10 @@ export interface FileRouteTypes {
     | '/directory'
     | '/events'
     | '/grants-awards'
+    | '/launch-packages'
     | '/literary-agents'
     | '/literary-magazines'
+    | '/marketing-services'
     | '/membership'
     | '/membership-terms'
     | '/movie-adaptation'
@@ -482,6 +536,7 @@ export interface FileRouteTypes {
     | '/residencies'
     | '/resources'
     | '/right-agent'
+    | '/screen-adaptation'
     | '/search-pitches'
     | '/short-stories'
     | '/sitemap.xml'
@@ -505,6 +560,8 @@ export interface FileRouteTypes {
     | '/author-community'
     | '/author-protection'
     | '/author-services'
+    | '/campaign-proposal'
+    | '/client-campaigns'
     | '/community'
     | '/community-guidelines'
     | '/contact'
@@ -515,8 +572,10 @@ export interface FileRouteTypes {
     | '/directory'
     | '/events'
     | '/grants-awards'
+    | '/launch-packages'
     | '/literary-agents'
     | '/literary-magazines'
+    | '/marketing-services'
     | '/membership'
     | '/membership-terms'
     | '/movie-adaptation'
@@ -527,6 +586,7 @@ export interface FileRouteTypes {
     | '/residencies'
     | '/resources'
     | '/right-agent'
+    | '/screen-adaptation'
     | '/search-pitches'
     | '/short-stories'
     | '/sitemap.xml'
@@ -551,6 +611,8 @@ export interface RootRouteChildren {
   AuthorCommunityRoute: typeof AuthorCommunityRoute
   AuthorProtectionRoute: typeof AuthorProtectionRoute
   AuthorServicesRoute: typeof AuthorServicesRoute
+  CampaignProposalRoute: typeof CampaignProposalRoute
+  ClientCampaignsRoute: typeof ClientCampaignsRoute
   CommunityRoute: typeof CommunityRoute
   CommunityGuidelinesRoute: typeof CommunityGuidelinesRoute
   ContactRoute: typeof ContactRoute
@@ -561,8 +623,10 @@ export interface RootRouteChildren {
   DirectoryRoute: typeof DirectoryRoute
   EventsRoute: typeof EventsRoute
   GrantsAwardsRoute: typeof GrantsAwardsRoute
+  LaunchPackagesRoute: typeof LaunchPackagesRoute
   LiteraryAgentsRoute: typeof LiteraryAgentsRoute
   LiteraryMagazinesRoute: typeof LiteraryMagazinesRoute
+  MarketingServicesRoute: typeof MarketingServicesRoute
   MembershipRoute: typeof MembershipRoute
   MembershipTermsRoute: typeof MembershipTermsRoute
   MovieAdaptationRoute: typeof MovieAdaptationRoute
@@ -573,6 +637,7 @@ export interface RootRouteChildren {
   ResidenciesRoute: typeof ResidenciesRoute
   ResourcesRoute: typeof ResourcesRoute
   RightAgentRoute: typeof RightAgentRoute
+  ScreenAdaptationRoute: typeof ScreenAdaptationRoute
   SearchPitchesRoute: typeof SearchPitchesRoute
   ShortStoriesRoute: typeof ShortStoriesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -631,6 +696,20 @@ declare module '@tanstack/react-router' {
       path: '/author-services'
       fullPath: '/author-services'
       preLoaderRoute: typeof AuthorServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/campaign-proposal': {
+      id: '/campaign-proposal'
+      path: '/campaign-proposal'
+      fullPath: '/campaign-proposal'
+      preLoaderRoute: typeof CampaignProposalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/client-campaigns': {
+      id: '/client-campaigns'
+      path: '/client-campaigns'
+      fullPath: '/client-campaigns'
+      preLoaderRoute: typeof ClientCampaignsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/community': {
@@ -703,6 +782,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GrantsAwardsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/launch-packages': {
+      id: '/launch-packages'
+      path: '/launch-packages'
+      fullPath: '/launch-packages'
+      preLoaderRoute: typeof LaunchPackagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/literary-agents': {
       id: '/literary-agents'
       path: '/literary-agents'
@@ -715,6 +801,13 @@ declare module '@tanstack/react-router' {
       path: '/literary-magazines'
       fullPath: '/literary-magazines'
       preLoaderRoute: typeof LiteraryMagazinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketing-services': {
+      id: '/marketing-services'
+      path: '/marketing-services'
+      fullPath: '/marketing-services'
+      preLoaderRoute: typeof MarketingServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/membership': {
@@ -785,6 +878,13 @@ declare module '@tanstack/react-router' {
       path: '/right-agent'
       fullPath: '/right-agent'
       preLoaderRoute: typeof RightAgentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/screen-adaptation': {
+      id: '/screen-adaptation'
+      path: '/screen-adaptation'
+      fullPath: '/screen-adaptation'
+      preLoaderRoute: typeof ScreenAdaptationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search-pitches': {
@@ -919,6 +1019,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthorCommunityRoute: AuthorCommunityRoute,
   AuthorProtectionRoute: AuthorProtectionRoute,
   AuthorServicesRoute: AuthorServicesRoute,
+  CampaignProposalRoute: CampaignProposalRoute,
+  ClientCampaignsRoute: ClientCampaignsRoute,
   CommunityRoute: CommunityRoute,
   CommunityGuidelinesRoute: CommunityGuidelinesRoute,
   ContactRoute: ContactRoute,
@@ -929,8 +1031,10 @@ const rootRouteChildren: RootRouteChildren = {
   DirectoryRoute: DirectoryRoute,
   EventsRoute: EventsRoute,
   GrantsAwardsRoute: GrantsAwardsRoute,
+  LaunchPackagesRoute: LaunchPackagesRoute,
   LiteraryAgentsRoute: LiteraryAgentsRoute,
   LiteraryMagazinesRoute: LiteraryMagazinesRoute,
+  MarketingServicesRoute: MarketingServicesRoute,
   MembershipRoute: MembershipRoute,
   MembershipTermsRoute: MembershipTermsRoute,
   MovieAdaptationRoute: MovieAdaptationRoute,
@@ -941,6 +1045,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResidenciesRoute: ResidenciesRoute,
   ResourcesRoute: ResourcesRoute,
   RightAgentRoute: RightAgentRoute,
+  ScreenAdaptationRoute: ScreenAdaptationRoute,
   SearchPitchesRoute: SearchPitchesRoute,
   ShortStoriesRoute: ShortStoriesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
