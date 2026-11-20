@@ -75,7 +75,7 @@ export function SiteHeader() {
             ))}
           </div>
           <Button asChild size="sm" className="h-8 rounded-none px-5 text-[11px] font-bold uppercase tracking-wider">
-            <Link to="/campaign-proposal" search={{ interest: undefined }}>Request a Campaign Proposal</Link>
+            <Link to="/campaign-proposal" search={{}}>Request a Campaign Proposal</Link>
           </Button>
         </nav>
 
@@ -87,7 +87,7 @@ export function SiteHeader() {
               ))}
             </div>
             <Button asChild className="mt-4 w-full rounded-none">
-              <Link to="/campaign-proposal" search={{ interest: undefined }} onClick={() => setOpen(false)}>Request a Campaign Proposal</Link>
+              <Link to="/campaign-proposal" search={{}} onClick={() => setOpen(false)}>Request a Campaign Proposal</Link>
             </Button>
           </nav>
         ) : null}

@@ -38,7 +38,7 @@ function Page() {
       <section className="mx-auto max-w-6xl px-5 py-16">
         <SectionIntro kicker="Why Fourth Group & Co" title="A professional partner for your literary work" />
         <WhyGrid />
-        <div className="mt-12 text-center"><Button asChild size="lg" className="h-12 rounded-none"><Link to="/campaign-proposal" search={{ interest: undefined }}>Request a Campaign Proposal <ArrowRight /></Link></Button></div>
+        <div className="mt-12 text-center"><Button asChild size="lg" className="h-12 rounded-none"><Link to="/campaign-proposal" search={{}}>Request a Campaign Proposal <ArrowRight /></Link></Button></div>
       </section>
     </PageShell>
   );

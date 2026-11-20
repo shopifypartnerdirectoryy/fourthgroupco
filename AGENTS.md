@@ -18,3 +18,4 @@
 - Admin rights come only from public.user_roles via has_role(); UI checks are cosmetic, RLS enforces access.
 - Scroll animations must leave content visible by default and never hide whole sections; this prevents blank pages when observers, navigation, or scripts are interrupted.
 - Use a shared visible router pending screen so slow route and account checks do not leave an empty page.
+- Agency offer (packages, services, leadership, terms) lives in src/data/agency.ts and renders via src/components/agency.tsx so prices stay identical across pages.

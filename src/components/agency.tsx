@@ -54,7 +54,7 @@ function EmailSelector() {
         <Label htmlFor="email-contacts" className="text-xs uppercase tracking-wider text-muted-foreground">Contacts</Label>
         <p aria-live="polite" className="text-right"><span className="font-serif text-2xl">{contacts.toLocaleString("en-US")}</span><span className="ml-3 font-serif text-2xl text-primary">{usd(emailCampaignPrice(contacts))}</span></p>
       </div>
-      <Slider id="email-contacts" aria-label="Number of email contacts" className="mt-4" min={EMAIL_MIN} max={EMAIL_MAX} step={EMAIL_STEP} value={[contacts]} onValueChange={(v) => setContacts(v[0])} />
+      <Slider id="email-contacts" aria-label="Number of email contacts" className="mt-4" min={EMAIL_MIN} max={EMAIL_MAX} step={EMAIL_STEP} value={[contacts]} onValueChange={(v) => setContacts(v[0] ?? EMAIL_MIN)} />
       <div className="mt-2 flex justify-between text-[11px] text-muted-foreground"><span>1,000</span><span>10,000</span></div>
     </div>
   );
@@ -104,7 +104,7 @@ export function PillarSummary() {
   return (
     <div className="mt-12 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
       {PILLARS.map((p) => (
-        <Link key={p.id} to="/marketing-services" hash={p.services[0].id} className="group bg-card p-7 transition-colors hover:bg-accent">
+        <Link key={p.id} to="/marketing-services" hash={p.services[0]?.id ?? ""} className="group bg-card p-7 transition-colors hover:bg-accent">
           <span className="font-serif text-3xl text-primary">{p.letter}</span>
           <h3 className="mt-4 font-serif text-xl">{p.title}</h3>
           <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground">{p.services.map((s) => <li key={s.id}>{s.title}</li>)}</ul>
@@ -137,12 +137,13 @@ export function CampaignCards({ limit }: { limit?: number }) {
 
 export const SCREEN_SERVICES = ["Book-to-screen assessment", "Story positioning", "Adaptation synopsis preparation", "Pitch deck development", "Screen adaptation presentation materials", "Industry introductions where available and authorised"];
 
-export function ScreenDivision() {
+export function ScreenDivision({ asH1 = false }: { asH1?: boolean }) {
+  const H = asH1 ? "h1" : "h2";
   return (
     <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Book-to-Screen Packaging &amp; Representation</p>
-        <h2 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">Preparing stories for the screen conversation</h2>
+        <H className="mt-3 font-serif text-4xl leading-tight md:text-5xl">Preparing stories for the screen conversation</H>
         <p className="mt-5 text-sm leading-relaxed opacity-75">We explore the screen potential of compelling literary works and support suitable authors in preparing their stories for consideration by film and television industry professionals.</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Button asChild className="h-12 rounded-none"><Link to="/campaign-proposal" search={{ interest: "Book-to-Screen Packaging" }}>Submit Your Story for Assessment <ArrowRight /></Link></Button>

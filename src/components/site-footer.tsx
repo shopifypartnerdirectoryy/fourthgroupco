@@ -37,7 +37,7 @@ export function SiteFooter() {
             <h2 className="font-serif text-3xl">Ready to Bring Your Book to the Right Readers?</h2>
             <p className="mt-2 max-w-xl text-sm text-secondary-foreground/65">Let's explore a promotional strategy that reflects your book, your audience and your ambitions.</p>
           </div>
-          <Button asChild size="lg" className="h-12 shrink-0 rounded-none"><Link to="/campaign-proposal" search={{ interest: undefined }}>Request a Campaign Proposal <ArrowRight /></Link></Button>
+          <Button asChild size="lg" className="h-12 shrink-0 rounded-none"><Link to="/campaign-proposal" search={{}}>Request a Campaign Proposal <ArrowRight /></Link></Button>
         </div>
       </div>
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 sm:grid-cols-2 lg:grid-cols-5">

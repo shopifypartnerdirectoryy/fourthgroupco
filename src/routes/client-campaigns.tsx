@@ -15,5 +15,5 @@ export const Route = createFileRoute("/client-campaigns")({
 });
 
 function Page() {
-  return <PageShell><PageHeader kicker="Featured Client Campaigns" title="Books we have promoted" intro="Selected fiction, memoir, and non-fiction titles represented and promoted by Fourth Group & Co." /><section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-6xl px-5 py-16"><CampaignCards /></div></section><section className="mx-auto max-w-6xl px-5 py-12"><div className="mt-12 text-center"><Button asChild size="lg" className="h-12 rounded-none"><Link to="/campaign-proposal" search={{ interest: undefined }}>Request a Campaign Proposal <ArrowRight /></Link></Button></div></section></PageShell>;
+  return <PageShell><PageHeader kicker="Featured Client Campaigns" title="Books we have promoted" intro="Selected fiction, memoir, and non-fiction titles represented and promoted by Fourth Group & Co." /><section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-6xl px-5 py-16"><CampaignCards /></div></section><section className="mx-auto max-w-6xl px-5 py-12"><div className="mt-12 text-center"><Button asChild size="lg" className="h-12 rounded-none"><Link to="/campaign-proposal" search={{}}>Request a Campaign Proposal <ArrowRight /></Link></Button></div></section></PageShell>;
 }
