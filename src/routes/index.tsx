@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Globe2, Star } from "lucide-react";
+import { ArrowRight, Globe2, Quote } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { NewsletterSignup } from "@/components/home-extras";
@@ -25,10 +25,10 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const REVIEWS = [
-  { title: "The Walking Wounded Revised", author: "Deborah Ling", rating: 5.0, count: 1 },
-  { title: "Nobel Pursuits", author: "Rosemarie Aquilina & Robert Leader†", rating: 4.6, count: 3 },
-  { title: "Himba Pond Dance", author: "Dave Gioia", rating: 4.2, count: 7 },
+const REVIEW_DRAFTS = [
+  "I appreciated having a clear plan for introducing my book to the readers most likely to connect with it. The process felt considered, not one-size-fits-all.",
+  "The creative direction gave me a more cohesive way to talk about my book across its launch materials and outreach.",
+  "It was reassuring to have the campaign pieces organized around my goals and timeline, with room for my own voice.",
 ];
 
 function Index() {
@@ -85,13 +85,13 @@ function Index() {
       </div></section>
 
       <section className="bg-background"><div className="mx-auto max-w-6xl px-5 py-20">
-        <SectionIntro kicker="Reviews" title="What Our Members Say" intro="Reader ratings for books we have championed, as published on Amazon." />
+        <SectionIntro kicker="Author Reflections" title="What Our Members Say" intro="Illustrative review drafts for layout only—not verified client testimonials. Replace with approved feedback before presenting these as real experiences." />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {REVIEWS.map((r) => (
-            <figure key={r.title} className="flex flex-col border border-border bg-card p-7 text-card-foreground">
-              <div className="flex gap-1 text-primary" aria-label={`${r.rating} out of 5 stars`}>{Array.from({ length: 5 }, (_, i) => <Star key={i} className={`size-4 ${i < Math.round(r.rating) ? "fill-current" : ""}`} />)}</div>
-              <blockquote className="mt-4 font-serif text-xl leading-snug">{r.title}</blockquote>
-              <figcaption className="mt-auto pt-5 text-xs text-muted-foreground">{r.author} · {r.rating.toFixed(1)} out of 5 · {r.count} Amazon {r.count === 1 ? "rating" : "ratings"}</figcaption>
+          {REVIEW_DRAFTS.map((review, index) => (
+            <figure key={review} className="flex flex-col border border-border bg-card p-7 text-card-foreground">
+              <Quote aria-hidden="true" className="size-5 text-primary" />
+              <blockquote className="mt-4 font-serif text-xl leading-snug">“{review}”</blockquote>
+              <figcaption className="mt-auto pt-5 text-xs text-muted-foreground">Illustrative sample {index + 1} · Not a client testimonial</figcaption>
             </figure>
           ))}
         </div>
