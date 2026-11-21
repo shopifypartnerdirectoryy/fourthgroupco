@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Globe2 } from "lucide-react";
+import { ArrowRight, Globe2, Star } from "lucide-react";
 import { PageShell } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { NewsletterSignup } from "@/components/home-extras";
@@ -25,6 +25,12 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const REVIEWS = [
+  { title: "The Walking Wounded Revised", author: "Deborah Ling", rating: 5.0, count: 1 },
+  { title: "Nobel Pursuits", author: "Rosemarie Aquilina & Robert Leader†", rating: 4.6, count: 3 },
+  { title: "Himba Pond Dance", author: "Dave Gioia", rating: 4.2, count: 7 },
+];
+
 function Index() {
   return (
     <PageShell>
@@ -49,6 +55,24 @@ function Index() {
         </div>
       </section>
 
+      <section className="bg-background"><div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">About Us</p>
+          <h2 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">A literary marketing agency built around authors.</h2>
+        </div>
+        <div className="space-y-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p>Fourth Group &amp; Co is a book promotion and publicity agency. We work with authors, poets, independent publishers and storytellers to help their books reach the readers they were written for.</p>
+          <p>We plan launch campaigns, create trailers and promotional visuals, run reader outreach and social features, and build author websites, all shaped around each book and its audience.</p>
+          <Button asChild variant="link" className="h-auto px-0 text-primary"><Link to="/about">More about Fourth Group &amp; Co <ArrowRight /></Link></Button>
+        </div>
+      </div></section>
+
+      <section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-6xl px-5 py-20">
+        <div className="mx-auto max-w-3xl text-center"><p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Featured Client Campaigns</p><h2 className="mt-3 font-serif text-4xl md:text-5xl">Books we have championed</h2><p className="mt-4 text-sm text-secondary-foreground/65">Selected fiction, memoir, and non-fiction titles represented and promoted by Fourth Group &amp; Co.</p></div>
+        <CampaignCards limit={8} />
+        <div className="mt-10 text-center"><Button asChild variant="link" className="text-primary"><Link to="/client-campaigns">See all client campaigns <ArrowRight /></Link></Button></div>
+      </div></section>
+
       <section className="bg-background"><div className="mx-auto max-w-6xl px-5 py-20">
         <SectionIntro kicker="Signature Launch Packages" title="Campaigns assembled for launch" intro="Thoughtfully assembled promotional campaigns designed to help authors introduce their books, strengthen visibility and build meaningful connections with readers." />
         <PackageCards />
@@ -60,10 +84,17 @@ function Index() {
         <div className="mt-10 text-center"><Button asChild variant="outline" className="h-11 rounded-none"><Link to="/marketing-services">View all services &amp; pricing <ArrowRight /></Link></Button></div>
       </div></section>
 
-      <section className="bg-secondary text-secondary-foreground"><div className="mx-auto max-w-6xl px-5 py-20">
-        <div className="mx-auto max-w-3xl text-center"><p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Featured Client Campaigns</p><h2 className="mt-3 font-serif text-4xl md:text-5xl">Books we have championed</h2><p className="mt-4 text-sm text-secondary-foreground/65">Selected fiction, memoir, and non-fiction titles represented and promoted by Fourth Group &amp; Co.</p></div>
-        <CampaignCards limit={8} />
-        <div className="mt-10 text-center"><Button asChild variant="link" className="text-primary"><Link to="/client-campaigns">See all client campaigns <ArrowRight /></Link></Button></div>
+      <section className="bg-background"><div className="mx-auto max-w-6xl px-5 py-20">
+        <SectionIntro kicker="Reviews" title="What Our Members Say" intro="Reader ratings for books we have championed, as published on Amazon." />
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {REVIEWS.map((r) => (
+            <figure key={r.title} className="flex flex-col border border-border bg-card p-7 text-card-foreground">
+              <div className="flex gap-1 text-primary" aria-label={`${r.rating} out of 5 stars`}>{Array.from({ length: 5 }, (_, i) => <Star key={i} className={`size-4 ${i < Math.round(r.rating) ? "fill-current" : ""}`} />)}</div>
+              <blockquote className="mt-4 font-serif text-xl leading-snug">{r.title}</blockquote>
+              <figcaption className="mt-auto pt-5 text-xs text-muted-foreground">{r.author} · {r.rating.toFixed(1)} out of 5 · {r.count} Amazon {r.count === 1 ? "rating" : "ratings"}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div></section>
 
       <section className="border-t border-secondary-foreground/10 bg-secondary text-secondary-foreground"><div className="mx-auto max-w-6xl px-5 py-20"><ScreenDivision /></div></section>

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ArrowRight, Check, ExternalLink, Film, Loader2, UserRound } from "lucide-react";
+import { ArrowRight, Check, Film, Loader2, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,7 +32,7 @@ export function PackageCards() {
           {p.badge ? <span className="absolute -top-3 left-8 bg-secondary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">{p.badge}</span> : null}
           <p className="font-serif text-sm text-primary">Package {p.number}</p>
           <h3 className="mt-2 font-serif text-2xl leading-tight">{p.name}</h3>
-          <p className="mt-5 font-serif text-5xl">{usd(p.price)}</p>
+          <p className="mt-5 font-serif text-xl italic text-primary">Tailored to your book</p>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{p.audience}</p>
           <ul className="mt-6 space-y-3 border-t border-border pt-6 text-sm">
             {p.includes.map((i) => <li key={i} className="flex gap-3"><Check className="mt-0.5 size-4 shrink-0 text-primary" />{i}</li>)}
@@ -64,7 +64,7 @@ export function ServiceCard({ s }: { s: Service }) {
   return (
     <article id={s.id} className="flex scroll-mt-24 flex-col rounded-sm border border-border bg-card p-7 text-card-foreground">
       <p className="font-serif text-sm text-primary">{s.number}</p>
-      <h4 className="mt-2 font-serif text-2xl leading-tight">{s.title}</h4>
+      <h4 className="mt-2 font-serif text-2xl leading-tight"><a href={`#${s.id}`} className="hover:text-primary">{s.title}</a></h4>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
       <dl className="mt-5 divide-y divide-border border-y border-border text-sm">
         {s.prices.map((r) => (
@@ -128,7 +128,6 @@ export function CampaignCards({ limit }: { limit?: number }) {
           <h3 className="mt-2 font-serif text-lg leading-tight">{b.title}</h3>
           <p className="mt-1 text-xs opacity-70">{b.author}</p>
           <p className="mt-1 text-xs opacity-60">{b.tag}</p>
-          <a href={b.link} target="_blank" rel="noopener noreferrer" className="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-semibold text-primary">View the book <ExternalLink className="size-3" /></a>
         </article>
       ))}
     </div>
@@ -178,17 +177,17 @@ export function ServiceTerms() {
 
 export function LeadershipCards() {
   return (
-    <div className="mt-12 grid gap-6 md:grid-cols-3">
+    <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {LEADERSHIP.map((m, i) => (
         <article key={m.name} className={`flex flex-col border bg-card text-card-foreground ${i === 0 ? "border-primary" : "border-border"}`}>
           <div className="grid aspect-[4/3] place-items-center bg-muted">
             {m.photo ? <img src={m.photo} alt={m.name} className="size-full object-cover" /> : <UserRound aria-label="Portrait to come" className="size-14 text-muted-foreground/50" />}
           </div>
           <div className="p-7">
-            <p className="font-serif text-sm text-primary">0{i + 1}</p>
+            <p className="font-serif text-sm text-primary">{String(i + 1).padStart(2, "0")}</p>
             <h3 className="mt-2 font-serif text-2xl">{m.name}</h3>
             <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-primary">{m.role}</p>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
+            
           </div>
         </article>
       ))}

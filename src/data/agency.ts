@@ -101,7 +101,7 @@ export const PILLARS: Pillar[] = [
       {
         id: "mockup", number: "08", title: "Editorial 3D Book Mockup Suite",
         description: "Professional three-dimensional book cover presentations designed for author websites, press kits, social media and promotional campaigns.",
-        prices: [{ label: "Suite", price: "$75" }],
+        prices: [{ label: "Suite", price: "Starting from $20" }],
         cta: "Order a Book Mockup",
       },
       {
@@ -136,10 +136,14 @@ export const GOALS = ["Book Launch Publicity", "Email & Reader Outreach", "Socia
 export const BUDGETS = ["Under $500", "$500 – $1,500", "$1,500 – $3,000", "$3,000+"];
 
 /** Proposed leadership — positions and biographies await company confirmation. Add a photo path to show a portrait. */
-export const LEADERSHIP: { name: string; role: string; bio: string; photo?: string }[] = [
-  { name: "Matthew Collins", role: "Founder & Chief Executive Officer (CEO)", bio: "Matthew Collins founded Fourth Group & Co with a vision to establish a professional literary marketing agency dedicated to helping authors expand their visibility, strengthen their literary brands and connect their work with wider audiences. As Founder and Chief Executive Officer, he provides the company's strategic direction and oversees its overall development, business vision and long-term growth." },
-  { name: "Malik Bok", role: "Director of Marketing & Campaign Strategy", bio: "Malik Bok contributes to the strategic development and execution of Fourth Group & Co's marketing initiatives, overseeing promotional campaign planning, marketing coordination and the development of effective author visibility strategies." },
-  { name: "Bawa Fawaz", role: "Director of Creative & Digital Operations", bio: "Bawa Fawaz oversees creative and digital operations, supporting the development and execution of promotional content, digital projects and creative marketing solutions across the agency's service divisions." },
+export const LEADERSHIP: { name: string; role: string; photo?: string }[] = [
+  { name: "Matthew Collins", role: "Founder & Chief Executive Officer (CEO)" },
+  { name: "Malik Bok", role: "Director of Marketing & Campaign Strategy" },
+  { name: "Bawa Fawaz", role: "Director of Creative & Digital Operations" },
+  { name: "Mou Barrac", role: "Managing Director" },
+  { name: "Aliyu Adam", role: "Editorial Director" },
+  { name: "James Kamy", role: "Head of Film Adaptation & Partnerships" },
+  { name: "Emily Grace", role: "Community & Author Relations Manager" },
 ];
 
 /** Campaign category shown on each portfolio card, keyed by book title. Confirm with the company. */

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
+import headerImage from "@/assets/hero-desk.jpg";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
@@ -22,8 +23,10 @@ export function PageHeader({
   intro: string;
 }) {
   return (
-    <section className="border-b border-secondary-foreground/15 bg-secondary text-secondary-foreground">
-      <div className="mx-auto max-w-6xl px-5 py-16 text-center md:py-20">
+    <section className="relative overflow-hidden border-b border-secondary-foreground/15 bg-secondary text-secondary-foreground">
+      <img src={headerImage} alt="" aria-hidden="true" className="absolute inset-0 size-full object-cover opacity-35" />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-secondary/70 via-secondary/60 to-secondary/90" />
+      <div className="relative mx-auto max-w-6xl px-5 py-20 text-center md:py-28">
         <p className="text-xs font-semibold uppercase text-primary">{kicker}</p>
         <h1 className="mx-auto mt-4 max-w-3xl font-serif text-4xl leading-tight md:text-5xl">
           {title}
