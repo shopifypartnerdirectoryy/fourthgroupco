@@ -87,11 +87,11 @@ function Index() {
       <section className="bg-background"><div className="mx-auto max-w-6xl px-5 py-20">
         <SectionIntro kicker="Author Reflections" title="What Our Members Say" intro="Illustrative review drafts for layout only—not verified client testimonials. Replace with approved feedback before presenting these as real experiences." />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {REVIEW_DRAFTS.map((review, index) => (
+          {REVIEW_DRAFTS.map((review) => (
             <figure key={review} className="flex flex-col border border-border bg-card p-7 text-card-foreground">
               <Quote aria-hidden="true" className="size-5 text-primary" />
               <blockquote className="mt-4 font-serif text-xl leading-snug">“{review}”</blockquote>
-              <figcaption className="mt-auto pt-5 text-xs text-muted-foreground">Illustrative sample {index + 1} · Not a client testimonial</figcaption>
+              <figcaption className="mt-auto pt-5 text-xs text-muted-foreground">Author reflection</figcaption>
             </figure>
           ))}
         </div>
