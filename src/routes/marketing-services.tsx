@@ -7,8 +7,8 @@ import { SectionIntro, ServicesCatalogue, ServiceTerms } from "@/components/agen
 export const Route = createFileRoute("/marketing-services")({
   staticData: { sitemap: true },
   head: () => ({ links: [{ rel: "canonical", href: "https://fourthgroupco.lovable.app/marketing-services" }], meta: [
-    { title: "Book Marketing Services & Prices | Fourth Group & Co" }, { name: "description", content: "Book promotion services: reader email campaigns, Goodreads Listopia, book challenges, TikTok and Instagram features, social media management, book trailers, 3D mockups, audiobooks and author websites." },
-    { property: "og:title", content: "Book Marketing Services & Prices | Fourth Group & Co" }, { property: "og:description", content: "Book promotion services: reader email campaigns, Goodreads Listopia, book challenges, TikTok and Instagram features, social media management, book trailers, 3D mockups, audiobooks and author websites." },
+    { title: "Book Marketing Services & Prices | Fourth Group & Co" }, { name: "description", content: "Book promotion services: reader email campaigns, Goodreads Listopia, book challenges, TikTok and Instagram features, social media, trailers, audiobooks, author websites, Amazon SEO & Ads, author SEO and AI search visibility." },
+    { property: "og:title", content: "Book Marketing Services & Prices | Fourth Group & Co" }, { property: "og:description", content: "Book promotion services: reader email campaigns, Goodreads Listopia, book challenges, TikTok and Instagram features, social media, trailers, audiobooks, author websites, Amazon SEO & Ads, author SEO and AI search visibility." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, { property: "og:url", content: "https://fourthgroupco.lovable.app/marketing-services" },
   ] }),
   component: Page,

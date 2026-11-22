@@ -33,11 +33,11 @@ export const PACKAGES: Package[] = [
 
 export type PriceRow = { label: string; price: string; detail?: string };
 export type Service = { id: string; number: string; title: string; description: string; prices: PriceRow[]; includes?: string[]; note?: string; cta: string; emailSelector?: boolean };
-export type Pillar = { id: string; letter: string; title: string; services: Service[] };
+export type Pillar = { id: string; letter: string; title: string; short?: string; services: Service[] };
 
 export const PILLARS: Pillar[] = [
   {
-    id: "outreach", letter: "A", title: "Reader Outreach & Publicity",
+    id: "outreach", letter: "A", short: "Outreach", title: "Reader Outreach & Publicity",
     services: [
       {
         id: "email", number: "01", title: "Targeted Reader Email Campaigns", emailSelector: true,
@@ -45,6 +45,13 @@ export const PILLARS: Pillar[] = [
         prices: [{ label: "Per contact", price: "$0.50" }, { label: "Starting at 1,000 contacts", price: "$500" }],
         note: "Sent only to lawful, opt-in reader lists with a working unsubscribe link in every message. We never sell access to private databases or promise buyers.",
         cta: "Enquire About Email Marketing",
+      },
+      {
+        id: "email-funnels", number: "01b", title: "Reader Acquisition & Email Automation",
+        description: "Lead magnets, free sample chapter campaigns and automated welcome and nurturing sequences that turn curious browsers into loyal subscribers.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Lead magnet & sample chapter setup", "Automated welcome sequence", "Reader nurturing emails", "Re-engagement campaigns", "Genre & interest segmentation", "Performance tracking"],
+        cta: "Plan an Email Funnel",
       },
       {
         id: "goodreads", number: "02", title: "Goodreads Discovery & Listopia Placement",
@@ -75,7 +82,7 @@ export const PILLARS: Pillar[] = [
     ],
   },
   {
-    id: "social", letter: "B", title: "Social Growth & Brand Management",
+    id: "social", letter: "B", short: "Social", title: "Social Growth & Brand Management",
     services: [
       {
         id: "social-management", number: "06", title: "Full-Service Social Media Management",
@@ -87,10 +94,17 @@ export const PILLARS: Pillar[] = [
         ],
         cta: "Explore Social Media Packages",
       },
+      {
+        id: "spotlights", number: "06b", title: "Author & Book Spotlight Campaigns",
+        description: "Announcement, excerpt and quote-led content that builds author visibility around new releases and milestones.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Book announcement posts", "Excerpt & quote graphics", "Author spotlight features", "New release countdowns", "Short-form promo videos"],
+        cta: "Plan a Spotlight Campaign",
+      },
     ],
   },
   {
-    id: "visual", letter: "C", title: "Visual Production & Audio",
+    id: "visual", letter: "C", short: "Visual & Audio", title: "Visual Production & Audio",
     services: [
       {
         id: "trailer", number: "07", title: "Cinematic Book Trailer Creation",
@@ -107,13 +121,18 @@ export const PILLARS: Pillar[] = [
       {
         id: "audiobook", number: "09", title: "Audiobook Production Services",
         description: "Audiobook development for authors bringing their written work into audio: manuscript preparation, narration casting, recording, editing and mastering to retailer specifications.",
-        prices: [{ label: "Custom quotation", price: "Quote", detail: "Based on page count and production needs" }],
+        prices: [
+          { label: "Essential Production", price: "Quote", detail: "Narrator casting · recording coordination · editing · QA · delivery" },
+          { label: "Professional Production", price: "Quote", detail: "Adds narration planning · retail mastering · platform submission · launch support" },
+          { label: "Premium Series & Catalogue", price: "Quote", detail: "Multi-title & series production · backlist conversion · audio launch campaign" },
+        ],
+        includes: ["Narration planning & casting", "Recording coordination", "Editing & mastering", "Quality assurance", "Distribution preparation", "Audiobook launch & email promotion"],
         cta: "Request an Audiobook Quote",
       },
     ],
   },
   {
-    id: "digital", letter: "D", title: "Author Digital Presence",
+    id: "digital", letter: "D", short: "Websites", title: "Author Digital Presence",
     services: [
       {
         id: "website", number: "10", title: "Bespoke Author Website Design",
@@ -129,10 +148,140 @@ export const PILLARS: Pillar[] = [
       },
     ],
   },
+  {
+    id: "amazon-seo", letter: "E", title: "Amazon SEO & KDP Book Optimization", short: "Amazon",
+    services: [
+      {
+        id: "amazon-keywords", number: "12", title: "KDP Keyword & Category Strategy",
+        description: "Research-led backend keywords and browse categories that place your book in front of readers searching Amazon.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Amazon & KDP keyword research", "7 backend keyword slots", "Browse category selection", "BSR visibility strategy", "Competitor keyword analysis", "International marketplaces"],
+        cta: "Optimize My Amazon Keywords",
+      },
+      {
+        id: "amazon-listing", number: "13", title: "Amazon Listing & Description Optimization",
+        description: "A polished product page: title, subtitle, HTML-formatted description and metadata written to turn visits into sales.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Title & subtitle optimization", "HTML description formatting", "Metadata audit", "Paperback, Kindle, hardcover & audiobook listings", "Series page optimization", "Conversion review"],
+        cta: "Polish My Amazon Listing",
+      },
+      {
+        id: "author-central", number: "14", title: "Author Central & A+ Content",
+        description: "A professional Amazon author profile and premium A+ Content modules that present your book like a flagship title.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Author Central profile & bio", "Catalogue & series linking", "A+ brand banners", "Comparison charts", "Editorial callout graphics", "Compliant review visibility strategy"],
+        cta: "Request A+ Content",
+      },
+      {
+        id: "kdp-audit", number: "15", title: "Amazon KDP Listing Audit",
+        description: "A detailed audit of your listings, keywords, categories and metadata with a prioritised list of fixes.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Full listing audit", "Keyword & category gaps", "Competitor listing analysis", "Cover presentation review", "Ongoing performance monitoring"],
+        cta: "Book a KDP Audit",
+      },
+    ],
+  },
+  {
+    id: "amazon-ads", letter: "F", title: "Amazon Advertising & PPC Management", short: "Amazon Ads",
+    services: [
+      {
+        id: "amazon-ads-setup", number: "16", title: "Amazon Ads Campaign Setup",
+        description: "Structured Sponsored Products, Sponsored Brands and Sponsored Display campaigns (where eligible), built around researched keywords.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Sponsored Products", "Sponsored Brands (where eligible)", "Sponsored Display (where eligible)", "Automatic & manual campaigns", "Competitor ASIN & product targeting", "Ads keyword research"],
+        cta: "Set Up Amazon Ads",
+      },
+      {
+        id: "amazon-ads-management", number: "17", title: "Ongoing PPC Management",
+        description: "Continuous bid, budget and keyword management so ad spend works harder for your book.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Negative keyword optimization", "Bid optimization", "Budget management", "Conversion optimization", "A/B testing (where available)", "Monthly performance reports"],
+        cta: "Manage My Amazon Ads",
+      },
+      {
+        id: "amazon-ads-audit", number: "18", title: "Amazon Advertising Audit",
+        description: "A review of existing campaigns that identifies wasted spend, missed keywords and structural improvements.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Campaign structure review", "Search term analysis", "Wasted spend report", "Targeting recommendations"],
+        cta: "Request an Ads Audit",
+      },
+    ],
+  },
+  {
+    id: "seo", letter: "G", title: "Search Engine Optimization for Authors & Books", short: "Author SEO",
+    services: [
+      {
+        id: "seo-audit", number: "19", title: "Author & Book Website SEO",
+        description: "On-page, off-page and technical SEO that helps readers find your name and titles on Google.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["SEO audit", "On-page & technical SEO", "Meta titles, descriptions & headers", "URL, speed & mobile optimization", "XML sitemap & robots.txt", "Broken link & 404 fixes"],
+        cta: "Request an SEO Audit",
+      },
+      {
+        id: "seo-keywords", number: "20", title: "Keyword Research & Content Strategy",
+        description: "Author name, book title, genre and long-tail keyword targeting with SEO-led book descriptions, bios and blog content.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Author name & title keywords", "Genre & long-tail targeting", "Search intent mapping", "Book description & bio SEO", "Blog & review content SEO", "Internal linking"],
+        cta: "Plan My SEO Content",
+      },
+      {
+        id: "seo-authority", number: "21", title: "Schema, Analytics & Authority Building",
+        description: "Structured data, Search Console and Analytics setup plus ethical link building to grow organic authority.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Schema markup & structured data", "Google Search Console setup", "Google Analytics integration", "Backlink acquisition strategy", "Competitor SEO analysis", "International & local SEO"],
+        cta: "Build My Search Authority",
+      },
+    ],
+  },
+  {
+    id: "geo", letter: "H", title: "AI Search Visibility & Generative Engine Optimization", short: "AI Search",
+    services: [
+      {
+        id: "geo-optimization", number: "22", title: "Generative Engine Optimization (GEO)",
+        description: "Structure your author profile and book information so AI tools such as ChatGPT Search, Perplexity and Google AI Overviews can understand and cite it.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["AI Overview visibility", "ChatGPT Search discoverability", "Structured content for AI search", "Conversational search optimization", "AI search content strategy"],
+        cta: "Improve My AI Visibility",
+      },
+      {
+        id: "geo-entity", number: "23", title: "Entity & Author Authority Optimization",
+        description: "Semantic and schema-based entity work that establishes you and your books as clearly defined literary entities.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Entity & author authority", "Schema-based entity optimization", "Semantic keyword optimization", "AI search visibility audit"],
+        cta: "Request an AI Search Audit",
+      },
+    ],
+  },
+  {
+    id: "catalogue", letter: "I", title: "Backlist, Series & Reader Outreach", short: "Backlist & PR",
+    services: [
+      {
+        id: "backlist", number: "24", title: "Backlist & Catalogue Marketing",
+        description: "Campaigns that revive earlier titles and connect your whole catalogue so every new reader finds the next book.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Backlist revival campaigns", "Cross-book discovery", "New release & backlist integration", "Multi-title promotion", "Long-term visibility plans"],
+        cta: "Revive My Backlist",
+      },
+      {
+        id: "series", number: "25", title: "Book Series Marketing",
+        description: "Reader acquisition built to move readers from book one through the whole series.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["Series reader acquisition", "Series email campaigns", "Series promo videos", "Series page optimization"],
+        cta: "Market My Series",
+      },
+      {
+        id: "outreach", number: "26", title: "Reviews, ARC & Media Outreach",
+        description: "Advance reader copy campaigns and outreach to book bloggers, book clubs and podcasts.",
+        prices: [{ label: "Tailored proposal", price: "Quote", detail: "Scoped to your book, formats and goals" }],
+        includes: ["ARC campaigns", "Book blogger outreach", "Book club outreach", "Podcast guest placement", "Virtual launch events & interviews", "Giveaway campaigns"],
+        cta: "Plan Outreach",
+      },
+    ],
+  },
 ];
 
 export const GENRES = ["Fiction", "Literary Fiction", "Romance", "Mystery & Thriller", "Fantasy & Science Fiction", "Children's Literature", "Young Adult", "Poetry", "Memoir & Biography", "Non-Fiction", "Business & Self-Development", "Screenwriting", "Other"];
-export const GOALS = ["Book Launch Publicity", "Email & Reader Outreach", "Social Media & Video Trailer", "Complete Author Website & Brand", "Book-to-Screen Packaging"];
+export const GOALS = ["Book Launch Publicity", "Email & Reader Outreach", "Social Media & Video Trailer", "Complete Author Website & Brand", "Book-to-Screen Packaging", "Audiobook Production & Launch", "Amazon SEO & KDP Optimization", "Amazon Advertising & PPC", "Author Website SEO", "AI Search Visibility (GEO)", "Backlist & Series Marketing", "Reviews, ARC & Media Outreach"];
 export const BUDGETS = ["Under $500", "$500 – $1,500", "$1,500 – $3,000", "$3,000+"];
 
 /** Proposed leadership — positions and biographies await company confirmation. Add a photo path to show a portrait. */
@@ -158,7 +307,7 @@ export const campaignTag = (title: string) => CAMPAIGN_TAGS[title] ?? "Creative 
 export const WHY = [
   ["Comprehensive book marketing", "Publicity, outreach, video, social and web services under one agency."],
   ["Creative promotional solutions", "Trailers, mockups and features crafted around each book's atmosphere."],
-  ["Multiple digital channels", "Email, Goodreads, TikTok, Instagram and author websites working together."],
+  ["Multiple digital channels", "Email, Goodreads, social, Amazon, Google and AI search working together."],
   ["Flexible service options", "Commission a single service or a complete launch campaign."],
   ["Personalised campaign support", "Every campaign is shaped around your book, readers and goals."],
   ["Transparent pricing & deliverables", "Clear prices and itemised deliverables before any work begins."],

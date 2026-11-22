@@ -79,7 +79,7 @@ function Index() {
       </div></section>
 
       <section className="border-y border-border bg-muted/40"><div className="mx-auto max-w-6xl px-5 py-20">
-        <SectionIntro kicker="Our Marketing Services" title="Eleven services, four pillars" intro="Explore our individual marketing and creative services. Each solution can be commissioned independently or incorporated into a broader promotional campaign." />
+        <SectionIntro kicker="Our Marketing Services" title="Nine departments, one complete marketing partner" intro="Explore our individual marketing and creative services. Each solution can be commissioned independently or incorporated into a broader promotional campaign." />
         <PillarSummary />
         <div className="mt-10 text-center"><Button asChild variant="outline" className="h-11 rounded-none"><Link to="/marketing-services">View all services &amp; pricing <ArrowRight /></Link></Button></div>
       </div></section>

@@ -86,12 +86,19 @@ export function ServiceCard({ s }: { s: Service }) {
 
 export function ServicesCatalogue() {
   return (
-    <div className="mt-14 space-y-16">
+    <div className="mt-6 space-y-16">
+      <nav aria-label="Jump to a department" className="sticky top-0 z-20 -mx-5 overflow-x-auto border-y border-border bg-background/95 px-5 py-3 backdrop-blur">
+        <ul className="flex w-max gap-2">
+          {PILLARS.map((p) => (
+            <li key={p.id}><a href={`#pillar-${p.id}`} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold transition-colors hover:border-primary hover:text-primary"><span className="font-serif text-primary">{p.letter}</span>{p.short ?? p.title}</a></li>
+          ))}
+        </ul>
+      </nav>
       {PILLARS.map((p) => (
-        <section key={p.id} aria-labelledby={`pillar-${p.id}`}>
+        <section key={p.id} className="scroll-mt-36" aria-labelledby={`pillar-${p.id}`}>
           <div className="flex items-baseline gap-4 border-b border-border pb-4">
             <span className="font-serif text-3xl text-primary">{p.letter}</span>
-            <h3 id={`pillar-${p.id}`} className="font-serif text-2xl md:text-3xl">{p.title}</h3>
+            <h3 id={`pillar-${p.id}`} className="scroll-mt-36 font-serif text-2xl md:text-3xl">{p.title}</h3>
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2">{p.services.map((s) => <ServiceCard key={s.id} s={s} />)}</div>
         </section>
@@ -102,13 +109,13 @@ export function ServicesCatalogue() {
 
 export function PillarSummary() {
   return (
-    <div className="mt-12 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+    <div className="mt-12 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
       {PILLARS.map((p) => (
         <Link key={p.id} to="/marketing-services" hash={p.services[0]?.id ?? ""} className="group bg-card p-7 transition-colors hover:bg-accent">
           <span className="font-serif text-3xl text-primary">{p.letter}</span>
           <h3 className="mt-4 font-serif text-xl">{p.title}</h3>
           <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground">{p.services.map((s) => <li key={s.id}>{s.title}</li>)}</ul>
-          <span className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-primary">View pricing <ArrowRight className="size-3 transition-transform group-hover:translate-x-1" /></span>
+          <span className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-primary">Explore services <ArrowRight className="size-3 transition-transform group-hover:translate-x-1" /></span>
         </Link>
       ))}
     </div>
